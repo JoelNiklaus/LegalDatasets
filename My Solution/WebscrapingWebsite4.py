@@ -32,47 +32,62 @@ month_number={
 def date_iso_format(date):
     # 8 May 2018 --> 2018-05-08
     # ["8","May","2018"]
-    tmp = date.split(' ')
-    if len(tmp)==3:
-        y = tmp[2]
-        m = month_number[tmp[1].lower()]
-        d = tmp[0]
-        return y + "-" + m + "-" + d
-    # 08/05/2018 --> 2018-05-08
-    # ["08","05","2018"]
-    tmp = date.split('/')
-    if len(tmp)==3:
-        y = tmp[2]
-        m = tmp[1]
-        d = tmp[0]
-        return y + "-" + m + "-" + d
-    else:
-        print("Date format: unknown ["+date+"]")
+    try:
+        tmp = date.split(' ')
+        if len(tmp)==3:
+            y = tmp[2]
+            print(tmp)
+            m = month_number[tmp[1].lower()]
+            d = tmp[0]
+            if not d.isnumeric():
+                raise Exception("Date is not numeric.")
+            return y + "-" + m + "-" + d
+        # 08/05/2018 --> 2018-05-08
+        # ["08","05","2018"]
+        tmp = date.split('/')
+        if len(tmp)==3:
+            y = tmp[2]
+            m = tmp[1]
+            d = tmp[0]
+            if not d.isnumeric():
+                raise Exception("Date is not numeric.")
+            return y + "-" + m + "-" + d
+        else:
+            print("Date format: unknown ["+date+"]")
+
+    except:
+        print("Invalid date format. DATE="+date)
+        raise Exception("Invalid date format.")
 
 def create_article_JSON(article_soup, url, ID):
-    # HTML for decision's date
-    date_html = article_soup.find('date')
-    if date_html is None:
-        date_decision = ""
-    else:
-        date_decision = date_html.text 
-        date_decision = date_iso_format(date_decision) 
+    try:
+        # HTML for decision's date
+        date_html = article_soup.find('date')
+        if date_html is None:
+            date_decision = ""
+        else:
+            date_decision = date_html.text 
+            date_decision = date_iso_format(date_decision) 
 
-    # HTML for cleaned text
-    text_html = article_soup.find('ol')
-    tmp = BeautifulSoup(str(text_html), "html.parser")
-    text = tmp.get_text()
+        # HTML for cleaned text
+        text_html = article_soup.find('ol')
+        tmp = BeautifulSoup(str(text_html), "html.parser")
+        text = tmp.get_text()
 
-    # Create and initialize article's JSON object
-    article_JSON = {
-        "ID" : ID,
-        "URL": url,
-        "language": lang,
-        "date_decision": date_decision,
-        "text": str(text), 
-    }
+        # Create and initialize article's JSON object
+        article_JSON = {
+            "ID" : ID,
+            "URL": url,
+            "language": lang,
+            "date_decision": date_decision,
+            "text": str(text), 
+        }
 
-    return article_JSON
+        return article_JSON
+
+    except:
+        # print("Invalid article format.")
+        raise Exception("Invalid article format")
 
 ## Webdriver initialization
 waitTime = 0.1
@@ -99,9 +114,13 @@ for article_html in list_articles_html:
     time.sleep(waitTime)
     tmp = BeautifulSoup(driver.page_source, "html.parser")
     ID = ID+1
-    article_JSON = create_article_JSON(tmp, url, ID)
-    articles_JSON.append(article_JSON)
-    stat_articles_length.append(len(article_JSON['text']))
+    try:
+        article_JSON = create_article_JSON(tmp, url, ID)
+        articles_JSON.append(article_JSON)
+        stat_articles_length.append(len(article_JSON['text']))
+    except Exception as e:
+        ID = ID-1
+        print(e)
     # Comment in/out for testing (to only consider 10 articles)
     #if (ID > 10):
         #break
