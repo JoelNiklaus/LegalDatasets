@@ -1,0 +1,112 @@
+{
+  "latin": [
+    "in casu",
+    "de lege lata",
+    "de lege ferenda",
+    "in fine",
+    "e contrario",
+    "in dubio"
+  ],
+  "ruling": {
+    "de": {
+      "Germany": [
+        "BGH",
+        "BVerG"
+      ],
+      "Austria": [
+        "OGH"
+      ],
+      "Switzerland": [
+        "BGE",
+        "BGer"
+      ],
+      "EU": [
+        "EGMR",
+        "EuGH",
+        "EuG"
+      ]
+    },
+    "fr": {
+      "France": [],
+      "Switzerland": [
+        "ATF",
+        "arrêt"
+      ],
+      "Belgium": [],
+      "Canada": [
+        "CSC"
+      ],
+      "EU": [
+        "CourEDH",
+        "EJC"
+      ]
+    },
+    "it": {
+      "Italy": [
+        "Cass. Sez."
+      ],
+      "Switzerland": [
+        "DTF",
+        "sentenza"
+      ],
+      "EU": [
+        "CGUE",
+        "CorteEDU"
+      ]
+    }
+  },
+  "law": {
+    "de": {
+      "Germany": [
+        "Art.",
+        "§"
+      ],
+      "Austria": [
+        "Art.",
+        "§"
+      ],
+      "Switzerland": [
+        "Art.",
+        "§"
+      ],
+      "EU": [
+        "Art.",
+        "§"
+      ]
+    },
+    "fr": {
+      "France": [
+        "l'article",
+        "§",
+        "art."
+      ],
+      "Switzerland": [
+        "art.",
+        "§"
+      ],
+      "Belgium": [],
+      "Canada": [
+        "art.",
+        "§"
+      ],
+      "EU": [
+        "art.",
+        "§"
+      ]
+    },
+    "it": {
+      "Italy": [
+        "art.",
+        "§"
+      ],
+      "Switzerland": [
+        "art.",
+        "§"
+      ],
+      "EU": [
+        "art.",
+        "§"
+      ]
+    }
+  }
+}
