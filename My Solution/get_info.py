@@ -6,7 +6,7 @@ date_max = date.min
 counter = 0
 
 # Change DB filename to retrieve some information...
-fileName = "DBWebsite5.jsonl"
+fileName = "DBWebsite6.jsonl"
 file = jsonlines.open(fileName, 'r')
 for line in file:
     date_tmp = date.fromisoformat(line['date_decision'])
