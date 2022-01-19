@@ -3,7 +3,7 @@
 
 The goal of project is to provide databases for the main project (see more at [Web Scraping for a Database of Court Decision Related Documents](https://www.digitale-nachhaltigkeit.unibe.ch/studies/bachelor_s__and_master_s_theses_at_inf/natural_language_processing/web_scraping_for_a_database_of_court_decision_related_documents/index_eng.html)) about an automated system to prove true anonymity of people involved in court rulings. 
 
-The following websites have been used to build 5 databases (.jsonl):
+The following websites have been used to build 6 databases (.jsonl):
 - Website 1: [https://www.legifrance.gouv.fr](https://www.legifrance.gouv.fr)
 - Website 2: [https://www.gesetze-bayern.de](https://www.gesetze-bayern.de)
 - Website 3: [https://www.ris.bka.gv.at](https://www.ris.bka.gv.at)
