@@ -1,0 +1,15 @@
+Content:
+Court rules decisions.
+
+Language:
+English (en)
+
+Articles' date range:
+Date min = 2018-05-08
+Date max = 2019-12-20
+
+Number of articles:
+466
+
+DB creation date:
+30.12.2021

@@ -1,0 +1,15 @@
+Content:
+Court rules decisions.
+
+Language:
+Italian (it)
+
+Articles' date range:
+Date min = 2001-04-17
+Date max = 2021-12-09
+
+Number of articles:
+4995
+
+DB creation date:
+28.12.2021

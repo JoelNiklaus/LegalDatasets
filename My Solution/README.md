@@ -9,6 +9,7 @@ The following websites have been used to build 5 databases (.jsonl):
 - Website 3: [https://www.ris.bka.gv.at](https://www.ris.bka.gv.at)
 - Website 4: [http://www.bailii.org](http://www.bailii.org)
 - Website 5: [http://www.sentenze.ti.ch](http://www.sentenze.ti.ch)
+- Website 6: [https://www.retsinformation.dk](https://www.retsinformation.dk)
 
 For each website a python script has been created, and accordingly named. The naming convention for the Website `<N>` is `WebscrapingWebsite<N>.py` for the script and `DBWebsite<N>.jsonl` for the corresponding database.
 
@@ -69,4 +70,5 @@ The structure of a `JSON` object, containgin an article's data, is the following
 **Remark:** In the code there's the possibility to generate common `JSON` files as databases. As default the lines of code to generate `JSON` databases are commented. Simply comment in/out those lines at your necessity.
 
 ## Statistics
+Few variables have been used to compute simple statistics on the fly. Those variable are recognized by the prefix `stat_`.
 Few variables have been used to compute simple statistics on the fly. Those variable are recognized by the prefix `stat_`.
