@@ -32,7 +32,9 @@
         "ATF",
         "arrêt"
       ],
-      "Belgium": [],
+      "Belgium": [
+        "Zie Cass."
+      ],
       "Canada": [
         "CSC"
       ],
@@ -52,6 +54,26 @@
       "EU": [
         "CGUE",
         "CorteEDU"
+      ]
+    },
+    "pl": {
+      "Poland": [
+        "SK \\d{1,2}/\\d{1,2}",
+        "FSK",
+        "SA/\\w{2}",
+        "KpT \\d{1,2}/\\d{1,2}",
+        "K \\d{1,2}/\\d{1,2}"
+      ]
+    },
+    "sk": {
+      "Slovakia": [
+        "súd"
+      ]
+    },
+    "cs": {
+      "CzechRepublic": [
+        "soud",
+        "ÚS \\d{1,5}/\\d{2}"
       ]
     }
   },
@@ -84,7 +106,10 @@
         "art.",
         "§"
       ],
-      "Belgium": [],
+      "Belgium": [
+        "l'article",
+        "§"
+      ],
       "Canada": [
         "art.",
         "§"
@@ -106,6 +131,25 @@
       "EU": [
         "art.",
         "§"
+      ]
+    },
+    "pl": {
+      "Poland": [
+        "art.",
+        "ustawy"
+      ]
+    },
+    "sk": {
+      "Slovakia": [
+        "Čl.",
+        "§"
+      ]
+    },
+    "cs": {
+      "CzechRepublic": [
+        "zákona č.",
+        "§",
+        "čl."
       ]
     }
   }
