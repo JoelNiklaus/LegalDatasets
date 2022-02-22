@@ -75,6 +75,16 @@
         "soud",
         "ÚS \\d{1,5}/\\d{2}"
       ]
+    },
+    "pt": {
+      "Portugal": [
+        "Acórdão n\\. \\d{1,3}\\/\\d{4}"
+      ]
+    },
+    "es": {
+      "Spain": [
+        "Roj"
+      ]
     }
   },
   "law": {
@@ -150,6 +160,16 @@
         "zákona č.",
         "§",
         "čl."
+      ]
+    },
+    "pt": {
+      "Portugal": [
+        "artigo"
+      ]
+    },
+    "es": {
+      "Spain": [
+        "artículo"
       ]
     }
   }
