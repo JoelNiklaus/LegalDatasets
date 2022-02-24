@@ -8,6 +8,13 @@ import fsspec
 import pandas as pd
 from datasets import load_dataset
 
+# TODO how to do deduplication: form trigram multiset, they are duplicates if |tri(s1 ) ∩ tri(s2 )| ≥ |tri(s1 )|/2.
+# https://pypi.org/project/text-dedup/
+# https://towardsdatascience.com/a-laymans-guide-to-fuzzy-document-deduplication-a3b3cf9a05a7
+# https://github.com/ekzhu/datasketch: 10 hash functions for each Minhash and an approximate Jaccard similarity of 0.5 (ThePile)
+
+# TODO Thomas fragen ob er diese Strings auch für andere Länder und Sprachen erstellen kann
+
 # Legalis.ch: Helbing Lichtenhahn (Basler Kommentare)
 # Swisslex.ch: Schulthess, und andere Verlage
 
@@ -21,6 +28,8 @@ from datasets import load_dataset
 # additional_terms = ['Richter', 'Anwalt', 'Gerichtshof', 'Rechtssprechung', 'Verjährungsfrist', 'Verwirkungsfrist',
 #                     'Berufung', 'Beschwerdeführer', 'Kläger', 'Beschwerdegegner']
 
+languages = ["de", "fr", "it", "pl", "sk", "cs", "pt", "es"]
+debug = False
 data_dir = Path('data')
 confidence = 1000
 threshold = 0.99  # we don't want to miss out on texts
@@ -32,6 +41,18 @@ download_size = 500  # in MiB
 # 5 MiB per Default: 5 * 2 ** 20, increase to 500MiB
 fsspec.spec.AbstractBufferedFile.DEFAULT_BLOCK_SIZE = download_size * 2 ** 20
 
+"""
+The current search procedure seems to make more or less sense after a manual check of 20 entries.
+de: 26G
+fr: 11G
+it: 12G
+pl: 9.3G
+sk: 1.3G
+cs: 6.8G
+pt: 4.5G
+es:
+"""
+
 
 def compile_search_terms(language):
     with open('terms.json', 'r') as file:
@@ -40,14 +61,17 @@ def compile_search_terms(language):
     print("ruling")
     for country_terms in terms['ruling'][language].values():
         print(country_terms)
-        terms_list.extend(country_terms)
+        # exclude other abbreviations such as BGHW instead of BGH
+        terms_list.extend([term + "\\s" for term in country_terms])
     print("law")
     for country_terms in terms['law'][language].values():
         print(country_terms)
         # add \s*\d+ to reduce false positives, but only here, not with the rulings
+        # without this, the result files get huge! (de: 87G, fr: 451G, it: 208G)
+        # also they contain a lot of obviously non-legal data (e.g. general forums, general newspaper articles)
         terms_list.extend([term + "\\s*\\d+" for term in country_terms])
     terms_list = list(set(terms_list))  # remove any duplicates
-    return re.compile('|'.join(terms_list))  # combine list into one regex for performance reasons
+    return re.compile('|'.join(terms_list), flags=re.IGNORECASE)  # combine list into one regex for performance reasons
 
 
 def filter_mc4(language):
@@ -69,7 +93,8 @@ def filter_mc4(language):
         print(
             f"Found at least {min_num_matches} of the search terms "
             f"in {len(legal_mc4['index'])} documents from {index + 1} searched.")
-        print(f"Blocked domains: {[domain for domain, value in domains.items() if value['blocked']]}")
+        if debug:
+            print(f"Blocked domains: {[domain for domain, value in domains.items() if value['blocked']]}")
         print(f"This iteration took {datetime.datetime.now() - begin_time}")
         print()
 
@@ -124,7 +149,8 @@ def filter_mc4(language):
 
 
 if __name__ == '__main__':
-    for language in ['de', 'fr', 'it']:
+    # for language in languages:
+    for language in ["pt", "es"]:
         filter_mc4(language)
         # TODO Quality check: look at 100 samples and do iterative filtering
         # TODO remove duplicate texts
