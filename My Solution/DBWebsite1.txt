@@ -1,0 +1,15 @@
+Content:
+Court rules decisions.
+
+Language:
+French (fr)
+
+Articles' date range:
+Date min = 2008-02-21
+Date max = 2999-01-01
+
+Number of articles:
+8446
+
+DB creation date:
+28.12.2021

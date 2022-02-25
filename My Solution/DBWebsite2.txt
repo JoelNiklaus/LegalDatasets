@@ -1,0 +1,15 @@
+Content:
+Court rules decisions.
+
+Language:
+German (de)
+
+Articles' date range:
+Date min = 2020-11-19
+Date max = 2021-12-21
+
+Number of articles:
+4990
+
+DB creation date:
+28.12.2021

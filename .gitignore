@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Thirith's settings
+*.json
+*.jsonl
+Test/
+Thirith-Yang/
