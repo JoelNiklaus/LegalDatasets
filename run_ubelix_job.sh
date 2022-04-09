@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Domains"
+#SBATCH --job-name="Filter MC4"
 #SBATCH --mail-user=joel.niklaus@inf.unibe.ch
 #SBATCH --mail-type=end,fail
 #SBATCH --nodes=1

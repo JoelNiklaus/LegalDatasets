@@ -12,8 +12,10 @@ from datasets import load_dataset
 # https://pypi.org/project/text-dedup/
 # https://towardsdatascience.com/a-laymans-guide-to-fuzzy-document-deduplication-a3b3cf9a05a7
 # https://github.com/ekzhu/datasketch: 10 hash functions for each Minhash and an approximate Jaccard similarity of 0.5 (ThePile)
+# exact match deduplication (huggingface): calculate hash of document (after removing all whitespace) and only keep unique hashes
 
 # TODO Thomas fragen ob er diese Strings auch für andere Länder und Sprachen erstellen kann
+#  Still todo: Netherlands, Denmark, Sweden, Norway, Finland, etc.
 
 # Legalis.ch: Helbing Lichtenhahn (Basler Kommentare)
 # Swisslex.ch: Schulthess, und andere Verlage
@@ -50,7 +52,7 @@ pl: 9.3G
 sk: 1.3G
 cs: 6.8G
 pt: 4.5G
-es:
+es: 20G
 """
 
 
