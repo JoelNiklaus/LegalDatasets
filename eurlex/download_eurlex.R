@@ -53,34 +53,6 @@ download_with_progress_bar <- function(results, language, n) {
 }
 
 
-download_vectorized <- function(results, n) {
-
-  # the function is not vectorized by default
-  # elx_fetch_data(url = results$work[1], type = "title")
-
-  # we can use purrr::map() to play that role
-  library(purrr)
-
-  download <- function(work, type) {
-    result <- tryCatch({
-      return(elx_fetch_data(work, type = type))
-    }, error = function(cond) {
-      message(cond)
-      return(NA)
-    })
-    return(result)
-  }
-
-  df <- results[1:n,] %>% # take the first n ones only to save time (if n is entire length, download everything)
-    mutate(title = map_chr(work, download, "title")) %>%
-    mutate(text = map_chr(work, download, "text")) %>%
-    as_tibble() %>%
-    select(celex, date, title) # text
-
-  return(df)
-}
-
-
 download_and_save_resource_type <- function(resource_type, language, debug = TRUE) {
   print(paste("Downloading", resource_type, language))
 
