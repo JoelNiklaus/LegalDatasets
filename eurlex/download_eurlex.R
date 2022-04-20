@@ -7,11 +7,12 @@ library(eurlex)
 library(dplyr) # my preference, not needed for the package
 library(jsonlite)
 
+debug_size <- 2
 debug <- TRUE
 verbose <- FALSE
 
 
-download_with_progress_bar <- function(results, language, n) {
+download_with_progress_bar <- function(results, language, n, log_frequency = 1000) {
   error_counter <- 0
 
   safe_fetch <- function(work, type) {
@@ -28,19 +29,24 @@ download_with_progress_bar <- function(results, language, n) {
     })
   }
 
-  print("Downloading progress:")
+  print("Download progress:")
 
   titles <- c()
   texts <- c()
   languages <- c()
-  pb <- txtProgressBar(min = 0, max = length(results$work[1:n]), initial = 0)
-  for (i in seq_along(results$work[1:n])) {
+  selected_results <- results$work[1:n]
+  max <- length(selected_results)
+  # pb <- txtProgressBar(min = 0, max = max, initial = 0)
+  for (i in seq_along(selected_results)) {
     titles <- append(titles, safe_fetch(results$work[i], "title"))
     texts <- append(texts, safe_fetch(results$work[i], "text"))
     languages <- append(languages, language)
-    setTxtProgressBar(pb, i)
+    if (i %% log_frequency == 0) {
+      print(paste(i, "/", max))
+    }
+    # setTxtProgressBar(pb, i)
   }
-  close(pb)
+  # close(pb)
   df <- slice(results, 1:n)
   df['title'] <- titles
   df['text'] <- texts
@@ -73,7 +79,7 @@ download_and_save_resource_type <- function(resource_type, language, debug = TRU
   print(paste("Found", n_results, "for resource_type", resource_type, "and language", language))
 
   if (debug == TRUE) {
-    n <- 2
+    n <- debug_size
   }else {
     n <- n_results
   }
@@ -93,6 +99,8 @@ download_and_save_resource_type <- function(resource_type, language, debug = TRU
   dir.create(language, showWarnings = FALSE) # don't show a warning if it exists already
   file_name <- paste(language, "/", resource_type, ".jsonl", sep = '')
   write(jsonl, file = file_name)
+  print(paste("Saved downloaded data to", file_name))
+
 
   return(df)
 }
@@ -101,7 +109,7 @@ download_and_save_resource_type <- function(resource_type, language, debug = TRU
 df <- download_and_save_resource_type("caselaw", language = "de", debug = debug)
 
 
-# en:
+# Approximate number of entries for English:
 # regulation:     ~140K
 # caselaw:        ~100K
 # decision:       ~53K
