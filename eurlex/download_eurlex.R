@@ -8,11 +8,14 @@ library(dplyr) # my preference, not needed for the package
 library(jsonlite)
 
 debug_size <- 2
-debug <- TRUE
+debug <- FALSE
 verbose <- FALSE
 
+log <- function(string) {
+  print(paste(format(Sys.time(), "%Y-%m-%d %X:"), string))
+}
 
-download_with_progress_bar <- function(results, language, n, log_frequency = 1000) {
+download_with_progress_bar <- function(results, language, n, log_frequency = 10) {
   error_counter <- 0
 
   safe_fetch <- function(work, type) {
@@ -42,7 +45,7 @@ download_with_progress_bar <- function(results, language, n, log_frequency = 100
     texts <- append(texts, safe_fetch(results$work[i], "text"))
     languages <- append(languages, language)
     if (i %% log_frequency == 0) {
-      print(paste(i, "/", max))
+      log(paste(i, "/", max))
     }
     # setTxtProgressBar(pb, i)
   }
@@ -143,12 +146,12 @@ df <- download_and_save_resource_type("caselaw", language = "de", debug = debug)
 # Swedish	    sv
 
 # Final run through
-languages <- c("de", "fr", "it", "es")
+if (TRUE) {
+  languages <- c("de", "fr", "it", "es", "pt")
 
-resource_types <- c("directive", "regulation", "decision", "recommendation",
-                    "intagr", "caselaw", "manual", "proposal", "national_impl")
+  resource_types <- c("directive", "regulation", "decision", "recommendation",
+                      "intagr", "caselaw", "manual", "proposal", "national_impl")
 
-if (FALSE) {
   for (resource_type in resource_types) {
     for (language in languages) {
       df <- download_and_save_resource_type(resource_type, language, debug = debug)
