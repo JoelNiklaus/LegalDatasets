@@ -2,21 +2,22 @@
 # install.packages("eurlex")
 # install.packages("jsonlite")
 
-
 library(eurlex)
 library(dplyr) # my preference, not needed for the package
 library(jsonlite)
+library(stringr)
 
-debug_size <- 2
+debug_size <- 12
 debug <- FALSE
 verbose <- FALSE
 
-log <- function(string) {
-  print(paste(format(Sys.time(), "%Y-%m-%d %X:"), string))
-}
 
-download_with_progress_bar <- function(results, language, n, log_frequency = 10) {
+download_with_progress <- function(results, language, resource_type, n, chunk_size = 1000) {
   error_counter <- 0
+
+  log <- function(string) {
+    print(paste(format(Sys.time(), "%Y-%m-%d %X:"), string))
+  }
 
   safe_fetch <- function(work, type) {
     tryCatch({
@@ -32,33 +33,43 @@ download_with_progress_bar <- function(results, language, n, log_frequency = 10)
     })
   }
 
-  print("Download progress:")
-
-  titles <- c()
-  texts <- c()
-  languages <- c()
-  selected_results <- results$work[1:n]
-  max <- length(selected_results)
-  # pb <- txtProgressBar(min = 0, max = max, initial = 0)
-  for (i in seq_along(selected_results)) {
-    titles <- append(titles, safe_fetch(results$work[i], "title"))
-    texts <- append(texts, safe_fetch(results$work[i], "text"))
-    languages <- append(languages, language)
-    if (i %% log_frequency == 0) {
-      log(paste(i, "/", max))
+  download_chunk <- function(chunked_results, df) {
+    titles <- c()
+    texts <- c()
+    languages <- c()
+    for (i in seq_along(chunked_results)) {
+      titles <- append(titles, safe_fetch(chunked_results[i], "title"))
+      texts <- append(texts, safe_fetch(chunked_results[i], "text"))
+      languages <- append(languages, language)
     }
-    # setTxtProgressBar(pb, i)
+    df['title'] <- titles
+    df['text'] <- texts
+    df['language'] <- languages
+    df <- df %>% select(celex, language, date, title, text)
+    return(df)
   }
-  # close(pb)
-  df <- slice(results, 1:n)
-  df['title'] <- titles
-  df['text'] <- texts
-  df['language'] <- languages
-  df <- df %>% select(celex, language, date, title, text)
 
+
+  dir.create(language, showWarnings = FALSE) # don't show a warning if it exists already
+  file_name <- paste(language, "/", resource_type, ".jsonl", sep = '')
+  print(paste("Download progress (saving downloaded data to ", file_name, "):", sep = ''))
+
+
+  for (start in seq(1, n, chunk_size)) {
+    end <- min(start + chunk_size - 1, n)
+    chunked_results <- results$work[start:end]
+    df <- slice(results, start:end)
+    df <- download_chunk(chunked_results, df)
+    log(paste(end, "/", n))
+
+    # append to the jsonl file
+    for (row in seq_len(nrow(df))) {
+      json <- toJSON(df[row,]) # make row to json
+      json <- str_sub(json, 2, -2) # remove first and last characters ([ and ])
+      cat(json, file = file_name, append = TRUE, sep = "\n")
+    }
+  }
   print(paste("Encountered errors (saved NA) for", error_counter, "entries."))
-
-  return(df)
 }
 
 
@@ -87,29 +98,12 @@ download_and_save_resource_type <- function(resource_type, language, debug = TRU
     n <- n_results
   }
 
-
-  # TODO chunk this to be safer if it doesn't work
-
   # download actual data (titles and texts)
-  df <- download_with_progress_bar(results, language, n)
-  #print(df)
-
-  # convert the df to jsonl
-  jsonl <- toJSON(df)
-  #cat(jsonl)
-
-  # write jsonl to file
-  dir.create(language, showWarnings = FALSE) # don't show a warning if it exists already
-  file_name <- paste(language, "/", resource_type, ".jsonl", sep = '')
-  write(jsonl, file = file_name)
-  print(paste("Saved downloaded data to", file_name))
-
-
-  return(df)
+  download_with_progress(results, language, resource_type, n)
 }
 
 # example usage
-df <- download_and_save_resource_type("caselaw", language = "de", debug = debug)
+# download_and_save_resource_type("recommendation", language = "de", debug = debug)
 
 
 # Approximate number of entries for English:
@@ -148,13 +142,14 @@ df <- download_and_save_resource_type("caselaw", language = "de", debug = debug)
 # Final run through
 if (TRUE) {
   languages <- c("de", "fr", "it", "es", "pt")
+  #languages <- c("bg", "hr", "cs", "da", "nl", "en", "et", "fi", "fr", "de", "el", "hu", "ga", "it", "lv", "lt", "mt", "pl", "pt", "ro", "sk", "sl", "es", "sv",)
 
   resource_types <- c("directive", "regulation", "decision", "recommendation",
                       "intagr", "caselaw", "manual", "proposal", "national_impl")
 
   for (resource_type in resource_types) {
     for (language in languages) {
-      df <- download_and_save_resource_type(resource_type, language, debug = debug)
+      download_and_save_resource_type(resource_type, language, debug = debug)
     }
   }
 }
