@@ -12,7 +12,7 @@
 
 # Put your code below this line
 
-python scraper.py
+python ejustice.py
 
 # IMPORTANT:
 # Run with                  sbatch run_ubelix_job.sh

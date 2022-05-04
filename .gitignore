@@ -103,6 +103,7 @@ celerybeat.pid
 
 # Environments
 italgiure_giustizia/.env
+ejustice/.env
 .venv
 env/
 venv/

@@ -1,0 +1,12 @@
+### Instructions for running the script ###
+
+1. Install Python3 in your system
+
+``` You can refer to the video https://www.youtube.com/watch?v=UvcQlPZ8ecA ```
+
+2. pip3 install -r requirements.txt
+
+3. python ejustice.py
+
+
+*** The csv file will be generated will all the scraped data ***
