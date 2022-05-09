@@ -1,11 +1,18 @@
 # install.packages("pdftools")
 # install.packages("eurlex")
 # install.packages("jsonlite")
+# install.packages("xml2")
+# install.packages("slackr")
+
 
 library(eurlex)
 library(dplyr) # my preference, not needed for the package
 library(jsonlite)
 library(stringr)
+library(slackr)
+
+slackr_setup()
+
 
 debug_size <- 12
 debug <- FALSE
@@ -141,17 +148,28 @@ download_and_save_resource_type <- function(resource_type, language, debug = TRU
 
 # Final run through
 if (TRUE) {
-  languages <- c("de", "fr", "it", "es", "pt")
+  languages <- c("es", "pt")
+  #languages <- c("de", "fr", "it") #, "es", "pt")
   #languages <- c("bg", "hr", "cs", "da", "nl", "en", "et", "fi", "fr", "de", "el", "hu", "ga", "it", "lv", "lt", "mt", "pl", "pt", "ro", "sk", "sl", "es", "sv",)
 
-  resource_types <- c("directive", "regulation", "decision", "recommendation",
-                      "intagr", "caselaw", "manual", "proposal", "national_impl")
+  # sorted in ascending order of size
+  resource_types <- c("recommendation", "directive", "intagr", "proposal", "decision", "caselaw", "regulation")
+  # "manual" and "national_impl" are not working
 
   for (resource_type in resource_types) {
     for (language in languages) {
+      message <- paste('Started downloading language', language, 'and resource type', resource_type)
+      slackr_bot(message)
       download_and_save_resource_type(resource_type, language, debug = debug)
+      message <- paste('Finished downloading language', language, 'and resource type', resource_type)
+      slackr_bot(message)
     }
   }
 }
+
+message <- paste('Script finished completely for the languages', paste(languages, collapse = ", "),
+                 'and the resource types', paste(resource_types, collapse = ", "))
+slackr_bot(message)
+
 
 # Run the script with "R CMD BATCH download_eurlex.R"
