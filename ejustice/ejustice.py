@@ -129,8 +129,14 @@ class ejustice(scrapy.Spider):
             '\xa0\xa0', '\n')
         if head_item['language'] == 'fr':
             numero = response.xpath('//font[contains(text(),"numéro : ")]/following-sibling::text()').get('').strip()
+            text = ' '.join(response.xpath(
+                '//th/font[contains(text()," Texte ")]/ancestor::tr/following-sibling::tr//text()').getall()).strip().replace(
+                '\xa0\xa0', '\n')
         else:
             numero = response.xpath('//font[contains(text(),"nummer : ")]/following-sibling::text()').get('').strip()
+            text = ' '.join(response.xpath(
+                '//th/font[contains(text()," Tekst ")]/ancestor::tr/following-sibling::tr//text()').getall()).strip().replace(
+                '\xa0\xa0', '\n')
 
         final_item = {
             **response.meta['head_item'],
