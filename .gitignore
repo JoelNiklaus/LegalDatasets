@@ -102,14 +102,13 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-italgiure_giustizia/.env
-ejustice/.env
 .venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+*.env
 
 # Spyder project settings
 .spyderproject
@@ -130,7 +129,9 @@ dmypy.json
 .pyre/
 
 # Thirith's settings
-*.json
-*.jsonl
 Test/
 Thirith-Yang/
+
+# Data
+*.jsonl
+*.zip
