@@ -10,7 +10,7 @@ retrieve_domains = True
 
 if retrieve_domains:
 
-    mc4 = load_dataset("mc4", languages=['de'], streaming=True, split="train")
+    mc4 = load_dataset("", languages=['de'], streaming=True, split="train")
     mc4 = mc4.remove_columns('text')
 
     print(f"Building a histogram of domains in mc4")

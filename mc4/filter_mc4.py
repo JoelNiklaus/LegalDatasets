@@ -88,7 +88,7 @@ def filter_mc4(language):
     df.to_csv(text_path)
 
     search_terms = compile_search_terms(language)
-    mc4 = load_dataset("mc4", languages=[language], streaming=True)['train']
+    mc4 = load_dataset("", languages=[language], streaming=True)['train']
     print(f"Searching for {search_terms} in mc4 {language}")
 
     def status_update(index, begin_time):
