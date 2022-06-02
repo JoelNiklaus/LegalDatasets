@@ -146,18 +146,27 @@ download_and_save_resource_type <- function(resource_type, language, debug = TRU
 # Spanish	    es
 # Swedish	    sv
 
+language <- "da"
+resource_type <- "regulation"
+message <- paste('Started downloading language', language, 'and resource type', resource_type)
+slackr_bot(message)
+download_and_save_resource_type(resource_type, language, debug = debug)
+message <- paste('Finished downloading language', language, 'and resource type', resource_type)
+slackr_bot(message)
+
 # Final run through
 if (TRUE) {
-  languages <- c("es", "pt")
-  #languages <- c("de", "fr", "it") #, "es", "pt")
+  languages <- c("nl", "et", "fi", "el", "hu", "ga")
+  #languages <- c("de", "fr", "it", "es", "pt")
   #languages <- c("bg", "hr", "cs", "da", "nl", "en", "et", "fi", "fr", "de", "el", "hu", "ga", "it", "lv", "lt", "mt", "pl", "pt", "ro", "sk", "sl", "es", "sv",)
 
   # sorted in ascending order of size
   resource_types <- c("recommendation", "directive", "intagr", "proposal", "decision", "caselaw", "regulation")
+  #resource_types <- c("caselaw", "regulation")
   # "manual" and "national_impl" are not working
 
-  for (resource_type in resource_types) {
-    for (language in languages) {
+  for (language in languages) {
+    for (resource_type in resource_types) {
       message <- paste('Started downloading language', language, 'and resource type', resource_type)
       slackr_bot(message)
       download_and_save_resource_type(resource_type, language, debug = debug)

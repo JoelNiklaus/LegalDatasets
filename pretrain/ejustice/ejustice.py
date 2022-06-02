@@ -1,12 +1,11 @@
-import os
-
 import scrapy
 from datetime import datetime
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
-proxy_username = os.environ.get("packetstream_username")
-proxy_password = os.environ.get("packetstream_password")
+proxy_username = "joelniklaus"
+proxy_password = "dnX7mZYE6nEpWg5i"
+
 
 class ejustice(scrapy.Spider):
     name = 'ejustice'
@@ -111,6 +110,7 @@ class ejustice(scrapy.Spider):
                 "Source": source,
                 "Title": title,
             }
+
             yield scrapy.Request(
                 url=url,
                 headers=self.headers,
@@ -124,9 +124,7 @@ class ejustice(scrapy.Spider):
 
     def parse_loi_detail(self, response):
         head_item = response.meta['head_item']
-        text = ' '.join(response.xpath(
-            '//th/font[contains(text()," Texte ")]/ancestor::tr/following-sibling::tr//text()').getall()).strip().replace(
-            '\xa0\xa0', '\n')
+
         if head_item['language'] == 'fr':
             numero = response.xpath('//font[contains(text(),"numéro : ")]/following-sibling::text()').get('').strip()
             text = ' '.join(response.xpath(
