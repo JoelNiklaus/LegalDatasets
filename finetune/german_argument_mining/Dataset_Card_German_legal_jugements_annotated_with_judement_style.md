@@ -50,7 +50,7 @@ This dataset consists of 200 randomly chosen judgements. In these judgements a l
 
 ### Supported Tasks and Leaderboards
 
-[More Information Needed]
+The dataset can be used for multi-label text classification tasks, more specifically, for argument mining. 
 
 ### Languages
 
@@ -139,9 +139,9 @@ A legal expert, who holds a first legal state exam.
 
 ### Dataset Curators
 Original Curators:
-Stefanie Urchs;
-Jelena Mitrović;
-Michael Granitzer
+ - Stefanie Urchs;
+ - Jelena Mitrović;
+ - Michael Granitzer
 
 Splits by: Joel Niklaus
 
@@ -151,8 +151,35 @@ Splits by: Joel Niklaus
 
 ### Citation Information
 
-[More Information Needed]
+```
+@dataset{urchs_stefanie_2020_3936490,
+  author       = {Urchs, Stefanie and
+                  Mitrović, Jelena},
+  title        = {{German legal jugements annotated with judement 
+                   style components}},
+  month        = jul,
+  year         = 2020,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.3936490},
+  url          = {https://doi.org/10.5281/zenodo.3936490}
+}
+```
+
+```
+@conference{icaart21,
+  author = {Urchs., Stefanie and Mitrovi{\'{c}}., Jelena and Granitzer., Michael},
+  booktitle = {Proceedings of the 13th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART,},
+  doi = {10.5220/0010187305150521},
+  isbn = {978-989-758-484-8},
+  issn = {2184-433X},
+  organization = {INSTICC},
+  pages = {515--521},
+  publisher = {SciTePress},
+  title = {{Design and Implementation of German Legal Decision Corpora}},
+  year = {2021}
+}
+```
 
 ### Contributions
 
-Thanks to [@JoelNiklaus](https://github.com/joelniklaus) for adding this dataset.
+Thanks to [@kapllan](https://github.com/kapllan) and [@joelniklaus](https://github.com/joelniklaus) for adding this dataset.
