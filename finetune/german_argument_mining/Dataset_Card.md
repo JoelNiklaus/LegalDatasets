@@ -89,7 +89,9 @@ The json file for each court decision contains the following fileds:
 
 ### Data Splits
 
-No split provided.
+No split provided in the original release.
+
+Splits created by Joel Niklaus. We randomly split the dataset into 80% (160 decisions) train, 10% validation (20 decisions) and 10% test (20 decisions).
 
 ## Dataset Creation
 
@@ -133,7 +135,7 @@ A legal expert, who holds a first legal state exam.
 
 ### Other Known Limitations
 
-[More Information Needed]
+The SoMaJo Sentence Splitter has been used. Upon manual inspection of the dataset, we could see that the sentence splitter had poor accuracy in some cases (see ```analyze_dataset()``` in ```convert_to_hf_dataset.py```).
 
 ## Additional Information
 
@@ -142,9 +144,7 @@ Original Curators:
  - Stefanie Urchs;
  - Jelena Mitrović;
  - Michael Granitzer
-
-Splits by: Joel Niklaus
-
+ 
 ### Licensing Information
 
 [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode)
