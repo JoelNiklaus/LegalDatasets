@@ -1,8 +1,24 @@
 ---
-TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging app: https://huggingface.co/spaces/huggingface/datasets-tagging
+annotations_creators:
+- other
+language_creators:
+- other
+languages:
+- Portuguese
+licenses:
+- other-This dataset should be used according to Brazilian law
+multilinguality:
+- monolingual
+pretty_name: predicting-brazilian-court-decisions
+size_categories: []
+source_datasets: []
+task_categories:
+- text-classification
+task_ids:
+- multi-label-classification
 ---
 
-# Dataset Card for [Dataset Name]
+# Dataset Card for predicting-brazilian-court-decisions
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
