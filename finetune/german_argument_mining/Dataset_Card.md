@@ -1,5 +1,24 @@
 ---
-TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging app: https://huggingface.co/spaces/huggingface/datasets-tagging
+annotations_creators:
+- expert-generated
+- found
+language_creators:
+- found
+languages:
+- de
+licenses:
+- cc-by-4.0
+multilinguality:
+- monolingual
+pretty_name: Annotated German Legal Decision Corpus
+size_categories:
+- 10K<n<100K
+source_datasets:
+- original
+task_categories:
+- text-classification
+task_ids:
+- multi-class-classification
 ---
 
 # Dataset Card for Annotated German Legal Decision Corpus
@@ -32,7 +51,7 @@ TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging a
 
 ## Dataset Description
 
-- **Homepage:** https://zenodo.org/record/3936490#.X1ed7ovgomK
+- **Homepage:** 
 - **Repository:** https://zenodo.org/record/3936490#.X1ed7ovgomK
 - **Paper:** Urchs., S., Mitrović., J., & Granitzer., M. (2021). Design and Implementation of German Legal Decision
   Corpora. Proceedings of the 13th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART,
@@ -168,15 +187,15 @@ anonymisation**, key-wording, and adding of editorial guidelines to the decision
 The SoMaJo Sentence Splitter has been used. Upon manual inspection of the dataset, we could see that the sentence
 splitter had poor accuracy in some cases (see ```analyze_dataset()``` in ```convert_to_hf_dataset.py```).
 
+Moreover, note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset, we refer to the bibliographical references and the Github repositories and/or web pages in the dataset.
+
 ## Additional Information
 
 ### Dataset Curators
 
-Original Curators:
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
+Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
 
-- Stefanie Urchs;
-- Jelena Mitrović;
-- Michael Granitzer
 
 ### Licensing Information
 
