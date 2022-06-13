@@ -42,6 +42,6 @@ print(test.decision_unanimity.value_counts())
 
 
 # save to jsonl files for huggingface
-train.to_json("train.jsonl", lines=True, orient="records")
-validation.to_json("validation.jsonl", lines=True, orient="records")
-test.to_json("test.jsonl", lines=True, orient="records")
+train.to_json("train.jsonl", lines=True, orient="records",force_ascii=False)
+validation.to_json("validation.jsonl", lines=True, orient="records", force_ascii=False)
+test.to_json("test.jsonl", lines=True, orient="records", force_ascii=False)
