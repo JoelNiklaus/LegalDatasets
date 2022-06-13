@@ -4,7 +4,7 @@ annotations_creators:
 language_creators:
 - found
 languages:
-- Portuguese
+- pt
 licenses:
 - 'other-This data set should be used according to Brazilian law. '
 multilinguality:
