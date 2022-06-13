@@ -1,21 +1,23 @@
 ---
 annotations_creators:
-- other
+- found
 language_creators:
-- other
+- found
 languages:
 - Portuguese
 licenses:
-- other-This dataset should be used according to Brazilian law
+- 'other-This data set should be used according to Brazilian law. '
 multilinguality:
 - monolingual
 pretty_name: predicting-brazilian-court-decisions
-size_categories: []
-source_datasets: []
+size_categories:
+- 1K<n<10K
+source_datasets:
+- original
 task_categories:
 - text-classification
 task_ids:
-- multi-label-classification
+- multi-class-classification
 ---
 
 # Dataset Card for predicting-brazilian-court-decisions
@@ -47,9 +49,9 @@ task_ids:
 
 ## Dataset Description
 
-- **Homepage:**
+- **Homepage:** 
 - **Repository:** https://github.com/lagefreitas/predicting-brazilian-court-decisions
-- **Paper:** André Lage-Freitas, Héctor Allende-Cid, Orivaldo Santana, and Lívia Oliveira-Lage. Predicting Brazilian court decisions. Technical Report. 2019.
+- **Paper:** Lage-Freitas, A., Allende-Cid, H., Santana, O., & Oliveira-Lage, L. (2022). Predicting Brazilian Court Decisions. PeerJ. Computer Science, 8, e904–e904. https://doi.org/10.7717/peerj-cs.904
 - **Leaderboard:**
 - **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
 
@@ -63,7 +65,7 @@ Neural Legal Judgment Prediction
 
 ### Languages
 
-Brazilian Portuguese
+Portuguese.
 
 ## Dataset Structure
 
@@ -111,17 +113,17 @@ The data was scraped from *Tribunal de Justiça de Alagoas* (TJAL, the State Sup
 
 #### Initial Data Collection and Normalization
 
-[More Information Needed]
+*“We developed a Web scraper for collecting data from Brazilian courts. The scraper first searched for the URL that contains the list of court cases […]. Then, the scraper extracted from these HTML files the specific case URLs and downloaded their data […]. Next, it extracted the metadata and the contents of legal cases and stored them in a CSV file format […].”* (Lage-Freitas et al., 2022)
 
 #### Who are the source language producers?
 
-[More Information Needed]
+The source language producer are presumably attorneys, judges, and other legal professionals.
 
 ### Annotations
 
 #### Annotation process
 
-[More Information Needed]
+The dataset was not annotated. 
 
 #### Who are the annotators?
 
@@ -129,7 +131,7 @@ The data was scraped from *Tribunal de Justiça de Alagoas* (TJAL, the State Sup
 
 ### Personal and Sensitive Information
 
-[More Information Needed]
+The court decisions might contain sensitive information about individuals.
 
 ## Considerations for Using the Data
 
@@ -150,15 +152,46 @@ Lage-Freitas, A., Allende-Cid, H., Santana Jr, O., & Oliveira-Lage, L. (2019). P
   - "In Brazil [...] lower court judges decisions might be appealed to Brazilian courts (*Tribiunais de Justiça*) to be reviewed by second instance court judges. In an appellate court, judges decide together upon a case and their decisions are compiled in Agreement reports named *Acóordãos*."
 
 ### Dataset Curators
-André Lage Freitas, Joel Niklaus
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
+Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+
+
 
 ### Licensing Information
 
-[More Information Needed]
+No licensing information was provided for this dataset. However, please make sure that you use the dataset according to Brazilian law.
 
 ### Citation Information
 
-[More Information Needed]
+```
+@misc{https://doi.org/10.48550/arxiv.1905.10348,
+  author = {Lage-Freitas, Andr{\'{e}} and Allende-Cid, H{\'{e}}ctor and Santana, Orivaldo and de Oliveira-Lage, L{\'{i}}via},
+  doi = {10.48550/ARXIV.1905.10348},
+  keywords = {Computation and Language (cs.CL),FOS: Computer and information sciences,Social and Information Networks (cs.SI)},
+  publisher = {arXiv},
+  title = {{Predicting Brazilian court decisions}},
+  url = {https://arxiv.org/abs/1905.10348},
+  year = {2019}
+}
+```
+
+```
+@article{Lage-Freitas2022,
+  author = {Lage-Freitas, Andr{\'{e}} and Allende-Cid, H{\'{e}}ctor and Santana, Orivaldo and Oliveira-Lage, L{\'{i}}via},
+  doi = {10.7717/peerj-cs.904},
+  issn = {2376-5992},
+  journal = {PeerJ. Computer science},
+  keywords = {Artificial intelligence,Jurimetrics,Law,Legal,Legal NLP,Legal informatics,Legal outcome forecast,Litigation prediction,Machine learning,NLP,Portuguese,Predictive algorithms,judgement prediction},
+  language = {eng},
+  month = {mar},
+  pages = {e904--e904},
+  publisher = {PeerJ Inc.},
+  title = {{Predicting Brazilian Court Decisions}},
+  url = {https://pubmed.ncbi.nlm.nih.gov/35494851 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9044329/},
+  volume = {8},
+  year = {2022}
+}
+```
 
 ### Contributions
 
