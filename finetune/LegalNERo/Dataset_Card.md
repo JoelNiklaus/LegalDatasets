@@ -1,5 +1,24 @@
 ---
-TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging app: https://huggingface.co/spaces/huggingface/datasets-tagging
+annotations_creators:
+- other
+language_creators:
+- found
+languages:
+- ro
+licenses:
+- cc-by-nc-nd-4.0
+multilinguality:
+- monolingual
+paperswithcode_id: null
+pretty_name: Romanian Named Entity Recognition in the Legal domain (LegalNERo)
+size_categories:
+- 10K<n<100K
+source_datasets:
+- original
+task_categories:
+- token-classification
+task_ids:
+- named-entity-recognition
 ---
 
 # Dataset Card for Romanian Named Entity Recognition in the Legal domain (LegalNERo)
@@ -31,7 +50,7 @@ TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging a
 
 ## Dataset Description
 
-- **Homepage:** https://zenodo.org/record/4922385
+- **Homepage:** 
 - **Repository:** https://zenodo.org/record/4922385
 - **Paper:** Pais, V., Mitrofan, M., Gasan, C. L., Coneschi, V., & Ianov, A. (2021). Named Entity Recognition in the {R}omanian Legal Domain. Proceedings of the Natural Legal Language Processing Workshop 2021, 9–18. https://doi.org/10.18653/v1/2021.nllp-1.2
 - **Leaderboard:**
@@ -108,6 +127,9 @@ The main data fields in the ann-file are tab-seperated and the following:
     - `ORG`: Organization
     - `PER`: Person
     - `TIME`: Time reference
+  - `START`: Index of the character within a document where the respective named entity starts.
+  - `END`: Index of the character within a document where the respective named entity ends.
+- `STRING`: Span within the document that represents the named entity.
 
 ### Data Splits
 
@@ -117,19 +139,19 @@ No split provided.
 
 ### Curation Rationale
 
-The dataset provides gold annotations for organizations, locations, persons, time and legal resources mentioned in legal documents.
+The dataset provides gold annotations for organizations, locations, persons, time and legal resources mentioned in Romanian legal documents.
 
 ### Source Data
 
 #### Initial Data Collection and Normalization
 
-The LegalNERo corpus consists of 370 documents from the larger [MARCELL-RO corpus](https://elrc-share.eu/repository/browse/marcell-romanian-legislative-subcorpus-v2/2da548428b9d11eb9c1a00155d026706ce94a6b59ffc4b0e9fb5cd9cebe6889e/).
+The LegalNERo corpus consists of 370 documents from the larger [MARCELL-RO corpus](https://elrc-share.eu/repository/browse/marcell-romanian-legislative-subcorpus-v2/2da548428b9d11eb9c1a00155d026706ce94a6b59ffc4b0e9fb5cd9cebe6889e/). In the following we give a short description of the crawling process for the MARCELL-RO corpus.
 
 *The MARCELL-RO corpus "contains 163,274 files, which represent the body of national legislation ranging from 1881 to 2021. This corpus includes mainly: governmental decisions, ministerial orders, decisions, decrees and laws. All the texts were obtained via crawling from the public Romanian legislative portal . We have not distinguished between in force and "out of force" laws because it is difficult to do this automatically and there is no external resource to use to distinguish between them. The texts were extracted from the original HTML format and converted into TXT files. Each file has multiple levels of annotation: firstly the texts were tokenized, lemmatized and morphologically annotated using the Tokenizing, Tagging and Lemmatizing (TTL) text processing platform developed at RACAI, then dependency parsed with NLP-Cube, named entities were identified using a NER tool developed at RACAI, nominal phrases were identified also with TTL, while IATE terms and EuroVoc descriptors were identified using an internal tool. All processing tools were integrated into an end-to-end pipeline available within the RELATE platform and as a dockerized version. The files were annotated with the latest version of the pipeline completed within Activity 4 of the MARCELL project."* [Link](https://elrc-share.eu/repository/browse/marcell-romanian-legislative-subcorpus-v2/2da548428b9d11eb9c1a00155d026706ce94a6b59ffc4b0e9fb5cd9cebe6889e/)
 
 #### Who are the source language producers?
 
-[More Information Needed]
+The source language producers are presumably politicians and lawyers.
 
 ### Annotations
 
@@ -159,13 +181,15 @@ Inside the legal reference class, we considered sub-entities of type *organizati
 
 ### Other Known Limitations
 
-[More Information Needed]
+Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to the bibliographical references and the original Github repositories and/or web pages provided in this dataset card.
 
 ## Additional Information
 
 ### Dataset Curators
 
-(Pais et al., 2021)
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
+Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+
 
 ### Licensing Information
 
@@ -173,6 +197,7 @@ Inside the legal reference class, we considered sub-entities of type *organizati
 
 ### Citation Information
 
+```
 @dataset{pais_vasile_2021_4922385,
   author       = {Păiș, Vasile and
                   Mitrofan, Maria and
@@ -189,10 +214,9 @@ Inside the legal reference class, we considered sub-entities of type *organizati
   doi          = {10.5281/zenodo.4922385},
   url          = {https://doi.org/10.5281/zenodo.4922385}
 }
-
+```
+```
 @inproceedings{pais-etal-2021-named,
-  abstract = {Recognition of named entities present in text is an important step towards information extraction and natural language understanding. This work presents a named entity recognition system for the Romanian legal domain. The system makes use of the gold annotated LegalNERo corpus. Furthermore, the system combines multiple distributional representations of words, including word embeddings trained on a large legal domain corpus. All the resources, including the corpus, model and word embeddings are open sourced. Finally, the best system is available for direct usage in the RELATE platform.},
-  address = {Punta Cana, Dominican Republic},
   author = {Pais, Vasile and Mitrofan, Maria and Gasan, Carol Luca and Coneschi, Vlad and Ianov, Alexandru},
   booktitle = {Proceedings of the Natural Legal Language Processing Workshop 2021},
   doi = {10.18653/v1/2021.nllp-1.2},
@@ -203,6 +227,7 @@ Inside the legal reference class, we considered sub-entities of type *organizati
   url = {https://aclanthology.org/2021.nllp-1.2},
   year = {2021}
 }
+```
 
 ### Contributions
 
