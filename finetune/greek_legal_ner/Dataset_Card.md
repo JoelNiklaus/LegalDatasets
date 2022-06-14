@@ -1,5 +1,25 @@
 ---
-TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging app: https://huggingface.co/spaces/huggingface/datasets-tagging
+annotations_creators:
+- other
+language_creators:
+- found
+languages:
+- el
+licenses:
+- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+multilinguality:
+- monolingual
+paperswithcode_id: null
+pretty_name: Greek Legal Named Entity Recognition and Linking
+size_categories:
+- 10K<n<100K
+source_datasets:
+- original
+task_categories:
+- token-classification
+task_ids:
+- named-entity-recognition
+- named-entity-linking
 ---
 
 # Dataset Card for Greek Legal Named Entity Recognition and Linking
@@ -39,11 +59,11 @@ TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging a
 
 ### Dataset Summary
 
-*"The benchmark datasets contain 254 daily issues for classes A and D of the Greek Government Gazette over the period 2000-2017. Every issue contains multiple legal acts. Class A issues concern primary legislation published by the Greek government (e.g., laws, presidential decrees, ministerial decisions, regulations, etc.). Class D issues concern decisions related to urban, rural and environmental planning (e.g., reforestations, declassifications, expropriations, etc.). We uniformly splitted the issues across training (162), validation (45), and test (47) in terms of publication year and class. Thus the possibility of overfitting due to specific linguistic idiosyncrasies in the language of a government or due to specific entities and policies has been minimized. Our group annotated all of the above documents for the 6 entity types that we examine. We also created datasets that contain pairs of entity references and the respective matching Universal Resource Identifiers (URIs) in other open public datasets."* (Angelidis et al., 2018)
+This dataset contains an annotated corpus for named entity recognition as well named entity linking in Greek legislations. It is is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum, for both entity recognition and linking.
 
 ### Supported Tasks and Leaderboards
 
-The dataset supports the task of named entity recognition.
+The dataset supports the task of named entity recognition and named entity linking.
 
 ### Languages
 
@@ -65,13 +85,13 @@ The main data fields in the ann-file are tab-seperated and the following:
     - `FACILITY`: Facilities, such as police stations, departments etc.
     - `GPE`: Geopolitical Entity; any reference to a geopolitical entity (e.g., country, city, Greek administrative unit, etc.)
     - `LEG-REFS`: Legislation Reference; any reference to Greek or European legislation (e.g., Presidential Decrees, Laws, Decisions, EU Regulations and Directives, etc.)
-    - `LOCATION-NAT`: Natural location, such as rivers, mountains, lakes etc.
-    - `LOCATION-UNK`: ???? 
+    - `LOCATION-NAT`: Well defined natural location, such as rivers, mountains, lakes etc.
+    - `LOCATION-UNK`: Poorly defined locations such "End of road X" or other locations that are not "official".
     - `ORG`: Organization; any reference to a public or private organization, such as: international organizations (e.g., European Union, United Nations, etc.), Greek public organizations (e.g., Social Insurance Institution) or private ones (e.g., companies, NGOs, etc.).
     - `PERSON`: Any formal name of a person mentioned in the text (e.g., Greek government members, public administration officials, etc.).
     - `PUBLIC-DOCS`: Public Document Reference; any reference to documents or decisions that have been published by a public institution (organization) that are not considered a primary source of legislation (e.g., local decisions, announcements, memorandums, directives).
-  - `START`: index of the character within a document where the respective named entity starts.
-  - `END`: index of the character within a document where the respective named entity ends.
+  - `START`: Index of the character within a document where the respective named entity starts.
+  - `END`: Index of the character within a document where the respective named entity ends.
 - `STRING`: Span within the document that represents the named entity.
 
 ### Data Splits
@@ -131,7 +151,7 @@ Creating a big dataset for Greek named entity recognition and entity linking.
 
 #### Who are the source language producers?
 
-Greek Government Gazette
+Greek Government Gazette.
 
 ### Annotations
 
@@ -141,7 +161,7 @@ Greek Government Gazette
 
 #### Who are the annotators?
 
-[More Information Needed]
+According to (Angelidis et al., 2018) the authors of the paper annotated the data: *"Our group annotated all of the above documents for the 6 entity types that we examine."*
 
 ### Personal and Sensitive Information
 
@@ -159,13 +179,15 @@ Greek Government Gazette
 
 ### Other Known Limitations
 
-[More Information Needed]
+Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to the bibliographical references and the original Github repositories and/or web pages provided in this dataset.
 
 ## Additional Information
 
 ### Dataset Curators
 
-[Ilias Chalkidis](https://gitlab.com/ilias.chalkidis); [Iosif Angelidis](https://gitlab.com/metimdjai)
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
+Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+
 
 ### Licensing Information
 
@@ -173,7 +195,15 @@ Greek Government Gazette
 
 ### Citation Information
 
-[More Information Needed]
+```
+@inproceedings{Angelidis2018NamedER,
+  author = {Angelidis, Iosif and Chalkidis, Ilias and Koubarakis, Manolis},
+  booktitle = {JURIX},
+  keywords = {greek,legal nlp,named entity recognition},
+  title = {{Named Entity Recognition, Linking and Generation for Greek Legislation}},
+  year = {2018}
+}
+```
 
 ### Contributions
 
