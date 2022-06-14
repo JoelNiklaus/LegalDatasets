@@ -1,5 +1,27 @@
 ---
-TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging app: https://huggingface.co/spaces/huggingface/datasets-tagging
+annotations_creators:
+- found
+- other
+language_creators:
+- found
+languages:
+- de
+- en
+- it
+- pl
+licenses:
+- cc-by-nc-2.5
+multilinguality:
+- multilingual
+pretty_name: A Corpus for Multilingual Analysis of Online Terms of Service
+size_categories:
+- 1K<n<10K
+source_datasets:
+- original
+task_categories:
+- text-classification
+task_ids:
+- multi-class-classification
 ---
 
 # Dataset Card for A Corpus for Multilingual Analysis of Online Terms of Service
@@ -39,7 +61,7 @@ TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging a
 
 ### Dataset Summary
 
-*"We present the first annotated corpus for multilingual analysis of potentially unfair clauses in online Terms of Service [=ToS]. The data set comprises a total of 100 contracts, obtained from 25 documents annotated in four different languages: English, German, Italian, and Polish. For each contract, potentially unfair clauses for the consumer are annotated, for nine different unfairness categories. We show how a simple yet efficient annotation projection technique based on sentence embeddings could be used to automatically transfer annotations across languages."* (Drawzeski et al., 2021)
+*"We present the first annotated corpus for multilingual analysis of potentially unfair clauses in online Terms of Service [=ToS]. The data set comprises a total of 100 contracts, obtained from 25 documents annotated in four different languages: English, German, Italian, and Polish. For each contract, potentially unfair clauses for the consumer are annotated, for nine different unfairness categories."* (Drawzeski et al., 2021)
 
 ### Supported Tasks and Leaderboards
 
@@ -62,11 +84,15 @@ The xml files in the folder `original_xml` have been annotated using nine tags t
 - `<ch>` = Unilateral change: *"This clause specifies the conditions under which the service provider could amend and modify the terms of service and/or the service itself. Such clauses were always considered as potentially unfair. This is because the ECJ has not yet issued a judgment in this regard, though the Annex to the Direc- tive contains several examples supporting such a qualification."* (Lippi et al., 2019)
 - `<cr>` = Content removal : *"This gives the provider a right to modify/delete user’s content, including in-app purchases, and sometimes specifies the conditions under which the service provider may do so. As in the case of unilateral termination, clauses that indicate conditions for content removal were marked as potentially unfair, whereas clauses stipulating that the service provider may remove content in his full discretion, and/or at any time for any or no reasons and/or without notice nor possibility to retrieve the content were marked as clearly unfair."* (Lippi et al., 2019)
 - `<j>` = Jurisdiction : *"This type of clause stipulates what courts will have the competence to adjudicate disputes under the contract. Jurisdiction clauses giving consumers a right to bring disputes in their place of residence were marked as clearly fair, whereas clauses stating that any judicial proceeding takes a residence away (i.e. in a different city, different country) were marked as clearly unfair. This assessment is grounded in ECJ’s case law, see for example Oceano case number C-240/98."* (Lippi et al., 2019)
-- `<law>` = Choice of law: *"This clause specifies what law will govern the contract, meaning also what law will be applied in potential adjudication of a dispute arising under the contract. Clauses defining the applicable law as the law of the consum- er’s country of residence were marked as clearly fair [...]"* (Lippi et al., 2019)
+- `<law>` = Choice of law: *"This clause specifies what law will govern the contract, meaning also what law will be applied in potential adjudication of a dispute arising under the contract. Clauses defining the applicable law as the law of the consumer’s country of residence were marked as clearly fair [...]"* (Lippi et al., 2019)
 - `<ltd>` = Limitation of liability: *"This clause stipulates that the duty to pay damages is limited or excluded, for certain kinds of losses and under certain conditions. Clauses that explicitly affirm non-excludable providers’ liabilities were marked as clearly fair."* (Lippi et al., 2019)
 -	`<ter>` = Unilateral termination:  *"This clause gives provider the right to suspend and/or terminate the service and/or the contract, and sometimes details the circumstances under which the provider claims to have a right to do so. Unilateral termination clauses that specify reasons for termination were marked as potentially unfair. Whereas clauses stipulating that the service provider may suspend or terminate the service at any time for any or no reasons and/or without notice were marked as clearly unfair."* (Lippi et al., 2019)
 -	`<use>` = Contract by using: *"This clause stipulates that the consumer is bound by the terms of use of a specific service, simply by using the service, without even being required to mark that he or she has read and accepted them. We always marked such clauses as potentially unfair. The reason for this choice is that a good argument can be offered for these clauses to be unfair, because they originate an imbalance in rights and duties of the parties, but this argument has no decisive authoritative backing yet, since the ECJ has never assessed a clause of this type."* (Lippi et al., 2019)
--	`<pinc>` = Privacy included: These tags *"identify clauses stating that consumers consent to the privacy policy simply by using the service. Such clauses have been always considered potentially unfair"* (Drawzeski et al., 2021)
+-	`<pinc>` = Privacy included: This tag identifies *"clauses stating that consumers consent to the privacy policy simply by using the service. Such clauses have been always considered potentially unfair"* (Drawzeski et al., 2021)
+
+*”We assumed that each type of clause could be classified as either clearly fair, or potentially unfair, or clearly unfair. In order to mark the different degrees of (un)fairness we appended a numeric value to each XML tag, with 1 meaning clearly fair, 2 potentially unfair, and 3 clearly unfair. Nested tags were used to annotate text segments relevant to more than one type of clause. With clauses covering multiple paragraphs, we chose to tag each paragraph separately, possibly with different degrees of (un)fairness.”* (Lippi et al., 2019)
+
+This resulted in the following list of XML tags: `a1`, `a2`, `a3`, `ch2`, `ch3`, `cr2`, `cr3`, `j1`, `j3`, `law1`, `law2`, `ltd1`, `ltd2`, `ltd3`, `pinc2`, `ter2`, `ter3`, `use2`.
 
 
 
@@ -78,23 +104,23 @@ No split provided.
 
 ### Curation Rationale
 
-The EU legislation is published in all official languages. This multilingualism comes with costs and challenges, such as cross-linguistical interpretability. The EU has refrained from regulating languages in which standard terms in consumer contracts should be drafted, allowing for differing approaches to emerge in various jurisdictions. Consumer protection authorities and non-governmental organizations in Europe tend to operate only in their respective languages. Therefore, consumer protection technologies are needed that are capable of dealing with multiple languages. The dataset at hand can be used for the automated detection of unfair clauses in ToS which, in most cases, are available in multiple languages. 
+The EU legislation is published in all official languages. This multilingualism comes with costs and challenges, such as limited cross-linguistical interpretability. The EU has refrained from regulating languages in which standard terms in consumer contracts should be drafted, allowing for differing approaches to emerge in various jurisdictions. Consumer protection authorities and non-governmental organizations in Europe tend to operate only in their respective languages. Therefore, consumer protection technologies are needed that are capable of dealing with multiple languages. The dataset at hand can be used for the automated detection of unfair clauses in ToS which, in most cases, are available in multiple languages. (Drawzeski et al., 2021)
 
 ### Source Data
 
 #### Initial Data Collection and Normalization
 
-*"The analysed ToS were retrieved from the [Claudette pre-existing corpus](http://claudette.eui.eu/ToS.zip), covering 100 English ToS (Lippi et al., 2019; Ruggeri et al., 2021). Such terms mainly concern popular digital services provided to consumers, including leading online platforms (such as search engines and social media). The predominant language of drafting of these ToS is English, with differing availability of corre- sponding ToS in other languages. To carry out the present study, the ultimate 25 ToS were selected on the basis of three main criteria: a) their availability in the four selected languages; b) the possibility of identifying a correspondence between the different versions, given their publication date; and c) the similarity of their structure (e.g. number of clauses, sections, etc.). To illustrate, while ToS in both German and Italian were identified for 63 out of the 100 ToS contained in the pre-existing Claudette training corpus, Polish versions were found for only 42 of these 63 ToS. Out of the 42 ToS available in the four languages, we selected those with the more closely corresponding versions based on criteria b) and c) above. Perfect correspondence across the 4 languages, however, could not be achieved for all 25 ToS."* (Drawzeski et al., 2021)
+*"The analysed ToS were retrieved from the [Claudette pre-existing corpus](http://claudette.eui.eu/ToS.zip), covering 100 English ToS (Lippi et al., 2019; Ruggeri et al., 2021). Such terms mainly concern popular digital services provided to consumers, including leading online platforms (such as search engines and social media). The predominant language of drafting of these ToS is English, with differing availability of corresponding ToS in other languages. To carry out the present study, the ultimate 25 ToS were selected on the basis of three main criteria: a) their availability in the four selected languages; b) the possibility of identifying a correspondence between the different versions, given their publication date; and c) the similarity of their structure (e.g. number of clauses, sections, etc.). To illustrate, while ToS in both German and Italian were identified for 63 out of the 100 ToS contained in the pre-existing Claudette training corpus, Polish versions were found for only 42 of these 63 ToS. Out of the 42 ToS available in the four languages, we selected those with the more closely corresponding versions based on criteria b) and c) above. Perfect correspondence across the 4 languages, however, could not be achieved for all 25 ToS."* (Drawzeski et al., 2021)
 
 #### Who are the source language producers?
 
-The ToS are produced by lawyers??????
+The source language producers are likely to be lawyers.
 
 ### Annotations
 
 #### Annotation process
 
-The dataset at hand is described (Drawzeski et al., 2021). The ToS of the dataset were retrieved from the pre-existing and mono-lingual (English) Claudette corpus which is described in (Lippi et al., 2019). (Drawzeski et al., 2021) *“investigate methods for automatically transferring the annotations made on ToS in the context of the Claudette project onto the corresponding versions of the same documents in a target language, where such resources and expertise may be lacking.”* Therefore, in the following, we will present the annotation process for the Claudette corpus as described in (Lippi et al., 2019). 
+The dataset at hand is described (Drawzeski et al., 2021). The ToS of the dataset were retrieved from the pre-existing and mono-lingual (English) Claudette corpus which is described in (Lippi et al., 2019). Drawzeski et al. (2021) *“investigate methods for automatically transferring the annotations made on ToS in the context of the Claudette project onto the corresponding versions of the same documents in a target language, where such resources and expertise may be lacking.”* Therefore, in the following, we will present the annotation process for the Claudette corpus as described in (Lippi et al., 2019). 
 
 *”The corpus consists of 50 relevant on-line consumer contracts, i.e., ToS of on-line platforms. Such contracts were selected among those offered by some of the major players in terms of number of users, global relevance, and time the service was established. Such contracts are usually quite detailed in content, are frequently updated to reflect changes both in the service and in the applicable law, and are often available in different versions for different jurisdictions. Given multiple versions of the same contract, we selected the most recent version available on-line to European customers. The mark-up was done in XML by three annotators, which jointly worked for the formulation of the annotation guidelines. The whole annotation process included several revisions, where some corrections were also suggested by an analysis of the false positives and false negatives retrieved by the initial machine learning prototypes. Due to the large interaction among the annotators during this process, in order to assess inter-annotation agreement, a further test set consisting of 10 additional contracts was tagged, following the final version of the guidelines. […] We produced an additional test set consisting of 10 more annotated contracts. Such documents were independently tagged by two distinct annotators who had carefully studied the guidelines. In order to quantitatively measure the inter-annotation agreement, for this test set we computed the standard Cohen’s 𝜅 metric […] which resulted to be 0.871 […].”*
 
@@ -119,13 +145,15 @@ It is very likely that some ToS in German, Italian and Polish are direct transla
 
 ### Other Known Limitations
 
-[More Information Needed]
+Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to the bibliographical references and the original Github repositories and/or web pages provided in this dataset card.
 
 ## Additional Information
 
 ### Dataset Curators
 
-(Drawzeski et al., 2021)
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
+Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+
 
 ### Licensing Information
 
