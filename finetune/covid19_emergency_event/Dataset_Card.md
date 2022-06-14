@@ -1,5 +1,31 @@
 ---
-TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging app: https://huggingface.co/spaces/huggingface/datasets-tagging
+annotations_creators:
+- found
+- other
+language_creators:
+- found
+languages:
+- en
+- fr
+- hu
+- it
+- nb
+- nl
+- pl
+licenses:
+- cc0-1.0
+multilinguality:
+- multilingual
+pretty_name: EXCEPTIUS Corpus
+size_categories:
+- 1K<n<10K
+source_datasets:
+- original
+task_categories:
+- text-classification
+task_ids:
+- multi-class-classification
+- multi-label-classification
 ---
 
 # Dataset Card for EXCEPTIUS Corpus
@@ -32,7 +58,7 @@ TODO: Add YAML tags here. Copy-paste the tags obtained with the online tagging a
 ## Dataset Description
 
 - **Homepage:** https://exceptius.com/
-- **Repository:** https://github.com/tommasoc80/COVID19_emergency_event; https://dataverse.nl/dataset.xhtml?persistentId=doi:10.34894/ZUWAPS
+- **Repository:** https://github.com/tommasoc80/COVID19_emergency_event
 - **Paper:** Tziafas, G., de Saint-Phalle, E., de Vries, W., Egger, C., & Caselli, T. (2021). A Multilingual Approach to Identify and Classify Exceptional Measures against {COVID}-19. Proceedings of the Natural Legal Language Processing Workshop 2021, 46–62. https://doi.org/10.18653/v1/2021.nllp-1.5
 - **Leaderboard:**
 - **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
@@ -43,7 +69,7 @@ This dataset presents a new corpus of legislative documents from 21 European cou
 
 ### Supported Tasks and Leaderboards
 
-The dataset can be used for multi-label text classification tasks.
+The dataset can be used for multi-class and multi-label text classification tasks.
 
 ### Languages
 
@@ -53,7 +79,7 @@ Dutch, English, French, Hungarian, Italian, Norwegian Bokmål, Polish
 
 ### Data Instances
 
-The folder `/annotations/` contains the manually annotated data per country, already split in Train/Dev/Test. The folder contains a subfolder for each country, i.e. Beglium, France, Hunary, Italy, Netherlands, Norway, Poland, UK. Each subfolder contains tsv files with the annotated data. Besides that, the folder `/annotations/` contains the files *all_train_or.tsv*, *all_dev_or.tsv*, *all_test_or.tsv* that combine the train, dev and test data of each country.
+The folder `/annotations/` contains the manually annotated data per country. The folder contains a subfolder for each country, i.e. Beglium, France, Hunary, Italy, Netherlands, Norway, Poland, UK. Each country subfolder contains .tsv files with annotated sentences that are already split in train, dev, test. Besides that, the folder `/annotations/` contains the files *all_train_or.tsv*, *all_dev_or.tsv*, *all_test_or.tsv* that combine the train, dev and test data for all countries.
 
 ### Data Fields
 
@@ -74,7 +100,7 @@ The documents have been annotated with 8 labels, each label representing a speci
 
 ### Data Splits
 
-???? MY NUMBERS ARE THE FOLLOWING BUT THE PAPER HAS SLIGHTLY DIFFERENT NUMBERS:
+All annotated sentences combined have the following split:
 - train:  3501
 - dev:  442
 - test:  442
@@ -91,12 +117,12 @@ facilitate the analysis, exploration, and comparison of legal texts on COVID-19 
 
 #### Initial Data Collection and Normalization
 
-*“The corpus collection process has been overseen by four political science experts working in partnership with national legal experts. All documents were retrieved from official governmental websites that publish legal acts. The identification of the relevant documents has been done by means of 4 keywords (i.e., “COVID”, “COVID-19”, “Coronavirus” and “Health emergency”). For each language, the corresponding language specific keywords were used. In this initial phase, we focus on a sample of 19 EEA countries on measures adopted at the national level. To do so, we identify publicly available links to relevant documents 2 plus UK and Switzerland. We could not find corresponding documents for two countries of the EEA (i.e., Bulgaria and Greece). All documents have been collected either by manually downloading them or by automatic scraping.3 For countries with more than one official language (e.g., Switzerland), legal acts were collected in all available languages.”*(Tziafas et al., 2021)
+*“The corpus collection process has been overseen by four political science experts working in partnership with national legal experts. All documents were retrieved from official governmental websites that publish legal acts. The identification of the relevant documents has been done by means of 4 keywords (i.e., “COVID”, “COVID-19”, “Coronavirus” and “Health emergency”). For each language, the corresponding language specific keywords were used. In this initial phase, we focus on a sample of 19 EEA countries on measures adopted at the national level. To do so, we identify publicly available links to relevant documents 2 plus UK and Switzerland. We could not find corresponding documents for two countries of the EEA (i.e., Bulgaria and Greece). All documents have been collected either by manually downloading them or by automatic scraping. For countries with more than one official language (e.g., Switzerland), legal acts were collected in all available languages.”*(Tziafas et al., 2021)
 
 
 #### Who are the source language producers?
 
-[More Information Needed]
+Politicians and legal experts have been involved in producing the language material.
 
 ### Annotations
 
@@ -124,13 +150,15 @@ facilitate the analysis, exploration, and comparison of legal texts on COVID-19 
 
 ### Other Known Limitations
 
-[More Information Needed]
+Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to the bibliographical references and the original Github repositories and/or web pages provided in this dataset.
 
 ## Additional Information
 
 ### Dataset Curators
 
-[More Information Needed]
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
+Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+
 
 ### Licensing Information
 
@@ -153,7 +181,6 @@ Creative Commons Zero v1.0 Universal
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2021.nllp-1.5",
     pages = "46--62",
-    abstract = "The COVID-19 pandemic has witnessed the implementations of exceptional measures by governments across the world to counteract its impact. This work presents the initial results of an on-going project, EXCEPTIUS, aiming to automatically identify, classify and com- pare exceptional measures against COVID-19 across 32 countries in Europe. To this goal, we created a corpus of legal documents with sentence-level annotations of eight different classes of exceptional measures that are im- plemented across these countries. We evalu- ated multiple multi-label classifiers on a manu- ally annotated corpus at sentence level. The XLM-RoBERTa model achieves highest per- formance on this multilingual multi-label clas- sification task, with a macro-average F1 score of 59.8{\%}.",
 }
 ``` 
 
