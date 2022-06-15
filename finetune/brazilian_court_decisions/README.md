@@ -77,20 +77,20 @@ The file format is CSV and its separator (delimiter) is "<=>". The csv files con
 The dataset contains the following fields:
   - `process_number`: A number assigned to the decision by the court
   - `orgao_julgador`: Judging Body: one of '1ª Câmara Cível', '2ª Câmara Cível', '3ª Câmara Cível', 'Câmara Criminal', 'Tribunal Pleno', 'Seção Especializada Cível'
-  - `publish_date`: The date, when the decision has been published (14/12/2018 - 03/04/2019)
+  - `publish_date`: The date, when the decision has been published (14/12/2018 - 03/04/2019). At that time (in 2018-2019), the scraping script was limited and not configurable to get data based on date range. Therefore, only the data from the last months has been scraped.
   - `judge_relator`: Judicial panel
   - `ementa_text`: Summary of the court decision
-  - `decision_description`: **Suggested input**. Corresponds to ementa_text - decision_text - decision_unanimity_text. Basic statistics (number of words): mean: 119, median: 88, min: 12, max: 1400
-  - `decision_text`: The text used for determining the decision label
-  - `decision_label`: **Primary suggested label**. Labels that can be used to train a model for judgment prediction:
+  - `decision_description`: **Suggested input**. Corresponds to ementa_text - judgment_text - unanimity_text. Basic statistics (number of words): mean: 119, median: 88, min: 12, max: 1400
+  - `judgment_text`: The text used for determining the judgment label
+  - `judgment_label`: **Primary suggested label**. Labels that can be used to train a model for judgment prediction:
     - `conflito-competencia`: Meta-decision. For example, a decision just to tell that Court A should rule this case and not Court B.
     - `no`: The appeal was denied
     - `not-cognized`: The appeal was not accepted to be judged by the court
     - `partial`: for partially favourable decisions
     - `prejudicada`: The case could not be judged for any impediment such as the appealer died or gave up on the case for instance.
     - `yes`: for full favourable decisions
-  - `decision_unanimity_text`: Portuguese text to describe whether the decision was unanimous or not.
-  - `decision_unanimity`: **Secondary suggested label**. Unified labels to describe whether the decision was unanimous or not; they can be used for model training as well  (Lage-Freitas et al., 2019).
+  - `unanimity_text`: Portuguese text to describe whether the decision was unanimous or not.
+  - `unanimity_label`: **Secondary suggested label**. Unified labels to describe whether the decision was unanimous or not; they can be used for model training as well  (Lage-Freitas et al., 2019).
 
 ### Data Splits
 
