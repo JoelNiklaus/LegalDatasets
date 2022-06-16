@@ -65,7 +65,7 @@ Neural Legal Judgment Prediction
 
 ### Languages
 
-Portuguese.
+Brazilian Portuguese
 
 ## Dataset Structure
 
