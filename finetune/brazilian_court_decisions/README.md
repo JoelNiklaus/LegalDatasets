@@ -23,89 +23,110 @@ task_ids:
 # Dataset Card for predicting-brazilian-court-decisions
 
 ## Table of Contents
+
 - [Table of Contents](#table-of-contents)
 - [Dataset Description](#dataset-description)
-  - [Dataset Summary](#dataset-summary)
-  - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
-  - [Languages](#languages)
+    - [Dataset Summary](#dataset-summary)
+    - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
+    - [Languages](#languages)
 - [Dataset Structure](#dataset-structure)
-  - [Data Instances](#data-instances)
-  - [Data Fields](#data-fields)
-  - [Data Splits](#data-splits)
+    - [Data Instances](#data-instances)
+    - [Data Fields](#data-fields)
+    - [Data Splits](#data-splits)
 - [Dataset Creation](#dataset-creation)
-  - [Curation Rationale](#curation-rationale)
-  - [Source Data](#source-data)
-  - [Annotations](#annotations)
-  - [Personal and Sensitive Information](#personal-and-sensitive-information)
+    - [Curation Rationale](#curation-rationale)
+    - [Source Data](#source-data)
+    - [Annotations](#annotations)
+    - [Personal and Sensitive Information](#personal-and-sensitive-information)
 - [Considerations for Using the Data](#considerations-for-using-the-data)
-  - [Social Impact of Dataset](#social-impact-of-dataset)
-  - [Discussion of Biases](#discussion-of-biases)
-  - [Other Known Limitations](#other-known-limitations)
+    - [Social Impact of Dataset](#social-impact-of-dataset)
+    - [Discussion of Biases](#discussion-of-biases)
+    - [Other Known Limitations](#other-known-limitations)
 - [Additional Information](#additional-information)
-  - [Dataset Curators](#dataset-curators)
-  - [Licensing Information](#licensing-information)
-  - [Citation Information](#citation-information)
-  - [Contributions](#contributions)
+    - [Dataset Curators](#dataset-curators)
+    - [Licensing Information](#licensing-information)
+    - [Citation Information](#citation-information)
+    - [Contributions](#contributions)
 
 ## Dataset Description
 
-- **Homepage:** 
+- **Homepage:**
 - **Repository:** https://github.com/lagefreitas/predicting-brazilian-court-decisions
-- **Paper:** Lage-Freitas, A., Allende-Cid, H., Santana, O., & Oliveira-Lage, L. (2022). Predicting Brazilian Court Decisions. PeerJ. Computer Science, 8, e904–e904. https://doi.org/10.7717/peerj-cs.904
+- **Paper:** Lage-Freitas, A., Allende-Cid, H., Santana, O., & Oliveira-Lage, L. (2022). Predicting Brazilian Court
+  Decisions. PeerJ. Computer Science, 8, e904–e904. https://doi.org/10.7717/peerj-cs.904
 - **Leaderboard:**
 - **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
-The dataset is a collection of 9644 (9608 after our filters) *Ementa* (summary) court decisions and their metadata from the *Tribunal de Justiça de Alagoas* (TJAL, the State Supreme Court of Alagoas (Brazil). The court decisions are labeled according to 7 categories and whether the decisions were unanimous on the part of the judges or not. The dataset supports the task of Neural Legal Judgment Prediction.
+The dataset is a collection of 4043 *Ementa* (summary) court decisions and their metadata from
+the *Tribunal de Justiça de Alagoas* (TJAL, the State Supreme Court of Alagoas (Brazil). The court decisions are labeled
+according to 7 categories and whether the decisions were unanimous on the part of the judges or not. The dataset
+supports the task of Legal Judgment Prediction.
 
 ### Supported Tasks and Leaderboards
 
-Neural Legal Judgment Prediction
+Legal Judgment Prediction
 
 ### Languages
 
-Portuguese.
+Brazilian Portuguese
 
 ## Dataset Structure
 
 ### Data Instances
-The file format is CSV and its separator (delimiter) is "<=>". The csv files contains 9644 (9608 after our filters) instances of court decisions and 14 columns (fields) with (meta-)information. 
+
+The file format is jsonl and three data splits are present (train, validation and test).
 
 ### Data Fields
 
 The dataset contains the following fields:
-  - `process_number`: A number assigned to the decision by the court
-  - `orgao_julgador`: Judging Body: one of '1ª Câmara Cível', '2ª Câmara Cível', '3ª Câmara Cível', 'Câmara Criminal', 'Tribunal Pleno', 'Seção Especializada Cível'
-  - `publish_date`: The date, when the decision has been published (14/12/2018 - 03/04/2019). At that time (in 2018-2019), the scraping script was limited and not configurable to get data based on date range. Therefore, only the data from the last months has been scraped.
-  - `judge_relator`: Judicial panel
-  - `ementa_text`: Summary of the court decision
-  - `decision_description`: **Suggested input**. Corresponds to ementa_text - judgment_text - unanimity_text. Basic statistics (number of words): mean: 119, median: 88, min: 12, max: 1400
-  - `judgment_text`: The text used for determining the judgment label
-  - `judgment_label`: **Primary suggested label**. Labels that can be used to train a model for judgment prediction:
-    - `conflito-competencia`: Meta-decision. For example, a decision just to tell that Court A should rule this case and not Court B.
+
+- `process_number`: A number assigned to the decision by the court
+- `orgao_julgador`: Judging Body: one of '1ª Câmara Cível', '2ª Câmara Cível', '3ª Câmara Cível', 'Câmara Criminal', '
+  Tribunal Pleno', 'Seção Especializada Cível'
+- `publish_date`: The date, when the decision has been published (14/12/2018 - 03/04/2019). At that time (in 2018-2019),
+  the scraping script was limited and not configurable to get data based on date range. Therefore, only the data from
+  the last months has been scraped.
+- `judge_relator`: Judicial panel
+- `ementa_text`: Summary of the court decision
+- `decision_description`: **Suggested input**. Corresponds to ementa_text - judgment_text - unanimity_text. Basic
+  statistics (number of words): mean: 119, median: 88, min: 12, max: 1400
+- `judgment_text`: The text used for determining the judgment label
+- `judgment_label`: **Primary suggested label**. Labels that can be used to train a model for judgment prediction:
     - `no`: The appeal was denied
-    - `not-cognized`: The appeal was not accepted to be judged by the court
     - `partial`: for partially favourable decisions
-    - `prejudicada`: The case could not be judged for any impediment such as the appealer died or gave up on the case for instance.
     - `yes`: for full favourable decisions
-  - `unanimity_text`: Portuguese text to describe whether the decision was unanimous or not.
-  - `unanimity_label`: **Secondary suggested label**. Unified labels to describe whether the decision was unanimous or not; they can be used for model training as well  (Lage-Freitas et al., 2019).
+    - removed labels (present in the original dataset):
+        - `conflito-competencia`: Meta-decision. For example, a decision just to tell that Court A should rule this case
+          and not Court B.
+        - `not-cognized`: The appeal was not accepted to be judged by the court
+        - `prejudicada`: The case could not be judged for any impediment such as the appealer died or gave up on the
+          case for instance.
+- `unanimity_text`: Portuguese text to describe whether the decision was unanimous or not.
+- `unanimity_label`: **Secondary suggested label**. Unified labels to describe whether the decision was unanimous or
+  not (in some cases contains ```not_determined```); they can be used for model training as well  (Lage-Freitas et al.,
+  2019).
 
 ### Data Splits
 
-The data has been split randomly into 80% train (7686), 10% validation (961), 10% test (961).
+The data has been split randomly into 80% train (3234), 10% validation (404), 10% test (405).
+
 Label Distribution
-decision_label
 
-decision_unanimity
-
+| judgment    |   train |  validation |  test |
+|:------------|--------:|------------:|------:|
+| no          |    1960 |         221 |   234 |
+| partial     |     677 |          96 |    93 |
+| yes         |     597 |          87 |    78 |
+| total       |    3234 |         404 |   405 |
 
 ## Dataset Creation
 
 ### Curation Rationale
 
-This dataset was created to further the research on developing models for predicting Brazilian court decisions that are also able to predict whether the decision will be unanimous.
+This dataset was created to further the research on developing models for predicting Brazilian court decisions that are
+also able to predict whether the decision will be unanimous.
 
 ### Source Data
 
@@ -113,7 +134,10 @@ The data was scraped from *Tribunal de Justiça de Alagoas* (TJAL, the State Sup
 
 #### Initial Data Collection and Normalization
 
-*“We developed a Web scraper for collecting data from Brazilian courts. The scraper first searched for the URL that contains the list of court cases […]. Then, the scraper extracted from these HTML files the specific case URLs and downloaded their data […]. Next, it extracted the metadata and the contents of legal cases and stored them in a CSV file format […].”* (Lage-Freitas et al., 2022)
+*“We developed a Web scraper for collecting data from Brazilian courts. The scraper first searched for the URL that
+contains the list of court cases […]. Then, the scraper extracted from these HTML files the specific case URLs and
+downloaded their data […]. Next, it extracted the metadata and the contents of legal cases and stored them in a CSV file
+format […].”* (Lage-Freitas et al., 2022)
 
 #### Who are the source language producers?
 
@@ -123,7 +147,7 @@ The source language producer are presumably attorneys, judges, and other legal p
 
 #### Annotation process
 
-The dataset was not annotated. 
+The dataset was not annotated.
 
 #### Who are the annotators?
 
@@ -145,21 +169,34 @@ The court decisions might contain sensitive information about individuals.
 
 ### Other Known Limitations
 
-Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to the bibliographical references and the original Github repositories and/or web pages provided in this dataset card.
+Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton
+Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset
+consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the
+dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that,
+differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to
+have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the
+original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to
+the bibliographical references and the original Github repositories and/or web pages provided in this dataset card.
 
 ## Additional Information
+
 Lage-Freitas, A., Allende-Cid, H., Santana Jr, O., & Oliveira-Lage, L. (2019). Predicting Brazilian court decisions:
-  - "In Brazil [...] lower court judges decisions might be appealed to Brazilian courts (*Tribiunais de Justiça*) to be reviewed by second instance court judges. In an appellate court, judges decide together upon a case and their decisions are compiled in Agreement reports named *Acóordãos*."
+
+- "In Brazil [...] lower court judges decisions might be appealed to Brazilian courts (*Tribiunais de Justiça*) to be
+  reviewed by second instance court judges. In an appellate court, judges decide together upon a case and their
+  decisions are compiled in Agreement reports named *Acóordãos*."
 
 ### Dataset Curators
-The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
-Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
 
-
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation
+Information*. Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch)
+; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch)
+; [Github](https://github.com/kapllan)).
 
 ### Licensing Information
 
-No licensing information was provided for this dataset. However, please make sure that you use the dataset according to Brazilian law.
+No licensing information was provided for this dataset. However, please make sure that you use the dataset according to
+Brazilian law.
 
 ### Citation Information
 
@@ -195,4 +232,5 @@ No licensing information was provided for this dataset. However, please make sur
 
 ### Contributions
 
-Thanks to [@kapllan](https://github.com/kapllan) and [@joelniklaus](https://github.com/joelniklaus) for adding this dataset.
+Thanks to [@kapllan](https://github.com/kapllan) and [@joelniklaus](https://github.com/joelniklaus) for adding this
+dataset.
