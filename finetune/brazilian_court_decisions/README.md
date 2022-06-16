@@ -88,9 +88,9 @@ The dataset contains the following fields:
     - `not-cognized`: The appeal was not accepted to be judged by the court
     - `partial`: for partially favourable decisions
     - `prejudicada`: The case could not be judged for any impediment such as the appealer died or gave up on the case for instance.
-    - `yes`: for full favourable decisions
-  - `unanimity_text`: Portuguese text to describe whether the decision was unanimous or not.
-  - `unanimity_label`: **Secondary suggested label**. Unified labels to describe whether the decision was unanimous or not; they can be used for model training as well  (Lage-Freitas et al., 2019).
+    - `yes`: For full favourable decisions
+  - `unanimity_text`: Portuguese text to describe whether the decision was unanimous or not
+  - `unanimity_label`: **Secondary suggested label**. Unified labels to describe whether the decision was unanimous or not; they can be used for model training as well  (Lage-Freitas et al., 2019)
 
 ### Data Splits
 
