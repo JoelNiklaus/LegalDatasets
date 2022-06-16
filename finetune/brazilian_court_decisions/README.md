@@ -114,12 +114,12 @@ The data has been split randomly into 80% train (3234), 10% validation (404), 10
 
 Label Distribution
 
-| judgment    |   train |  validation |  test |
-|:------------|--------:|------------:|------:|
-| no          |    1960 |         221 |   234 |
-| partial     |     677 |          96 |    93 |
-| yes         |     597 |          87 |    78 |
-| total       |    3234 |         404 |   405 |
+| judgment    |    train | validation |    test |
+|:------------|---------:|-----------:|--------:|
+| no          |     1960 |        221 |     234 |
+| partial     |      677 |         96 |      93 |
+| yes         |      597 |         87 |      78 |
+| total       | **3234** |    **404** | **405** |
 
 ## Dataset Creation
 
