@@ -95,8 +95,8 @@ The dataset contains the following fields:
 - `judgment_text`: The text used for determining the judgment label
 - `judgment_label`: **Primary suggested label**. Labels that can be used to train a model for judgment prediction:
     - `no`: The appeal was denied
-    - `partial`: for partially favourable decisions
-    - `yes`: for full favourable decisions
+    - `partial`: For partially favourable decisions
+    - `yes`: For fully favourable decisions
     - removed labels (present in the original dataset):
         - `conflito-competencia`: Meta-decision. For example, a decision just to tell that Court A should rule this case
           and not Court B.
