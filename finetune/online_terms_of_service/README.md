@@ -22,6 +22,7 @@ task_categories:
 - text-classification
 task_ids:
 - multi-class-classification
+- multi-label-classification
 ---
 
 # Dataset Card for A Corpus for Multilingual Analysis of Online Terms of Service
