@@ -90,10 +90,6 @@ df = perform_additional_processing()
 
 # perform random split 80% train (3234), 10% validation (404), 10% test (405)
 train, validation, test = np.split(df.sample(frac=1, random_state=42), [int(.8 * len(df)), int(.9 * len(df))])
-# split sizes: train 3234, validation 404, test 405
-print("train split size: ", len(train.index))
-print("validation split size: ", len(validation.index))
-print("test split size: ", len(test.index))
 
 
 def save_splits_to_jsonl(config_name):
@@ -104,26 +100,33 @@ def save_splits_to_jsonl(config_name):
     test.to_json(os.path.join(config_name, "test.jsonl"), lines=True, orient="records", force_ascii=False)
 
 
-# print label statistics for judgment config
-print(train.judgment_label.value_counts())
-print(validation.judgment_label.value_counts())
-print(test.judgment_label.value_counts())
+def print_split_table_single_label(train, validation, test, label_name):
+    train_counts = train[label_name].value_counts().to_frame().rename(columns={label_name: "train"})
+    validation_counts = validation[label_name].value_counts().to_frame().rename(columns={label_name: "validation"})
+    test_counts = test[label_name].value_counts().to_frame().rename(columns={label_name: "test"})
 
-save_splits_to_jsonl("")
+    table = train_counts.join(validation_counts)
+    table = table.join(test_counts)
+    table[label_name] = table.index
+    total_row = {label_name: "total",
+                 "train": len(train.index),
+                 "validation": len(validation.index),
+                 "test": len(test.index)}
+    table = table.append(total_row, ignore_index=True)
+    table = table[[label_name, "train", "validation", "test"]]  # reorder columns
+    print(table.to_markdown(index=False))
+
+
+save_splits_to_jsonl("judgment")
+
+print_split_table_single_label(train, validation, test, "judgment_label")
 
 # create second config by filtering out rows with unanimity label == not_determined, while keeping the same splits
 train = train[train.unanimity_label != "not_determined"]
 validation = validation[validation.unanimity_label != "not_determined"]
 test = test[test.unanimity_label != "not_determined"]
 
-# split sizes: train 1715, validation 211, test 204
-print("train split size: ", len(train.index))
-print("validation split size: ", len(validation.index))
-print("test split size: ", len(test.index))
+print_split_table_single_label(train, validation, test, "unanimity_label")
 
-print(train.unanimity_label.value_counts())
-print(validation.unanimity_label.value_counts())
-print(test.unanimity_label.value_counts())
-
-# do not save this because it is a very small dataset and very imbalanced (only very few not-unanimity labels)
-# save_splits_to_jsonl("unanimity")
+# it is a very small dataset and very imbalanced (only very few not-unanimity labels)
+save_splits_to_jsonl("unanimity")

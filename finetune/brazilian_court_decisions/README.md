@@ -76,7 +76,7 @@ Brazilian Portuguese
 
 ### Data Instances
 
-The file format is jsonl and three data splits are present (train, validation and test).
+The file format is jsonl and three data splits are present (train, validation and test) for each configuration.
 
 ### Data Fields
 
@@ -112,14 +112,29 @@ The dataset contains the following fields:
 
 The data has been split randomly into 80% train (3234), 10% validation (404), 10% test (405).
 
+There exist two configurations: judgment and unanimity
+
+#### Judgment
 Label Distribution
 
-| judgment    |    train | validation |    test |
-|:------------|---------:|-----------:|--------:|
-| no          |     1960 |        221 |     234 |
-| partial     |      677 |         96 |      93 |
-| yes         |      597 |         87 |      78 |
-| total       | **3234** |    **404** | **405** |
+| judgment  |    train | validation |    test |
+|:----------|---------:|-----------:|--------:|
+| no        |     1960 |        221 |     234 |
+| partial   |      677 |         96 |      93 |
+| yes       |      597 |         87 |      78 |
+| **total** | **3234** |    **404** | **405** |
+
+#### Unanimity
+
+In this configuration, all cases that have `not_determined` as `unanimity_label` are removed. The splits are not changed other than that.
+
+Label Distribution
+
+| unanimity_label |    train | validation |    test |
+|:----------------|---------:|-----------:|--------:|
+| unanimity       |     1681 |        205 |     200 |
+| not-unanimity   |       34 |          6 |       4 |
+| **total**       | **1715** |    **211** | **204** |
 
 ## Dataset Creation
 
