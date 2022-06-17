@@ -65,7 +65,7 @@ task_ids:
 
 ### Dataset Summary
 
-This dataset presents a new corpus of legislative documents from 21 European countries manually annotated for exceptional measures against COVID-19. The annotation was done on the sentence level.
+This dataset presents a new corpus of legislative documents from 8 European countries (Beglium, France, Hunary, Italy, Netherlands, Norway, Poland, UK) in 7 languages (Dutch, English, French, Hungarian, Italian, Norwegian Bokmål, Polish) manually annotated for exceptional measures against COVID-19. The annotation was done on the sentence level.
 
 ### Supported Tasks and Leaderboards
 
@@ -79,15 +79,15 @@ Dutch, English, French, Hungarian, Italian, Norwegian Bokmål, Polish
 
 ### Data Instances
 
-The folder `/annotations/` contains the manually annotated data per country. The folder contains a subfolder for each country, i.e. Beglium, France, Hunary, Italy, Netherlands, Norway, Poland, UK. Each country subfolder contains .tsv files with annotated sentences that are already split in train, dev, test. Besides that, the folder `/annotations/` contains the files *all_train_or.tsv*, *all_dev_or.tsv*, *all_test_or.tsv* that combine the train, dev and test data for all countries.
+The file format is jsonl and three data splits are present (train, validation and test).
 
 ### Data Fields
 
-The tsv files have the following basic columns:
+The jsonl files have the following basic columns:
 - `id`: Sentence id
 - `text`: Sentence that has been annotated
 
-The documents have been annotated with 8 labels, each label representing a specific measurement agains COVID-19. Each label is represented by one column in the tsv file. The labels, i.e. the specific measure classes, are:
+The documents have been annotated with 8 labels, each label representing a specific measurement against COVID-19. Each label is represented by one field in the jsonl file. The labels, i.e. the specific measure classes, are:
 - `event1`: State of Emergency
 - `event2`: Restrictions of fundamental rights and civil liberties
 - `event3`: Restrictions of daily liberties
@@ -101,10 +101,11 @@ The documents have been annotated with 8 labels, each label representing a speci
 ### Data Splits
 
 All annotated sentences combined have the following split:
-- train:  3501
-- dev:  442
-- test:  442
+- train:  3501 (80%)
+- dev:  442 (10%)
+- test:  442 (10%)
 
+The splits have been performed on each country and have later been merged. Therefore, each split contains sentences from each country.
 
 ## Dataset Creation
 
