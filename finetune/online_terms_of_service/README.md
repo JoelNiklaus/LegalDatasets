@@ -27,45 +27,52 @@ task_ids:
 # Dataset Card for A Corpus for Multilingual Analysis of Online Terms of Service
 
 ## Table of Contents
+
 - [Table of Contents](#table-of-contents)
 - [Dataset Description](#dataset-description)
-  - [Dataset Summary](#dataset-summary)
-  - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
-  - [Languages](#languages)
+    - [Dataset Summary](#dataset-summary)
+    - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
+    - [Languages](#languages)
 - [Dataset Structure](#dataset-structure)
-  - [Data Instances](#data-instances)
-  - [Data Fields](#data-fields)
-  - [Data Splits](#data-splits)
+    - [Data Instances](#data-instances)
+    - [Data Fields](#data-fields)
+    - [Data Splits](#data-splits)
 - [Dataset Creation](#dataset-creation)
-  - [Curation Rationale](#curation-rationale)
-  - [Source Data](#source-data)
-  - [Annotations](#annotations)
-  - [Personal and Sensitive Information](#personal-and-sensitive-information)
+    - [Curation Rationale](#curation-rationale)
+    - [Source Data](#source-data)
+    - [Annotations](#annotations)
+    - [Personal and Sensitive Information](#personal-and-sensitive-information)
 - [Considerations for Using the Data](#considerations-for-using-the-data)
-  - [Social Impact of Dataset](#social-impact-of-dataset)
-  - [Discussion of Biases](#discussion-of-biases)
-  - [Other Known Limitations](#other-known-limitations)
+    - [Social Impact of Dataset](#social-impact-of-dataset)
+    - [Discussion of Biases](#discussion-of-biases)
+    - [Other Known Limitations](#other-known-limitations)
 - [Additional Information](#additional-information)
-  - [Dataset Curators](#dataset-curators)
-  - [Licensing Information](#licensing-information)
-  - [Citation Information](#citation-information)
-  - [Contributions](#contributions)
+    - [Dataset Curators](#dataset-curators)
+    - [Licensing Information](#licensing-information)
+    - [Citation Information](#citation-information)
+    - [Contributions](#contributions)
 
 ## Dataset Description
 
 - **Homepage:**
-- **Repository:** claudette.eui.eu/corpus_multilingual_NLLP2021.zip
-- **Paper:** Drawzeski, K., Galassi, A., Jablonowska, A., Lagioia, F., Lippi, M., Micklitz, H. W., Sartor, G., Tagiuri, G., & Torroni, P. (2021). A Corpus for Multilingual Analysis of Online Terms of Service. Proceedings of the Natural Legal Language Processing Workshop 2021, 1–8. https://doi.org/10.18653/v1/2021.nllp-1.1
+- **Repository:** http://claudette.eui.eu/corpus_multilingual_NLLP2021.zip
+- **Paper:** Drawzeski, K., Galassi, A., Jablonowska, A., Lagioia, F., Lippi, M., Micklitz, H. W., Sartor, G., Tagiuri,
+  G., & Torroni, P. (2021). A Corpus for Multilingual Analysis of Online Terms of Service. Proceedings of the Natural
+  Legal Language Processing Workshop 2021, 1–8. https://doi.org/10.18653/v1/2021.nllp-1.1
 - **Leaderboard:**
 - **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
-*"We present the first annotated corpus for multilingual analysis of potentially unfair clauses in online Terms of Service [=ToS]. The data set comprises a total of 100 contracts, obtained from 25 documents annotated in four different languages: English, German, Italian, and Polish. For each contract, potentially unfair clauses for the consumer are annotated, for nine different unfairness categories."* (Drawzeski et al., 2021)
+*"We present the first annotated corpus for multilingual analysis of potentially unfair clauses in online Terms of
+Service [=ToS]. The data set comprises a total of 100 contracts, obtained from 25 documents annotated in four different
+languages: English, German, Italian, and Polish. For each contract, potentially unfair clauses for the consumer are
+annotated, for nine different unfairness categories."* (Drawzeski et al., 2021)
 
 ### Supported Tasks and Leaderboards
 
-The dataset can be used for multi-label text classification tasks, more specifically, for classifying unfair clauses in ToS. 
+The dataset can be used for multi-class multi-label text classification tasks, more specifically, for classifying unfair clauses in
+ToS.
 
 ### Languages
 
@@ -75,7 +82,11 @@ English, German, Italian, and Polish.
 
 ### Data Instances
 
-The dataset contains two main folders: `original_text` and `original_xml`. Each folder contains the subfolder `de`(=German), `en`(=English), `it`(=Italian), `pl`(=Polish); each of them containing documents with the ToS for the following Services: *Booking, Dropbo, Electronic_Arts, Evernote, Facebook, Garmin, Google, Grindr, Linkedin, Mozilla, Pinterest, Quora, Ryanair, Skype, Skyscanner, Snap, Spotify, Terravision, Tinder, Tripadvisor, Tumblr, Uber, Weebly, Yelp, Zynga*. The `original_text` folder contains txt files the and `original_xml` folder contains annotated xml files. 
+The dataset contains two main folders: `original_text` and `original_xml`. Each folder contains the subfolders `de`(
+=German), `en`(=English), `it`(=Italian), `pl`(=Polish); each of them containing documents with the ToS for the
+following Services: *Booking, Dropbox, Electronic_Arts, Evernote, Facebook, Garmin, Google, Grindr, Linkedin, Mozilla,
+Pinterest, Quora, Ryanair, Skype, Skyscanner, Snap, Spotify, Terravision, Tinder, Tripadvisor, Tumblr, Uber, Weebly,
+Yelp, Zynga*. The `original_text` folder contains txt files the and `original_xml` folder contains annotated xml files.
 
 ### Data Fields
 
@@ -98,7 +109,53 @@ This resulted in the following list of XML tags: `a1`, `a2`, `a3`, `ch2`, `ch3`,
 
 ### Data Splits
 
-No split provided.
+No splits provided in the original paper.
+
+Joel Niklaus created the splits manually. The train split contains the 20 (80%) first companies in alphabetic order. The
+validation split contains the 2 (8%) companies Tumblr and Uber. The test split contains the 3 (12%) companies Weebly,
+Yelp, Zynga.
+
+Label Distribution
+
+| tag           |    train | validation |    test |
+|:--------------|---------:|-----------:|--------:|
+| ltd2          |      632 |         76 |     133 |
+| ch2           |      245 |         32 |      29 |
+| ter2          |      202 |          6 |      34 |
+| use2          |      147 |         14 |      28 |
+| j3            |      105 |          8 |      28 |
+| a2            |       92 |          6 |      17 |
+| ter3          |       71 |         20 |      17 |
+| law2          |       68 |          7 |      18 |
+| cr3           |       61 |          3 |      12 |
+| j3 law2       |       50 |        nan |     nan |
+| cr2           |       50 |          1 |      24 |
+| ltd1          |       48 |          4 |      17 |
+| law1          |       45 |          1 |       7 |
+| use2 pinc2    |       36 |        nan |       4 |
+| pinc2         |       35 |        nan |       4 |
+| j1            |       34 |        nan |       8 |
+| ch2 ter3      |       21 |          9 |      13 |
+| cr2 ter2      |       20 |        nan |     nan |
+| j1 law1       |       15 |        nan |     nan |
+| a1            |       14 |        nan |     nan |
+| ch2 ter2      |       12 |        nan |     nan |
+| ltd2 ter3     |       11 |        nan |       4 |
+| a3            |       11 |        nan |       4 |
+| ch2 ltd2 ter3 |        7 |          4 |       7 |
+| cr3 ter3      |        5 |        nan |       4 |
+| ch2 cr3       |        4 |        nan |     nan |
+| ch2 cr2 ter2  |        4 |        nan |     nan |
+| cr2 ltd2      |        4 |        nan |     nan |
+| ltd3          |        4 |        nan |     nan |
+| cr3 ter2      |        4 |        nan |     nan |
+| ch2 ltd2      |        4 |        nan |     nan |
+| ch2 ltd2 ter2 |        4 |        nan |     nan |
+| ch2 cr2       |        3 |        nan |     nan |
+| j1 j3         |        2 |        nan |     nan |
+| ch3           |        2 |        nan |     nan |
+| ch2 use2      |        2 |        nan |     nan |
+| **total**     | **2074** |    **191** | **417** |
 
 ## Dataset Creation
 
@@ -120,10 +177,28 @@ The source language producers are likely to be lawyers.
 
 #### Annotation process
 
-The dataset at hand is described (Drawzeski et al., 2021). The ToS of the dataset were retrieved from the pre-existing and mono-lingual (English) Claudette corpus which is described in (Lippi et al., 2019). Drawzeski et al. (2021) *“investigate methods for automatically transferring the annotations made on ToS in the context of the Claudette project onto the corresponding versions of the same documents in a target language, where such resources and expertise may be lacking.”* Therefore, in the following, we will present the annotation process for the Claudette corpus as described in (Lippi et al., 2019). 
+The dataset at hand is described by Drawzeski et al. (2021). The ToS of the dataset were retrieved from the pre-existing
+and mono-lingual (English) Claudette corpus which is described in (Lippi et al., 2019). Drawzeski et al. (2021) *“investigate methods for automatically transferring the annotations made on ToS in the context of the Claudette project
+onto the corresponding versions of the same documents in a target language, where such resources and expertise may be
+lacking.”*
 
-*”The corpus consists of 50 relevant on-line consumer contracts, i.e., ToS of on-line platforms. Such contracts were selected among those offered by some of the major players in terms of number of users, global relevance, and time the service was established. Such contracts are usually quite detailed in content, are frequently updated to reflect changes both in the service and in the applicable law, and are often available in different versions for different jurisdictions. Given multiple versions of the same contract, we selected the most recent version available on-line to European customers. The mark-up was done in XML by three annotators, which jointly worked for the formulation of the annotation guidelines. The whole annotation process included several revisions, where some corrections were also suggested by an analysis of the false positives and false negatives retrieved by the initial machine learning prototypes. Due to the large interaction among the annotators during this process, in order to assess inter-annotation agreement, a further test set consisting of 10 additional contracts was tagged, following the final version of the guidelines. […] We produced an additional test set consisting of 10 more annotated contracts. Such documents were independently tagged by two distinct annotators who had carefully studied the guidelines. In order to quantitatively measure the inter-annotation agreement, for this test set we computed the standard Cohen’s 𝜅 metric […] which resulted to be 0.871 […].”*
+Therefore, in the following, we will present the annotation process for the Claudette corpus as described in (Lippi et
+al., 2019).
 
+*”The corpus consists of 50 relevant on-line consumer contracts, i.e., ToS of on-line platforms. Such contracts were
+selected among those offered by some of the major players in terms of number of users, global relevance, and time the
+service was established. Such contracts are usually quite detailed in content, are frequently updated to reflect changes
+both in the service and in the applicable law, and are often available in different versions for different
+jurisdictions. Given multiple versions of the same contract, we selected the most recent version available on-line to
+European customers. The mark-up was done in XML by three annotators, which jointly worked for the formulation of the
+annotation guidelines. The whole annotation process included several revisions, where some corrections were also
+suggested by an analysis of the false positives and false negatives retrieved by the initial machine learning
+prototypes. Due to the large interaction among the annotators during this process, in order to assess inter-annotation
+agreement, a further test set consisting of 10 additional contracts was tagged, following the final version of the
+guidelines. […] We produced an additional test set consisting of 10 more annotated contracts. Such documents were
+independently tagged by two distinct annotators who had carefully studied the guidelines. In order to quantitatively
+measure the inter-annotation agreement, for this test set we computed the standard Cohen’s 𝜅 metric […] which resulted
+to be 0.871 […].”*
 
 #### Who are the annotators?
 
@@ -161,7 +236,6 @@ Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [G
 
 ### Citation Information
 
-
 ```
 @inproceedings{drawzeski-etal-2021-corpus,
   address = {Punta Cana, Dominican Republic},
@@ -176,6 +250,7 @@ Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [G
   year = {2021}
 }
 ```
+
 ```
 @article{Lippi2019,
   author = {Lippi, Marco and Pa{\l}ka, Przemys{\l}aw and Contissa, Giuseppe and Lagioia, Francesca and Micklitz, Hans-Wolfgang and Sartor, Giovanni and Torroni, Paolo},
@@ -191,7 +266,7 @@ Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [G
 }
 ```
 
-
 ### Contributions
 
-Thanks to [@JoelNiklaus](https://github.com/joelniklaus) and [@kapllan](https://github.com/kapllan) for adding this dataset.
+Thanks to [@JoelNiklaus](https://github.com/joelniklaus) and [@kapllan](https://github.com/kapllan) for adding this
+dataset.
