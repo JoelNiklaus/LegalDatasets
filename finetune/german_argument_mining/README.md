@@ -27,31 +27,31 @@ task_ids:
 
 - [Table of Contents](#table-of-contents)
 - [Dataset Description](#dataset-description)
-    - [Dataset Summary](#dataset-summary)
-    - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
-    - [Languages](#languages)
+  - [Dataset Summary](#dataset-summary)
+  - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
+  - [Languages](#languages)
 - [Dataset Structure](#dataset-structure)
-    - [Data Instances](#data-instances)
-    - [Data Fields](#data-fields)
-    - [Data Splits](#data-splits)
+  - [Data Instances](#data-instances)
+  - [Data Fields](#data-fields)
+  - [Data Splits](#data-splits)
 - [Dataset Creation](#dataset-creation)
-    - [Curation Rationale](#curation-rationale)
-    - [Source Data](#source-data)
-    - [Annotations](#annotations)
-    - [Personal and Sensitive Information](#personal-and-sensitive-information)
+  - [Curation Rationale](#curation-rationale)
+  - [Source Data](#source-data)
+  - [Annotations](#annotations)
+  - [Personal and Sensitive Information](#personal-and-sensitive-information)
 - [Considerations for Using the Data](#considerations-for-using-the-data)
-    - [Social Impact of Dataset](#social-impact-of-dataset)
-    - [Discussion of Biases](#discussion-of-biases)
-    - [Other Known Limitations](#other-known-limitations)
+  - [Social Impact of Dataset](#social-impact-of-dataset)
+  - [Discussion of Biases](#discussion-of-biases)
+  - [Other Known Limitations](#other-known-limitations)
 - [Additional Information](#additional-information)
-    - [Dataset Curators](#dataset-curators)
-    - [Licensing Information](#licensing-information)
-    - [Citation Information](#citation-information)
-    - [Contributions](#contributions)
+  - [Dataset Curators](#dataset-curators)
+  - [Licensing Information](#licensing-information)
+  - [Citation Information](#citation-information)
+  - [Contributions](#contributions)
 
 ## Dataset Description
 
-- **Homepage:** 
+- **Homepage:**
 - **Repository:** https://zenodo.org/record/3936490#.X1ed7ovgomK
 - **Paper:** Urchs., S., Mitrović., J., & Granitzer., M. (2021). Design and Implementation of German Legal Decision
   Corpora. Proceedings of the 13th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART,
@@ -82,14 +82,15 @@ The dataset can be used for multi-label text classification tasks, more specific
 
 ### Languages
 
-The language in the dataset is German as it used in Bavarian courts in Germany.
+The language in the dataset is German as it is used in Bavarian courts in Germany.
 
 ## Dataset Structure
 
 ### Data Instances
 
-Each court decision is saved as a json file. The json files contain metainformation. Each sentence of the court decision
-was categorized according to its function.
+Each sentence is saved as a json object on a line in one of the three files `train.jsonl`, `validation.jsonl`
+or `test.jsonl`. The file `meta.jsonl` contains meta information for each court. The `file_number` is present in all
+files for identification. Each sentence of the court decision was categorized according to its function.
 
 ### Data Fields
 
@@ -118,10 +119,10 @@ The files `train.jsonl`, `validation.jsonl` and `test.jsonl` contain the followi
 - `label`: In depth explanation of the court decision. Each sentence is assigned to one of the major components of
   German *Urteilsstil* (Urchs. et al., 2021) (list of paragraphs, each paragraph containing list of sentences, each
   sentence annotated with one of the following four labels):
-    - `conclusion`: Overall result
-    - `definition`: Abstract legal facts and consequences
-    - `subsumption`: Determination sentence / Concrete facts
-    - `other`: Anything else
+  - `conclusion`: Overall result
+  - `definition`: Abstract legal facts and consequences
+  - `subsumption`: Determination sentence / Concrete facts
+  - `other`: Anything else
 - `context_before`: Context in the same paragraph before the input_sentence
 - `context_after`: Context in the same paragraph after the input_sentence
 
@@ -130,7 +131,18 @@ The files `train.jsonl`, `validation.jsonl` and `test.jsonl` contain the followi
 No split provided in the original release.
 
 Splits created by Joel Niklaus. We randomly split the dataset into 80% (160 decisions, 19271 sentences) train, 10%
-validation (20 decisions, 2726 sentences) and 10% test (20 decisions, 3078 sentences).
+validation (20 decisions, 2726 sentences) and 10% test (20 decisions, 3078 sentences). We made sure, that a decision
+only occurs in one split and is not dispersed over multiple splits.
+
+Label Distribution
+
+| label          |      train |   validation |      test |
+|:---------------|-----------:|-------------:|----------:|
+| conclusion     |        975 |          115 |       112 |
+| definition     |       4105 |          614 |       609 |
+| subsumption    |      10034 |         1486 |      1802 |
+| other          |       4157 |          511 |       555 |
+| total          |  **19271** |     **2726** |  **3078** |
 
 ## Dataset Creation
 
@@ -152,7 +164,7 @@ editorial guidelines to the decisions.”* (Urchs. et al., 2021)
 
 #### Who are the source language producers?
 
-German courts from Bavaria.
+German courts from Bavaria
 
 ### Annotations
 
@@ -185,17 +197,27 @@ anonymisation**, key-wording, and adding of editorial guidelines to the decision
 ### Other Known Limitations
 
 The SoMaJo Sentence Splitter has been used. Upon manual inspection of the dataset, we could see that the sentence
-splitter had poor accuracy in some cases (see ```analyze_dataset()``` in ```convert_to_hf_dataset.py```).
+splitter had poor accuracy in some cases (see ```analyze_dataset()``` in ```convert_to_hf_dataset.py```). When creating
+the splits, we thought about merging small sentences with their neighbors or removing them all together. However, since
+we could not find an straightforward way to do this, we decided to leave the dataset content untouched.
 
-Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that, differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to the bibliographical references and the original Github repositories and/or web pages provided in this dataset card.
+Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton
+Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset
+consisting of several other datasets from different sources requires postprocessing. Therefore, the structure of the
+dataset at hand, including the folder structure, may differ considerably from the original dataset. In addition to that,
+differences with regard to dataset statistics as give in the respective papers can be expected. The reader is advised to
+have a look at the conversion script ```convert_to_hf_dataset.py``` in order to retrace the steps for converting the
+original dataset into the present jsonl-format. For further information on the original dataset structure, we refer to
+the bibliographical references and the original Github repositories and/or web pages provided in this dataset card.
 
 ## Additional Information
 
 ### Dataset Curators
 
-The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
-Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
-
+The names of the original dataset curators and creators can be found in references given below, in the section *Citation
+Information*. Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch)
+; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch)
+; [Github](https://github.com/kapllan)).
 
 ### Licensing Information
 

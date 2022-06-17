@@ -116,3 +116,14 @@ test.to_json("test.jsonl", lines=True, orient="records")
 # link to splits is given via file_number
 df = df.drop(['decision_reasons'], axis=1)
 df.to_json("meta.jsonl", lines=True, orient="records")
+
+# split sizes: train 19271, validation 2726, test 3078
+print("train split size: ", len(train.index))
+print("validation split size: ", len(validation.index))
+print("test split size: ", len(test.index))
+
+
+# print label statistics for judgment config
+print(train.label.value_counts())
+print(validation.label.value_counts())
+print(test.label.value_counts())
