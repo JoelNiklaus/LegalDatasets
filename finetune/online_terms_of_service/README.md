@@ -116,47 +116,42 @@ Joel Niklaus created the splits manually. The train split contains the 20 (80%) 
 validation split contains the 2 (8%) companies Tumblr and Uber. The test split contains the 3 (12%) companies Weebly,
 Yelp, Zynga.
 
-Label Distribution
+There are two configurations present in this dataset.
 
-| tag           |    train | validation |    test |
-|:--------------|---------:|-----------:|--------:|
-| ltd2          |      632 |         76 |     133 |
-| ch2           |      245 |         32 |      29 |
-| ter2          |      202 |          6 |      34 |
-| use2          |      147 |         14 |      28 |
-| j3            |      105 |          8 |      28 |
-| a2            |       92 |          6 |      17 |
-| ter3          |       71 |         20 |      17 |
-| law2          |       68 |          7 |      18 |
-| cr3           |       61 |          3 |      12 |
-| j3 law2       |       50 |        nan |     nan |
-| cr2           |       50 |          1 |      24 |
-| ltd1          |       48 |          4 |      17 |
-| law1          |       45 |          1 |       7 |
-| use2 pinc2    |       36 |        nan |       4 |
-| pinc2         |       35 |        nan |       4 |
-| j1            |       34 |        nan |       8 |
-| ch2 ter3      |       21 |          9 |      13 |
-| cr2 ter2      |       20 |        nan |     nan |
-| j1 law1       |       15 |        nan |     nan |
-| a1            |       14 |        nan |     nan |
-| ch2 ter2      |       12 |        nan |     nan |
-| ltd2 ter3     |       11 |        nan |       4 |
-| a3            |       11 |        nan |       4 |
-| ch2 ltd2 ter3 |        7 |          4 |       7 |
-| cr3 ter3      |        5 |        nan |       4 |
-| ch2 cr3       |        4 |        nan |     nan |
-| ch2 cr2 ter2  |        4 |        nan |     nan |
-| cr2 ltd2      |        4 |        nan |     nan |
-| ltd3          |        4 |        nan |     nan |
-| cr3 ter2      |        4 |        nan |     nan |
-| ch2 ltd2      |        4 |        nan |     nan |
-| ch2 ltd2 ter2 |        4 |        nan |     nan |
-| ch2 cr2       |        3 |        nan |     nan |
-| j1 j3         |        2 |        nan |     nan |
-| ch3           |        2 |        nan |     nan |
-| ch2 use2      |        2 |        nan |     nan |
-| **total**     | **2074** |    **191** | **417** |
+#### Clause Topics
+
+By only considering the clause topic, we separated the clause topic from the fairness level classification. Thus, the label set could be reduced to just 9 classes.
+This dataset poses a multi-label multi-class sentence classification problem.
+
+| clause topic          |       train |       validation |       test |
+|:----------------------|------------:|-----------------:|-----------:|
+| a                     |         117 |                6 |         21 |
+| ch                    |         308 |               45 |         53 |
+| cr                    |         155 |                4 |         44 |
+| j                     |         206 |                8 |         36 |
+| law                   |         178 |                8 |         26 |
+| ltd                   |         714 |               84 |        161 |
+| ter                   |         361 |               39 |         83 |
+| use                   |         185 |               14 |         32 |
+| pinc                  |          71 |                0 |          8 |
+| **total occurrences** |    **2295** |          **208** |    **464** |
+| **split size**        |   **19942** |         **1690** |   **4297** |
+
+
+#### Unfairness Levels
+
+In this configuration, all untagged sentences are removed. This reduces the dataset size considerably.
+This dataset poses a single-label multi-class sentence classification problem.
+
+| unfairness_level      |      train |      validation |      test |
+|:----------------------|-----------:|----------------:|----------:|
+| potentially_unfair    |       1560 |             142 |       291 |
+| clearly_unfair        |        259 |              31 |        65 |
+| clearly_fair          |        156 |               5 |        32 |
+| **total**             |   **1975** |         **178** |   **388** |
+
+
+
 
 ## Dataset Creation
 
