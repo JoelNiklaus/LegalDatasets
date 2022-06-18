@@ -107,6 +107,22 @@ All annotated sentences combined have the following split:
 
 The splits have been performed on each country and have later been merged. Therefore, each split contains sentences from each country.
 
+The following Label Distribution shows the number of occurrences per label per split. `total_occurrences` sums up the previous rows. `split_size` is the number of sentences per split.
+
+| Event                 |       train |       validation |       test |
+|:----------------------|------------:|-----------------:|-----------:|
+| event1                |         387 |               56 |         47 |
+| event2                |         253 |               39 |         42 |
+| event3                |         426 |               71 |         62 |
+| event4                |         630 |               77 |         94 |
+| event5                |          52 |                4 |          6 |
+| event6                |          16 |                2 |          1 |
+| event7                |          45 |                4 |          5 |
+| event8                |         146 |               21 |         19 |
+| **total occurrences** |    **1955** |          **274** |    **276** |
+| **split size**        |    **3501** |          **442** |    **442** |
+
+
 ## Dataset Creation
 
 ### Curation Rationale

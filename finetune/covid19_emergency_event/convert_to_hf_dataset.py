@@ -23,7 +23,20 @@ def save_splits_to_jsonl(config_name):
 
 save_splits_to_jsonl("")
 
-# split sizes: train 3501, validation 442, test 442
-print("train split size: ", len(train.index))
-print("validation split size: ", len(validation.index))
-print("test split size: ", len(test.index))
+def print_split_table_multi_label(splits, label_names):
+    data = {split_name: {} for split_name in splits.keys()}
+    for split_name, split in splits.items():
+        sum = 0
+        for label_name in label_names:
+            counts = split[label_name].value_counts()
+            data[split_name][label_name] = counts[True] if True in counts else 0
+            sum += data[split_name][label_name]
+        data[split_name]["total occurrences"] = sum
+        data[split_name]["split size"] = len(split.index)
+    table = pd.DataFrame(data)
+
+    print(table.to_markdown())
+
+
+print_split_table_multi_label({"train": train, "validation": validation, "test": test}, label_cols)
+

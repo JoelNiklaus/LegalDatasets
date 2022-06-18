@@ -117,13 +117,22 @@ test.to_json("test.jsonl", lines=True, orient="records")
 df = df.drop(['decision_reasons'], axis=1)
 df.to_json("meta.jsonl", lines=True, orient="records")
 
-# split sizes: train 19271, validation 2726, test 3078
-print("train split size: ", len(train.index))
-print("validation split size: ", len(validation.index))
-print("test split size: ", len(test.index))
+
+def print_split_table_single_label(train, validation, test, label_name):
+    train_counts = train[label_name].value_counts().to_frame().rename(columns={label_name: "train"})
+    validation_counts = validation[label_name].value_counts().to_frame().rename(columns={label_name: "validation"})
+    test_counts = test[label_name].value_counts().to_frame().rename(columns={label_name: "test"})
+
+    table = train_counts.join(validation_counts)
+    table = table.join(test_counts)
+    table[label_name] = table.index
+    total_row = {label_name: "total",
+                 "train": len(train.index),
+                 "validation": len(validation.index),
+                 "test": len(test.index)}
+    table = table.append(total_row, ignore_index=True)
+    table = table[[label_name, "train", "validation", "test"]]  # reorder columns
+    print(table.to_markdown(index=False))
 
 
-# print label statistics for judgment config
-print(train.label.value_counts())
-print(validation.label.value_counts())
-print(test.label.value_counts())
+print_split_table_single_label(train, validation, test, "label")
