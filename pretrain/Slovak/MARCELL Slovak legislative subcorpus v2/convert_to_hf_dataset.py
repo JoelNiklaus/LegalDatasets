@@ -5,6 +5,10 @@ import os
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
+from pandarallel import pandarallel
+
+pandarallel.initialize(progress_bar=True)
+
 '''
 You can download the corpus here: https://elrc-share.eu/repository/browse/marcell-slovak-legislative-subcorpus-v2/6bdee1d68c8311eb9c1a00155d0267063398d3f1a3af40e1b728468dcbd6efdd/
 '''
@@ -34,9 +38,9 @@ def format_xml_file(path_to_file:str)->dict:
             item['url']=x['url']
         except:
             item['url']=''
-        item['language']='Polish'
+        item['language']='Slovak'
         item['type']='legislation'
-        item['jurisdiction']='Poland'
+        item['jurisdiction']='Slovakia'
         item['metadata']=dict()
         try:
             item['metadata']['type']=x['type']
@@ -93,9 +97,16 @@ path= 'archive/' #Path to the downloaded folder
 path = Path(path)
 
 files = [f for f in path.glob('**/*') if f.is_file()]
-files = [x for x in files if str(x).endswith('xml')]
+files = [x for x in files if str(x).endswith('xml')][:100]
 print('Number of documents to be processed: ', len(files))
-files_as_dict = [format_xml_file(x) for x in tqdm(files)]
-df = pd.DataFrame(files_as_dict)
+
+df = pd.DataFrame(files,columns=['path'])
+df['item']=df.path.parallel_apply(lambda x: format_xml_file(x))
+
+items = df.item.tolist()
+df = pd.DataFrame(items)
+
+#files_as_dict = [format_xml_file(x) for x in tqdm(files)]
+#df = pd.DataFrame(files_as_dict)
 
 df.to_json('Slovak_Slovakia_MARCELL_Slovak_legislative_subcorpus_v2.jsonl',force_ascii=False,orient='records', lines=True,indent=2)
