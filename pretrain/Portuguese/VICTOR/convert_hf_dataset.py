@@ -69,7 +69,7 @@ doc_type_translator_dic['agravo_em_recurso_extraordinario']='grievance in extrao
 
 victor_df['id']=victor_df.index
 print('Translating the tags into English:')
-victor_df['type']=victor_df.document_type.apply(lambda x: doc_type_translator_dic[x])
+victor_df['type']=victor_df.document_type.apply(lambda x: doc_type_translator_dic[str(x).strip()])
 victor_df['language']='Brazilian Portuguese'
 victor_df['jurisdiction']='Brazil'
 victor_df['title']=''
@@ -84,7 +84,7 @@ for i, r in victor_df.iterrows():
     meta['themes']= victor_df.at[i,'themes']
     meta['file_name']= victor_df.at[i,'file_name']
     meta['pages']= victor_df.at[i,'pages']
-    meta['document_type']= victor_df.at[i,'document_type']
+    #meta['document_type']= victor_df.at[i,'type']
     victor_df.at[i,'meta']=meta
     
 for col in ['themes', 'process_id', 'file_name', 'document_type', 'pages', 'body']:

@@ -5,6 +5,10 @@ import os
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
+from pandarallel import pandarallel
+
+pandarallel.initialize(progress_bar=True)
+
 '''
 You can download the corpus here: https://elrc-share.eu/repository/browse/marcell-polish-legislative-subcorpus-v2/dd14fa1c8d6811eb9c1a00155d026706c4718ddc9c6e4a92a88923816ca8b219/
 '''
@@ -95,7 +99,14 @@ path = Path(path)
 files = [f for f in path.glob('**/*') if f.is_file()]
 files = [x for x in files if str(x).endswith('xml')]
 print('Number of documents to be processed: ', len(files))
-files_as_dict = [format_xml_file(x) for x in tqdm(files)]
-df = pd.DataFrame(files_as_dict)
+
+df = pd.DataFrame(files,columns=['path'])
+df['item']=df.path.parallel_apply(lambda x: format_xml_file(x))
+
+items = df.item.tolist()
+df = pd.DataFrame(items)
+
+#files_as_dict = [format_xml_file(x) for x in tqdm(files)]
+#df = pd.DataFrame(files_as_dict)
 
 df.to_json('Polish_Poland_MARCELL_Polish_legislative_subcorpus_v2.jsonl',force_ascii=False,orient='records', lines=True,indent=2)
