@@ -59,7 +59,7 @@ task_ids:
 
 ### Dataset Summary
 
-This dataset contains an annotated corpus for named entity recognition as well named entity linking in Greek legislations. It is is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum, for both entity recognition and linking.
+This dataset contains an annotated corpus for named entity recognition as well as named entity linking in Greek legislations. It is is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum, for both entity recognition and linking.
 
 ### Supported Tasks and Leaderboards
 

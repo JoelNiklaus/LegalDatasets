@@ -83,24 +83,20 @@ English, German, Italian, and Polish.
 
 ### Data Instances
 
-The dataset contains two main folders: `original_text` and `original_xml`. Each folder contains the subfolders `de`(
-=German), `en`(=English), `it`(=Italian), `pl`(=Polish); each of them containing documents with the ToS for the
-following Services: *Booking, Dropbox, Electronic_Arts, Evernote, Facebook, Garmin, Google, Grindr, Linkedin, Mozilla,
-Pinterest, Quora, Ryanair, Skype, Skyscanner, Snap, Spotify, Terravision, Tinder, Tripadvisor, Tumblr, Uber, Weebly,
-Yelp, Zynga*. The `original_text` folder contains txt files the and `original_xml` folder contains annotated xml files.
+The file format is jsonl and three data splits are present (train, validation and test).
 
 ### Data Fields
 
-The xml files in the folder `original_xml` have been annotated using nine tags that represent different categories of clause unfairness. These tags are:
--	`<a>` = Arbitration: *”This clause requires or allows the parties to resolve their disputes through an arbitration process, before the case could go to court. It is therefore considered a kind of forum selection clause. However, such a clause may or may not specify that arbitration should occur within a specific jurisdiction. Clauses stipulating that the arbitration should (1) take place in a state other than the state of consumer’s residence and/or (2) be based not on law but on arbiter’s discretion were marked as clearly unfair.”* (Lippi et al., 2019)
+The documents have been annotated using nine tags that represent different categories of clause unfairness. These tags are:
+- `<a>` = Arbitration: *”This clause requires or allows the parties to resolve their disputes through an arbitration process, before the case could go to court. It is therefore considered a kind of forum selection clause. However, such a clause may or may not specify that arbitration should occur within a specific jurisdiction. Clauses stipulating that the arbitration should (1) take place in a state other than the state of consumer’s residence and/or (2) be based not on law but on arbiter’s discretion were marked as clearly unfair.”* (Lippi et al., 2019)
 - `<ch>` = Unilateral change: *"This clause specifies the conditions under which the service provider could amend and modify the terms of service and/or the service itself. Such clauses were always considered as potentially unfair. This is because the ECJ has not yet issued a judgment in this regard, though the Annex to the Direc- tive contains several examples supporting such a qualification."* (Lippi et al., 2019)
 - `<cr>` = Content removal : *"This gives the provider a right to modify/delete user’s content, including in-app purchases, and sometimes specifies the conditions under which the service provider may do so. As in the case of unilateral termination, clauses that indicate conditions for content removal were marked as potentially unfair, whereas clauses stipulating that the service provider may remove content in his full discretion, and/or at any time for any or no reasons and/or without notice nor possibility to retrieve the content were marked as clearly unfair."* (Lippi et al., 2019)
 - `<j>` = Jurisdiction : *"This type of clause stipulates what courts will have the competence to adjudicate disputes under the contract. Jurisdiction clauses giving consumers a right to bring disputes in their place of residence were marked as clearly fair, whereas clauses stating that any judicial proceeding takes a residence away (i.e. in a different city, different country) were marked as clearly unfair. This assessment is grounded in ECJ’s case law, see for example Oceano case number C-240/98."* (Lippi et al., 2019)
 - `<law>` = Choice of law: *"This clause specifies what law will govern the contract, meaning also what law will be applied in potential adjudication of a dispute arising under the contract. Clauses defining the applicable law as the law of the consumer’s country of residence were marked as clearly fair [...]"* (Lippi et al., 2019)
 - `<ltd>` = Limitation of liability: *"This clause stipulates that the duty to pay damages is limited or excluded, for certain kinds of losses and under certain conditions. Clauses that explicitly affirm non-excludable providers’ liabilities were marked as clearly fair."* (Lippi et al., 2019)
--	`<ter>` = Unilateral termination:  *"This clause gives provider the right to suspend and/or terminate the service and/or the contract, and sometimes details the circumstances under which the provider claims to have a right to do so. Unilateral termination clauses that specify reasons for termination were marked as potentially unfair. Whereas clauses stipulating that the service provider may suspend or terminate the service at any time for any or no reasons and/or without notice were marked as clearly unfair."* (Lippi et al., 2019)
--	`<use>` = Contract by using: *"This clause stipulates that the consumer is bound by the terms of use of a specific service, simply by using the service, without even being required to mark that he or she has read and accepted them. We always marked such clauses as potentially unfair. The reason for this choice is that a good argument can be offered for these clauses to be unfair, because they originate an imbalance in rights and duties of the parties, but this argument has no decisive authoritative backing yet, since the ECJ has never assessed a clause of this type."* (Lippi et al., 2019)
--	`<pinc>` = Privacy included: This tag identifies *"clauses stating that consumers consent to the privacy policy simply by using the service. Such clauses have been always considered potentially unfair"* (Drawzeski et al., 2021)
+- `<ter>` = Unilateral termination:  *"This clause gives provider the right to suspend and/or terminate the service and/or the contract, and sometimes details the circumstances under which the provider claims to have a right to do so. Unilateral termination clauses that specify reasons for termination were marked as potentially unfair. Whereas clauses stipulating that the service provider may suspend or terminate the service at any time for any or no reasons and/or without notice were marked as clearly unfair."* (Lippi et al., 2019)
+- `<use>` = Contract by using: *"This clause stipulates that the consumer is bound by the terms of use of a specific service, simply by using the service, without even being required to mark that he or she has read and accepted them. We always marked such clauses as potentially unfair. The reason for this choice is that a good argument can be offered for these clauses to be unfair, because they originate an imbalance in rights and duties of the parties, but this argument has no decisive authoritative backing yet, since the ECJ has never assessed a clause of this type."* (Lippi et al., 2019)
+- `<pinc>` = Privacy included: This tag identifies *"clauses stating that consumers consent to the privacy policy simply by using the service. Such clauses have been always considered potentially unfair"* (Drawzeski et al., 2021)
 
 *”We assumed that each type of clause could be classified as either clearly fair, or potentially unfair, or clearly unfair. In order to mark the different degrees of (un)fairness we appended a numeric value to each XML tag, with 1 meaning clearly fair, 2 potentially unfair, and 3 clearly unfair. Nested tags were used to annotate text segments relevant to more than one type of clause. With clauses covering multiple paragraphs, we chose to tag each paragraph separately, possibly with different degrees of (un)fairness.”* (Lippi et al., 2019)
 
@@ -112,9 +108,10 @@ This resulted in the following list of XML tags: `a1`, `a2`, `a3`, `ch2`, `ch3`,
 
 No splits provided in the original paper.
 
-Joel Niklaus created the splits manually. The train split contains the 20 (80%) first companies in alphabetic order. The
-validation split contains the 2 (8%) companies Tumblr and Uber. The test split contains the 3 (12%) companies Weebly,
-Yelp, Zynga.
+Joel Niklaus created the splits manually. The train split contains the 20 (80%) first companies in alphabetic order (*Booking, Dropbox, Electronic_Arts, Evernote, Facebook, Garmin, Google, Grindr, Linkedin, Mozilla,
+Pinterest, Quora, Ryanair, Skype, Skyscanner, Snap, Spotify, Terravision, Tinder, Tripadvisor*). The
+validation split contains the 2 (8%) companies *Tumblr* and *Uber*. The test split contains the 3 (12%) companies *Weebly*,
+*Yelp*, *Zynga*.
 
 There are two configurations present in this dataset.
 
@@ -122,6 +119,9 @@ There are two configurations present in this dataset.
 
 By only considering the clause topic, we separated the clause topic from the fairness level classification. Thus, the label set could be reduced to just 9 classes.
 This dataset poses a multi-label multi-class sentence classification problem.
+
+The following label distribution shows the number of occurrences per label per split. `total_occurrences` sums up the previous rows. `split_size` is the number of sentences per split.
+
 
 | clause topic          |       train |       validation |       test |
 |:----------------------|------------:|-----------------:|-----------:|
