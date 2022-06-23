@@ -29,6 +29,7 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
     ann_df.start = ann_df.start.astype(int)
     ann_df.end = ann_df.end.astype(int)
 
+    not_found_entities = 0
     annotated_sentences = []
     current_start_index = 0
     for sentence in sentences:
@@ -43,15 +44,20 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
         for _, row in relevant_annotations.iterrows():
             sent_start_index = row["start"] - doc_start_index
             sent_end_index = row["end"] - doc_start_index
-            char_span = doc.char_span(sent_start_index, sent_end_index, label=row["entity"])
+            char_span = doc.char_span(sent_start_index, sent_end_index, label=row["entity"], alignment_mode="expand")
             # ent_span = Span(doc, char_span.start, char_span.end, row["entity"])
             if char_span:
                 doc.set_ents([char_span])
+            else:
+                not_found_entities += 1
+                print(f"Could not find entity `{row['entity_text']}` in sentence `{sentence}`")
 
         ann_sent["words"] = [str(tok) for tok in doc]
         ann_sent["ner"] = [tok.ent_type_ if tok.ent_type_ else "O" for tok in doc]
 
         annotated_sentences.append(ann_sent)
+
+    print(f"Did not find entities in {not_found_entities} cases")
     return annotated_sentences
 
 
