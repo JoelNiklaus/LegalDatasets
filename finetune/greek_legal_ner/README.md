@@ -22,7 +22,7 @@ task_ids:
 - named-entity-linking
 ---
 
-# Dataset Card for Greek Legal Named Entity Recognition and Linking
+# Dataset Card for Greek Legal Named Entity Recognition
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
@@ -59,11 +59,11 @@ task_ids:
 
 ### Dataset Summary
 
-This dataset contains an annotated corpus for named entity recognition as well named entity linking in Greek legislations. It is is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum, for both entity recognition and linking.
+This dataset contains an annotated corpus for named entity recognition in Greek legislations. It is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum, for both entity recognition and linking.
 
 ### Supported Tasks and Leaderboards
 
-The dataset supports the task of named entity recognition and named entity linking.
+The dataset supports the task of named entity recognition.
 
 ### Languages
 
@@ -73,15 +73,18 @@ The language in the dataset is Greek as it used in the Greek Government Gazette.
 
 ### Data Instances
 
-The ENTITY RECOGNITION folder contains the annotated dataset we used to evaluate our NER component. It is already split into TEST, TRAIN and VALIDATION. Each of these folders contains the .txt (original document) and .ann (files with the annotations and offsets
-they are found in the text) files .
+The file format is jsonl and three data splits are present (train, validation and test).
+
 
 ### Data Fields
 
-The main data fields in the ann-file are tab-seperated and the following:
-- `ID`: The id of the annotation of the text
-- `entity information`: This field is seperated by spaces and contains the following information:
-  - `LABEL`: The annotation class (the class that entity was classified as). The list of labels for the named entities that are covered by the dataset are the following:
+The files contain the following data fields
+- `date`: The date when the document was published.
+- `gazette`: The government gazette of the document. Either `A` or `D`
+  - `A` is the general one, publishing standard legislation
+  - `D` is meant for legislation on urban planning and such things
+- `words`: The list of tokens obtained by applying the spacy (v 3.3.1) Greek tokenizer on the sentences. For more information see `convert_to_hf_dataset.py`.  
+- `ner`: The list of ner tags. The list of labels for the named entities that are covered by the dataset are the following:
     - `FACILITY`: Facilities, such as police stations, departments etc.
     - `GPE`: Geopolitical Entity; any reference to a geopolitical entity (e.g., country, city, Greek administrative unit, etc.)
     - `LEG-REFS`: Legislation Reference; any reference to Greek or European legislation (e.g., Presidential Decrees, Laws, Decisions, EU Regulations and Directives, etc.)
@@ -90,9 +93,7 @@ The main data fields in the ann-file are tab-seperated and the following:
     - `ORG`: Organization; any reference to a public or private organization, such as: international organizations (e.g., European Union, United Nations, etc.), Greek public organizations (e.g., Social Insurance Institution) or private ones (e.g., companies, NGOs, etc.).
     - `PERSON`: Any formal name of a person mentioned in the text (e.g., Greek government members, public administration officials, etc.).
     - `PUBLIC-DOCS`: Public Document Reference; any reference to documents or decisions that have been published by a public institution (organization) that are not considered a primary source of legislation (e.g., local decisions, announcements, memorandums, directives).
-  - `START`: Index of the character within a document where the respective named entity starts.
-  - `END`: Index of the character within a document where the respective named entity ends.
-- `STRING`: Span within the document that represents the named entity.
+    - `O`: No entity annotation present
 
 ### Data Splits
 
@@ -108,32 +109,32 @@ The dataset has three splits: *train*, *validation* and *test*.
 
 - Split accross NER labels
 
-| NER label + split                               |   number of instances |
-|:-------------------------------|-------:|
-| ('FACILITY', 'test')           |    142 |
-| ('FACILITY', 'train')          |   1224 |
-| ('FACILITY', 'validation')     |     60 |
-| ('GPE', 'test')                |   1083 |
-| ('GPE', 'train')               |   5400 |
-| ('GPE', 'validation')          |   1214 |
-| ('LEG-REFS', 'test')           |   1331 |
-| ('LEG-REFS', 'train')          |   5159 |
-| ('LEG-REFS', 'validation')     |   1382 |
-| ('LOCATION-NAT', 'test')       |     26 |
-| ('LOCATION-NAT', 'train')      |    145 |
-| ('LOCATION-NAT', 'validation') |      2 |
-| ('LOCATION-UNK', 'test')       |    205 |
-| ('LOCATION-UNK', 'train')      |   1316 |
-| ('LOCATION-UNK', 'validation') |    283 |
-| ('ORG', 'test')                |   1354 |
-| ('ORG', 'train')               |   5906 |
-| ('ORG', 'validation')          |   1506 |
-| ('PERSON', 'test')             |    491 |
-| ('PERSON', 'train')            |   1921 |
-| ('PERSON', 'validation')       |    475 |
-| ('PUBLIC-DOCS', 'test')        |    452 |
-| ('PUBLIC-DOCS', 'train')       |   2652 |
-| ('PUBLIC-DOCS', 'validation')  |    556 |
+| NER label + split                              |   number of instances |
+|:-----------------------------------------------|----------------------:|
+| ('FACILITY', 'test')                           |                   142 |
+| ('FACILITY', 'train')                          |                  1224 |
+| ('FACILITY', 'validation')                     |                    60 |
+| ('GPE', 'test')                                |                  1083 |
+| ('GPE', 'train')                               |                  5400 |
+| ('GPE', 'validation')                          |                  1214 |
+| ('LEG-REFS', 'test')                           |                  1331 |
+| ('LEG-REFS', 'train')                          |                  5159 |
+| ('LEG-REFS', 'validation')                     |                  1382 |
+| ('LOCATION-NAT', 'test')                       |                    26 |
+| ('LOCATION-NAT', 'train')                      |                   145 |
+| ('LOCATION-NAT', 'validation')                 |                     2 |
+| ('LOCATION-UNK', 'test')                       |                   205 |
+| ('LOCATION-UNK', 'train')                      |                  1316 |
+| ('LOCATION-UNK', 'validation')                 |                   283 |
+| ('ORG', 'test')                                |                  1354 |
+| ('ORG', 'train')                               |                  5906 |
+| ('ORG', 'validation')                          |                  1506 |
+| ('PERSON', 'test')                             |                   491 |
+| ('PERSON', 'train')                            |                  1921 |
+| ('PERSON', 'validation')                       |                   475 |
+| ('PUBLIC-DOCS', 'test')                        |                   452 |
+| ('PUBLIC-DOCS', 'train')                       |                  2652 |
+| ('PUBLIC-DOCS', 'validation')                  |                   556 |
 
 
 
@@ -151,7 +152,7 @@ Creating a big dataset for Greek named entity recognition and entity linking.
 
 #### Who are the source language producers?
 
-Greek Government Gazette.
+Greek Government Gazette
 
 ### Annotations
 
