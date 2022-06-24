@@ -10,11 +10,19 @@ import pandas as pd
 
 from spacy.lang.ro import Romanian
 
+import sys
+
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_columns', None)
 
 base_path = Path("legalnero")
 tokenizer = Romanian().tokenizer
+
+def read_text_file(path_to_textfile):
+    
+    text = open(path_to_textfile,'r').readlines()
+    #text = [t.replace(chr(0xa0), ' ') for t in text]
+    return text
 
 
 # A and D are different government gazettes
@@ -24,7 +32,9 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
     """Processes one document (.ann file and .txt file) and returns a list of annotated sentences"""
     # read the ann file into a df
     ann_df = pd.read_csv(ann_file, sep="\t", header=None, names=["id", "entity_with_span", "entity_text"])
-    sentences = [sent for sent in text_file.read_text().split("\n") if sent]  # remove empty sentences
+    #sentences = [sent for sent in text_file.read_text().split("\n")]  # remove empty sentences
+    sentences = read_text_file(text_file)
+    
 
     # split into individual columns
     ann_df[["entity", "start", "end"]] = ann_df["entity_with_span"].str.split(" ", expand=True)
@@ -47,7 +57,7 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
 
         relevant_annotations = ann_df[(ann_df.start >= doc_start_index) & (ann_df.end <= doc_end_index)]
         for _, row in relevant_annotations.iterrows():
-            matches = list(re.finditer(row["entity_text"], sentence))
+            matches = list(re.finditer(re.escape(row["entity_text"]), sentence))
             if matches:
                 for m in matches:
                     # print(row["entity_text"], m.start(), m.end())
@@ -63,13 +73,15 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
                 sent_index = sentences.index(sentence)
                 # print(sentences[sent_index-1])
                 print(f"Could not find entity `{row['entity_text']}` in sentence `{sentence}`")
+                print(ann_file)
+                #sys.exit()
 
         ann_sent["words"] = [str(tok) for tok in doc]
         ann_sent["ner"] = [tok.ent_type_ if tok.ent_type_ else "O" for tok in doc]
 
         annotated_sentences.append(ann_sent)
-
-    print(f"Did not find entities in {not_found_entities} cases")
+    if not_found_entities >0:
+        print(f"Did not find entities in {not_found_entities} cases")
     return annotated_sentences
 
 
@@ -90,21 +102,21 @@ def read_to_df():
 
 
 df, file_names = read_to_df()
-print(df)
+#print(df)
 
 # split by file_name
 num_fn = len(file_names)
 train_fn, validation_fn, test_fn = np.split(np.array(file_names), [int(.8 * num_fn), int(.9 * num_fn)])
 
 # Num file_names for each split: train (296), validation (37), test (37)
-print(len(train_fn), len(validation_fn), len(test_fn))
+#print(len(train_fn), len(validation_fn), len(test_fn))
 
 train = df[df.file_name.isin(train_fn)]
 validation = df[df.file_name.isin(validation_fn)]
 test = df[df.file_name.isin(test_fn)]
 
 # Num samples for each split: train (8444), validation (1068), test (1029)
-print(len(train.index), len(validation.index), len(test.index))
+#print(len(train.index), len(validation.index), len(test.index))
 
 
 # save splits
