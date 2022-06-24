@@ -82,8 +82,12 @@ def read_to_df():
 
 df, file_names = read_to_df()
 
-df = df[df.words.map(len) > 1]
+# last word is either "\n" or "-----" ==> remove
+df.words = df.words.apply(lambda x: x[:-1])
+df.ner = df.ner.apply(lambda x: x[:-1])
 
+# remove rows with containing only one word
+df = df[df.words.map(len) > 1]
 
 # split by file_name
 num_fn = len(file_names)
@@ -96,7 +100,7 @@ train = df[df.file_name.isin(train_fn)]
 validation = df[df.file_name.isin(validation_fn)]
 test = df[df.file_name.isin(test_fn)]
 
-# Num samples for each split: train (10691), validation (1358), test (1247)
+# Num samples for each split: train (7552), validation (966), test (907)
 print(len(train.index), len(validation.index), len(test.index))
 
 

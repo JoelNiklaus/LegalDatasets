@@ -91,7 +91,14 @@ The files contain the following data fields
 
 ### Data Splits
 
-Splits created by Joel Niklaus. The train split contains 296 documents (80%). The validation and the test splits each contain 37 documents (10% each).
+Splits created by Joel Niklaus. 
+
+
+| split          | number of documents | number of sentences |
+|:---------------|--------------------:|--------------------:|
+| train          |           296 (80%) |                7552 |
+| validation     |            37 (10%) |                 966 |
+| test           |            37 (10%) |                 907 |
 
 ## Dataset Creation
 
