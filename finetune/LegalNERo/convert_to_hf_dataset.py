@@ -44,16 +44,12 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
 
         relevant_annotations = ann_df[(ann_df.start >= doc_start_index) & (ann_df.end <= doc_end_index)]
         for _, row in relevant_annotations.iterrows():
-            matches = list(re.finditer(re.escape(row["entity_text"]), sentence))
-            if matches:
-                for m in matches:
-                    # old way of getting the indices: does not work with LegalNERo because of some strange formatting
-                    # sent_start_index = row["start"] - doc_start_index
-                    # sent_end_index = row["end"] - doc_start_index
-                    char_span = doc.char_span(m.start(), m.end(), label=row["entity"], alignment_mode="expand")
-                    # ent_span = Span(doc, char_span.start, char_span.end, row["entity"])
-                    if char_span:
-                        doc.set_ents([char_span])
+            sent_start_index = row["start"] - doc_start_index
+            sent_end_index = row["end"] - doc_start_index
+            char_span = doc.char_span(sent_start_index, sent_end_index, label=row["entity"], alignment_mode="expand")
+            # ent_span = Span(doc, char_span.start, char_span.end, row["entity"])
+            if char_span:
+                doc.set_ents([char_span])
             else:
                 not_found_entities += 1
                 print(f"Could not find entity `{row['entity_text']}` in sentence `{sentence}`")
@@ -85,6 +81,9 @@ def read_to_df():
 
 
 df, file_names = read_to_df()
+
+df = df[df.words.map(len) > 1]
+
 
 # split by file_name
 num_fn = len(file_names)
