@@ -58,7 +58,7 @@ task_ids:
 
 ### Dataset Summary
 
-LegalNERo is a manually annotated corpus for named entity recognition in the Romanian legal domain. It provides gold annotations for organizations, locations, persons, time and legal resources mentioned in legal documents. Additionally it offers GEONAMES codes for the named entities annotated as location (where a link could be established)
+LegalNERo is a manually annotated corpus for named entity recognition in the Romanian legal domain. It provides gold annotations for organizations, locations, persons, time and legal resources mentioned in legal documents. Additionally it offers GEONAMES codes for the named entities annotated as location (where a link could be established).
 
 ### Supported Tasks and Leaderboards
 
@@ -72,68 +72,26 @@ Since legal documents for LegalNERo are extracted from the larger [MARCELL-RO co
 
 ### Data Instances
 
-The LegalNERo corpus is available in different formats: span-based, token-based and RDF. 
-The Linguistic Linked Open Data (LLOD) version is provided in RDF-Turtle format.
+The file format is jsonl and three data splits are present (train, validation and test). Named Entity annotations are non-overlapping.
 
-CONLLUP files conform to the CoNLL-U Plus format https://universaldependencies.org/ext-format.html .
-Part-of-speech tagging was realized using UDPIPE. 
-Named entity annotations are placed in the column "RELATE:NE" (the 11th column) as defined in the "global.columns" metadata field.
-Similarly GEONAMES references are in the column "RELATE:GEONAMES" (the 12th column, last).
-Automatic processing was performed through the RELATE platform (https://relate.racai.ro).
-
-ANN files conform to BRAT format (https://brat.nlplab.org/).
- 
-The archive contains: 
-
-- ann_LEGAL_PER_LOC_ORG_TIME_overlap:
-    Folder in which all the files are in .ann format and contains annotations of: legal resources mentioned, persons, locations, organizations and time. 
-    Overlapping annotations of organizations and time entities inside legal references were allowed. The statistics in (Pais et al., 2021) are based on the files in this folder.
-
-- ann_LEGAL_PER_LOC_ORG_TIME: 
-    Folder in which all the files are in .ann format and contains annotations of: legal resources mentioned, persons, locations, organizations and time. 
-    Overlapping annotations were not allowed and only the longest named entities were annotated. 
-
-- ann_PER_LOC_ORG_TIME: 
-    Folder in which all the files are in .ann format and contains annotations of: persons, locations, organizations and time. 
-    There are no overlapping annotations. 
-
-- conllup_LEGAL_PER_LOC_ORG_TIME: 
-    Folder in which all the files are in .conllup format and contains annotations of: legal resources mentioned, persons, locations, organizations and time. 
-    Overlapping annotations were not allowed and only the longest named entities were annotated. 
-    The annotation of these files was enhanced with GEONAMES codes (where linking was possible).  
-
-- conllup_PER_LOC_ORG_TIME: 
-    Folder in which all the files are in .conllup format and contains annotations of: persons, locations, organizations and time. 
-    Overlapping annotations were not allowed and only the longest named entities were annotated. 
-    The annotation of these files was enhanced with GEONAMES codes (where linking was possible).
-
-- rdf 
-    Folder containing the corpus in RDF-Turtle format.
-    All the annotations are available here in both span and token format.
-
-- text 
-    Folder containing the raw texts.
+Rows only containing one word (mostly words such as `\t\t\t`, `\n` or `-----`) have been filtered out.
 
 ### Data Fields
 
-Below, we present the relevant fields for the .ann-files.
-
-The main data fields in the ann-file are tab-seperated and the following:
-- `ID`: The id of the annotation of the text
-- `entity information`: This field is seperated by spaces and contains the following information:
-  - `LABEL`: The annotation class (the class that entity was classified as). The list of labels for the named entities that are covered by the dataset are the following:
+The files contain the following data fields
+- `file_name`: The file_name of the applicable annotation document
+- `words`: The list of tokens obtained by applying the spacy (v 3.3.1) Greek tokenizer on the sentences. For more information see `convert_to_hf_dataset.py`.  
+- `ner`: The list of ner tags. The list of labels for the named entities that are covered by the dataset are the following:
     - `LEGAL`: Legal reference/resources 
     - `LOC`: Location
     - `ORG`: Organization
     - `PER`: Person
     - `TIME`: Time reference
-  - `START`: Index of the character within a document where the respective named entity starts.
-  - `END`: Index of the character within a document where the respective named entity ends.
-- `STRING`: Span within the document that represents the named entity.
+    - `O`: No entity annotation present
 
 ### Data Splits
 
-No split provided.
+Splits created by Joel Niklaus. The train split contains 296 documents (80%). The validation and the test splits each contain 37 documents (10% each).
 
 ## Dataset Creation
 

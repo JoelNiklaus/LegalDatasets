@@ -75,7 +75,6 @@ The language in the dataset is Greek as it used in the Greek Government Gazette.
 
 The file format is jsonl and three data splits are present (train, validation and test).
 
-
 ### Data Fields
 
 The files contain the following data fields
@@ -99,15 +98,15 @@ The files contain the following data fields
 
 The dataset has three splits: *train*, *validation* and *test*.
 
-- Split accross the documents:
+Split across the documents:
 
-| split   |   number of documents |
-|:-----------------|-------:|
-| test             |   5084 |
-| train            |  23723 |
-| validation       |   5478 |
+| split          | number of documents |
+|:---------------|--------------------:|
+| train          |               23723 |
+| validation     |                5478 |
+| test           |                5084 |
 
-- Split accross NER labels
+Split across NER labels
 
 | NER label + split                              |   number of instances |
 |:-----------------------------------------------|----------------------:|
