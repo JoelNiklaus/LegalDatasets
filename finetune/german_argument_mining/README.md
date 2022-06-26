@@ -78,7 +78,7 @@ the same. No judgments from 2020 are selected."* (Urchs. et al., 2021)
 
 ### Supported Tasks and Leaderboards
 
-The dataset can be used for multi-label text classification tasks, more specifically, for argument mining.
+The dataset can be used for multi-class text classification tasks, more specifically, for argument mining.
 
 ### Languages
 
