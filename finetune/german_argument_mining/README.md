@@ -69,7 +69,7 @@ definition, 53% (13,322) are marked as subsumption and the remaining 21% (6,481)
 sentences ranges from 38 to 862 sentences. The median of judgments have 97 sentences, the length of most judgments is on
 the shorter side."* (Urchs. et al., 2021)
 
-*"judgments from 22 of the 131 courts are selected for the corpus. Most judgments originate from the VG Augsburg (59 /
+*"Judgments from 22 of the 131 courts are selected for the corpus. Most judgments originate from the VG Augsburg (59 /
 30%) followed by the VG Ansbach (39 / 20%) and LSG Munich (33 / 17%)."* (Urchs. et al., 2021)
 
 *"29% (58) of all selected judgments are issued in the year 2016, followed by 22% (44) from the year 2017 and 21% (41)
