@@ -6,7 +6,7 @@ language_creators:
 languages:
 - el
 license:
-- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+- cc-by-nc-sa-4.0
 multilinguality:
 - monolingual
 paperswithcode_id: null
