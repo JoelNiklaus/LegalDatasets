@@ -10,7 +10,7 @@ languages:
 - it
 - pl
 license:
-- cc-by-nc-2.5
+- other
 multilinguality:
 - multilingual
 pretty_name: A Corpus for Multilingual Analysis of Online Terms of Service
@@ -233,7 +233,7 @@ Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [G
 
 ### Licensing Information
 
-[More Information Needed]
+cc-by-nc-2.5
 
 ### Citation Information
 
