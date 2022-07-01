@@ -5,7 +5,7 @@ language_creators:
 - found
 languages:
 - el
-licenses:
+license:
 - Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 multilinguality:
 - monolingual

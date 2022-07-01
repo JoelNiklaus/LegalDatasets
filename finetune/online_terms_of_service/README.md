@@ -9,7 +9,7 @@ languages:
 - en
 - it
 - pl
-licenses:
+license:
 - cc-by-nc-2.5
 multilinguality:
 - multilingual
