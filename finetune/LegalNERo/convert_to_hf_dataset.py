@@ -13,7 +13,7 @@ from spacy.lang.ro import Romanian
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_columns', None)
 
-base_path = Path("legalnero")
+base_path = Path("legalnero-data")
 tokenizer = Romanian().tokenizer
 
 
