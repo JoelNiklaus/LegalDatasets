@@ -87,22 +87,25 @@ The file format is jsonl and three data splits are present (train, validation an
 
 ### Data Fields
 
+The dataset contains the following fields:
+- `language`: The language of the sentence/document.
+- `company`: The company of the document.
+- `line_number`: The line number of the sentence in the document.
+- `sentence`: The sentence to be classified.
+- `unfairness_level`: The unfairness level assigned to the sentence (if two clauses apply, the higher unfairness level is assigned here).
+
 The documents have been annotated using nine tags that represent different categories of clause unfairness. These tags are:
-- `<a>` = Arbitration: *”This clause requires or allows the parties to resolve their disputes through an arbitration process, before the case could go to court. It is therefore considered a kind of forum selection clause. However, such a clause may or may not specify that arbitration should occur within a specific jurisdiction. Clauses stipulating that the arbitration should (1) take place in a state other than the state of consumer’s residence and/or (2) be based not on law but on arbiter’s discretion were marked as clearly unfair.”* (Lippi et al., 2019)
-- `<ch>` = Unilateral change: *"This clause specifies the conditions under which the service provider could amend and modify the terms of service and/or the service itself. Such clauses were always considered as potentially unfair. This is because the ECJ has not yet issued a judgment in this regard, though the Annex to the Direc- tive contains several examples supporting such a qualification."* (Lippi et al., 2019)
-- `<cr>` = Content removal : *"This gives the provider a right to modify/delete user’s content, including in-app purchases, and sometimes specifies the conditions under which the service provider may do so. As in the case of unilateral termination, clauses that indicate conditions for content removal were marked as potentially unfair, whereas clauses stipulating that the service provider may remove content in his full discretion, and/or at any time for any or no reasons and/or without notice nor possibility to retrieve the content were marked as clearly unfair."* (Lippi et al., 2019)
-- `<j>` = Jurisdiction : *"This type of clause stipulates what courts will have the competence to adjudicate disputes under the contract. Jurisdiction clauses giving consumers a right to bring disputes in their place of residence were marked as clearly fair, whereas clauses stating that any judicial proceeding takes a residence away (i.e. in a different city, different country) were marked as clearly unfair. This assessment is grounded in ECJ’s case law, see for example Oceano case number C-240/98."* (Lippi et al., 2019)
-- `<law>` = Choice of law: *"This clause specifies what law will govern the contract, meaning also what law will be applied in potential adjudication of a dispute arising under the contract. Clauses defining the applicable law as the law of the consumer’s country of residence were marked as clearly fair [...]"* (Lippi et al., 2019)
-- `<ltd>` = Limitation of liability: *"This clause stipulates that the duty to pay damages is limited or excluded, for certain kinds of losses and under certain conditions. Clauses that explicitly affirm non-excludable providers’ liabilities were marked as clearly fair."* (Lippi et al., 2019)
-- `<ter>` = Unilateral termination:  *"This clause gives provider the right to suspend and/or terminate the service and/or the contract, and sometimes details the circumstances under which the provider claims to have a right to do so. Unilateral termination clauses that specify reasons for termination were marked as potentially unfair. Whereas clauses stipulating that the service provider may suspend or terminate the service at any time for any or no reasons and/or without notice were marked as clearly unfair."* (Lippi et al., 2019)
-- `<use>` = Contract by using: *"This clause stipulates that the consumer is bound by the terms of use of a specific service, simply by using the service, without even being required to mark that he or she has read and accepted them. We always marked such clauses as potentially unfair. The reason for this choice is that a good argument can be offered for these clauses to be unfair, because they originate an imbalance in rights and duties of the parties, but this argument has no decisive authoritative backing yet, since the ECJ has never assessed a clause of this type."* (Lippi et al., 2019)
-- `<pinc>` = Privacy included: This tag identifies *"clauses stating that consumers consent to the privacy policy simply by using the service. Such clauses have been always considered potentially unfair"* (Drawzeski et al., 2021)
+- `a` = Arbitration: *”This clause requires or allows the parties to resolve their disputes through an arbitration process, before the case could go to court. It is therefore considered a kind of forum selection clause. However, such a clause may or may not specify that arbitration should occur within a specific jurisdiction. Clauses stipulating that the arbitration should (1) take place in a state other than the state of consumer’s residence and/or (2) be based not on law but on arbiter’s discretion were marked as clearly unfair.”* (Lippi et al., 2019)
+- `ch` = Unilateral change: *"This clause specifies the conditions under which the service provider could amend and modify the terms of service and/or the service itself. Such clauses were always considered as potentially unfair. This is because the ECJ has not yet issued a judgment in this regard, though the Annex to the Direc- tive contains several examples supporting such a qualification."* (Lippi et al., 2019)
+- `cr` = Content removal : *"This gives the provider a right to modify/delete user’s content, including in-app purchases, and sometimes specifies the conditions under which the service provider may do so. As in the case of unilateral termination, clauses that indicate conditions for content removal were marked as potentially unfair, whereas clauses stipulating that the service provider may remove content in his full discretion, and/or at any time for any or no reasons and/or without notice nor possibility to retrieve the content were marked as clearly unfair."* (Lippi et al., 2019)
+- `j` = Jurisdiction : *"This type of clause stipulates what courts will have the competence to adjudicate disputes under the contract. Jurisdiction clauses giving consumers a right to bring disputes in their place of residence were marked as clearly fair, whereas clauses stating that any judicial proceeding takes a residence away (i.e. in a different city, different country) were marked as clearly unfair. This assessment is grounded in ECJ’s case law, see for example Oceano case number C-240/98."* (Lippi et al., 2019)
+- `law` = Choice of law: *"This clause specifies what law will govern the contract, meaning also what law will be applied in potential adjudication of a dispute arising under the contract. Clauses defining the applicable law as the law of the consumer’s country of residence were marked as clearly fair [...]"* (Lippi et al., 2019)
+- `ltd` = Limitation of liability: *"This clause stipulates that the duty to pay damages is limited or excluded, for certain kinds of losses and under certain conditions. Clauses that explicitly affirm non-excludable providers’ liabilities were marked as clearly fair."* (Lippi et al., 2019)
+- `ter` = Unilateral termination:  *"This clause gives provider the right to suspend and/or terminate the service and/or the contract, and sometimes details the circumstances under which the provider claims to have a right to do so. Unilateral termination clauses that specify reasons for termination were marked as potentially unfair. Whereas clauses stipulating that the service provider may suspend or terminate the service at any time for any or no reasons and/or without notice were marked as clearly unfair."* (Lippi et al., 2019)
+- `use` = Contract by using: *"This clause stipulates that the consumer is bound by the terms of use of a specific service, simply by using the service, without even being required to mark that he or she has read and accepted them. We always marked such clauses as potentially unfair. The reason for this choice is that a good argument can be offered for these clauses to be unfair, because they originate an imbalance in rights and duties of the parties, but this argument has no decisive authoritative backing yet, since the ECJ has never assessed a clause of this type."* (Lippi et al., 2019)
+- `pinc` = Privacy included: This tag identifies *"clauses stating that consumers consent to the privacy policy simply by using the service. Such clauses have been always considered potentially unfair"* (Drawzeski et al., 2021)
 
 *”We assumed that each type of clause could be classified as either clearly fair, or potentially unfair, or clearly unfair. In order to mark the different degrees of (un)fairness we appended a numeric value to each XML tag, with 1 meaning clearly fair, 2 potentially unfair, and 3 clearly unfair. Nested tags were used to annotate text segments relevant to more than one type of clause. With clauses covering multiple paragraphs, we chose to tag each paragraph separately, possibly with different degrees of (un)fairness.”* (Lippi et al., 2019)
-
-This resulted in the following list of XML tags: `a1`, `a2`, `a3`, `ch2`, `ch3`, `cr2`, `cr3`, `j1`, `j3`, `law1`, `law2`, `ltd1`, `ltd2`, `ltd3`, `pinc2`, `ter2`, `ter3`, `use2`.
-
-
 
 ### Data Splits
 
@@ -113,7 +116,7 @@ Pinterest, Quora, Ryanair, Skype, Skyscanner, Snap, Spotify, Terravision, Tinder
 validation split contains the 2 (8%) companies *Tumblr* and *Uber*. The test split contains the 3 (12%) companies *Weebly*,
 *Yelp*, *Zynga*.
 
-There are two configurations present in this dataset.
+There are two tasks possible for this dataset.
 
 #### Clause Topics
 
@@ -140,15 +143,17 @@ The following label distribution shows the number of occurrences per label per s
 
 #### Unfairness Levels
 
-In this configuration, all untagged sentences are removed. This reduces the dataset size considerably.
+When predicting unfairness levels, all untagged sentences can be removed. This reduces the dataset size considerably.
 This dataset poses a single-label multi-class sentence classification problem.
 
-| unfairness_level      |      train |      validation |      test |
-|:----------------------|-----------:|----------------:|----------:|
-| potentially_unfair    |       1560 |             142 |       291 |
-| clearly_unfair        |        259 |              31 |        65 |
-| clearly_fair          |        156 |               5 |        32 |
-| **total**             |   **1975** |         **178** |   **388** |
+| unfairness_level           |       train | validation |      test |
+|:---------------------------|------------:|-----------:|----------:|
+| untagged                   |       17868 |       1499 |      3880 |
+| potentially_unfair         |        1560 |        142 |       291 |
+| clearly_unfair             |         259 |         31 |        65 |
+| clearly_fair               |         156 |          5 |        32 |
+| **total without untagged** |    **1975** |    **178** |   **388** |
+| **total**                  |   **19942** |   **1690** |  **4297** |
 
 
 

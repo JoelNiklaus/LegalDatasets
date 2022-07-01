@@ -35,15 +35,17 @@ def read_companies(languages, companies):
                 levels = [int(tag[-1:]) for tag in tags[i].split(" ")] if tags[i] else []  # getting only the level
                 levels = list(set(levels))  # remove any duplicates
                 row = {"language": language, "company": company, "line_number": i, "sentence": sentences[i]}
-                for topic in clause_topics:
-                    row[topic] = True if topic in topics else False
-                # assign "untagged" if not annotated (levels empty) or multiple different levels present
-                if not levels or len(levels) > 1:
+                # assign "untagged" if not annotated (levels empty)
+                if not levels:
                     level = -1
+                elif len(levels) > 1:
+                    level = max(levels)  # if multiple different levels present, keep the highest level
                 else:  # there is exactly one level
                     level = levels[0]
                     assert level in [1, 2, 3]
                 row["unfairness_level"] = unfairness_levels[level]
+                for topic in clause_topics:
+                    row[topic] = True if topic in topics else False
 
                 data.append(row)
     return pd.DataFrame.from_records(data)
@@ -110,15 +112,7 @@ def print_split_table_single_label(train, validation, test, label_name):
     print(table.to_markdown(index=False))
 
 
-save_splits_to_jsonl("clause_topics")
+save_splits_to_jsonl("")
 
 print_split_table_multi_label({"train": train, "validation": validation, "test": test}, clause_topics)
-
-# remove all rows that don't have a fairness_level attached
-train = train[train.unfairness_level != "untagged"]
-validation = validation[validation.unfairness_level != "untagged"]
-test = test[test.unfairness_level != "untagged"]
-
-save_splits_to_jsonl("unfairness_levels")
-
 print_split_table_single_label(train, validation, test, "unfairness_level")
