@@ -120,7 +120,7 @@ There are two configurations present in this dataset.
 By only considering the clause topic, we separated the clause topic from the fairness level classification. Thus, the label set could be reduced to just 9 classes.
 This dataset poses a multi-label multi-class sentence classification problem.
 
-The following label distribution shows the number of occurrences per label per split. `total_occurrences` sums up the previous rows. `split_size` is the number of sentences per split.
+The following label distribution shows the number of occurrences per label per split. `total occurrences` sums up the previous rows (number of clause topics per split). `split size` is the number of sentences per split.
 
 
 | clause topic          |       train |       validation |       test |

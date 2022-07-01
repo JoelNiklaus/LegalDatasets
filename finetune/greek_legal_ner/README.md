@@ -10,7 +10,7 @@ licenses:
 multilinguality:
 - monolingual
 paperswithcode_id: null
-pretty_name: Greek Legal Named Entity Recognition and Linking
+pretty_name: Greek Legal Named Entity Recognition
 size_categories:
 - 10K<n<100K
 source_datasets:
@@ -19,7 +19,6 @@ task_categories:
 - token-classification
 task_ids:
 - named-entity-recognition
-- named-entity-linking
 ---
 
 # Dataset Card for Greek Legal Named Entity Recognition
@@ -59,7 +58,7 @@ task_ids:
 
 ### Dataset Summary
 
-This dataset contains an annotated corpus for named entity recognition in Greek legislations. It is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum, for both entity recognition and linking.
+This dataset contains an annotated corpus for named entity recognition in Greek legislations. It is the first of its kind for the Greek language in such an extended form and one of the few that examines legal text in a full spectrum entity recognition.
 
 ### Supported Tasks and Leaderboards
 

@@ -3,13 +3,45 @@ from pathlib import Path
 
 import pandas as pd
 
-label_cols = [f"event{i}"  for i in range(1,9)]
+# run pip install wget and pip install fasttext-langdetect for this to work
+from ftlangdetect import detect
+
+label_cols = [f"event{i}" for i in range(1, 9)]
 
 data_path = Path("COVID19_emergency_event-main/annotations")
 
-train = pd.read_csv(data_path / "all_train_or.tsv", sep='\t', index_col="id")
-validation = pd.read_csv(data_path / "all_dev_or.tsv", sep='\t', index_col="id")
-test = pd.read_csv(data_path / "all_test_or.csv", sep='\t', index_col="id")  # yes, it also has the tab as separator
+countries = ["belgium", "france", "hungary", "italy", "netherlands", "norway", "poland", "uk"]
+
+train, validation, test = pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+
+for country in countries:
+    country_train = pd.read_csv(data_path / country / "train_or.tsv", sep='\t', index_col="id")
+    country_validation = pd.read_csv(data_path / country / "dev_or.tsv", sep='\t', index_col="id")
+    country_test = pd.read_csv(data_path / country / "test_or.tsv", sep='\t', index_col="id")
+
+    country_train["country"] = country
+    country_validation["country"] = country
+    country_test["country"] = country
+
+    train = train.append(country_train)
+    validation = validation.append(country_validation)
+    test = test.append(country_test)
+
+# train = pd.read_csv(data_path / "all_train_or.tsv", sep='\t', index_col="id")
+# validation = pd.read_csv(data_path / "all_dev_or.tsv", sep='\t', index_col="id")
+# test = pd.read_csv(data_path / "all_test_or.csv", sep='\t', index_col="id")  # yes, it also has the tab as separator
+
+# recognize language
+train['language'] = train.text.apply(lambda x: detect(text=x, low_memory=False)['lang'])
+validation['language'] = validation.text.apply(lambda x: detect(text=x, low_memory=False)['lang'])
+test['language'] = test.text.apply(lambda x: detect(text=x, low_memory=False)['lang'])
+
+# reorder columns
+column_list = ["language", "country", "text"]
+column_list.extend(label_cols)
+train = train[column_list]
+validation = validation[column_list]
+test = test[column_list]
 
 
 # save splits
@@ -22,6 +54,7 @@ def save_splits_to_jsonl(config_name):
 
 
 save_splits_to_jsonl("")
+
 
 def print_split_table_multi_label(splits, label_names):
     data = {split_name: {} for split_name in splits.keys()}
@@ -39,4 +72,3 @@ def print_split_table_multi_label(splits, label_names):
 
 
 print_split_table_multi_label({"train": train, "validation": validation, "test": test}, label_cols)
-

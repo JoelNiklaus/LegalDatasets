@@ -84,7 +84,8 @@ The file format is jsonl and three data splits are present (train, validation an
 ### Data Fields
 
 The jsonl files have the following basic columns:
-- `id`: Sentence id
+- `language`: The language of the sentence (detected automatically with ftlangdetect)
+- `country`: The country of the sentence
 - `text`: Sentence that has been annotated
 
 The documents have been annotated with 8 labels, each label representing a specific measurement against COVID-19. Each label is represented by one field in the jsonl file. The labels, i.e. the specific measure classes, are:
@@ -101,26 +102,26 @@ The documents have been annotated with 8 labels, each label representing a speci
 ### Data Splits
 
 All annotated sentences combined have the following split:
-- train:  3501 (80%)
-- dev:  442 (10%)
-- test:  442 (10%)
+- train: 3312 (80%)
+- dev: 418 (10%)
+- test: 418 (10%)
 
 The splits have been performed on each country and have later been merged. Therefore, each split contains sentences from each country.
 
-The following label distribution shows the number of occurrences per label per split. `total_occurrences` sums up the previous rows. `split_size` is the number of sentences per split.
+The following label distribution shows the number of occurrences per label per split. `total occurrences` sums up the previous rows (total number of events per split). `split size` is the number of sentences per split.
 
-| Event                 |       train |       validation |       test |
-|:----------------------|------------:|-----------------:|-----------:|
-| event1                |         387 |               56 |         47 |
-| event2                |         253 |               39 |         42 |
-| event3                |         426 |               71 |         62 |
-| event4                |         630 |               77 |         94 |
-| event5                |          52 |                4 |          6 |
-| event6                |          16 |                2 |          1 |
-| event7                |          45 |                4 |          5 |
-| event8                |         146 |               21 |         19 |
-| **total occurrences** |    **1955** |          **274** |    **276** |
-| **split size**        |    **3501** |          **442** |    **442** |
+| Event                 |     train | validation |      test |
+|:----------------------|----------:|-----------:|----------:|
+| event1                |       383 |         54 |        47 |
+| event2                |       253 |         39 |        42 |
+| event3                |       412 |         70 |        62 |
+| event4                |       617 |         75 |        93 |
+| event5                |        52 |          4 |         6 |
+| event6                |        15 |          2 |         1 |
+| event7                |        45 |          4 |         5 |
+| event8                |       146 |         21 |        19 |
+| **total occurrences** |  **1923** |    **269** |   **275** |
+| **split size**        |  **3312** |    **418** |   **418** |
 
 
 ## Dataset Creation
