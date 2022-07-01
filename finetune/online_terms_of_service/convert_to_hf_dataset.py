@@ -34,7 +34,7 @@ def read_companies(languages, companies):
                 topics = [tag[:-1] for tag in tags[i].split(" ")] if tags[i] else []  # getting only the topic
                 levels = [int(tag[-1:]) for tag in tags[i].split(" ")] if tags[i] else []  # getting only the level
                 levels = list(set(levels))  # remove any duplicates
-                row = {"language": language, "company": company, "sentence": sentences[i]}
+                row = {"language": language, "company": company, "line_number": i, "sentence": sentences[i]}
                 for topic in clause_topics:
                     row[topic] = True if topic in topics else False
                 # assign "untagged" if not annotated (levels empty) or multiple different levels present
