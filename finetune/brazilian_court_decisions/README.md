@@ -6,7 +6,7 @@ language_creators:
 languages:
 - pt
 licenses:
-- 'other-This data set should be used according to Brazilian law. '
+- 'other'
 multilinguality:
 - monolingual
 pretty_name: predicting-brazilian-court-decisions
