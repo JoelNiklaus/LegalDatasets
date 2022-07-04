@@ -30,7 +30,11 @@ from datasets import load_dataset
 # additional_terms = ['Richter', 'Anwalt', 'Gerichtshof', 'Rechtssprechung', 'Verjährungsfrist', 'Verwirkungsfrist',
 #                     'Berufung', 'Beschwerdeführer', 'Kläger', 'Beschwerdegegner']
 
-languages = ["de", "fr", "it", "pl", "sk", "cs", "pt", "es"]
+scraped_languages = ["de", "fr", "it", "pl", "sk", "cs", "pt", "es"]
+all_languages = ["bg", "hr", "cs", "da", "nl", "en", "et", "fi", "fr", "de", "el", "hu", "ga", "it", "lv", "lt", "mt", "pl",
+             "pt", "ro", "sk", "sl", "es", "sv"]
+new_languages = list(set(all_languages) - set(scraped_languages))
+
 debug = False
 data_dir = Path('data')
 confidence = 1000
@@ -45,6 +49,22 @@ fsspec.spec.AbstractBufferedFile.DEFAULT_BLOCK_SIZE = download_size * 2 ** 20
 
 """
 The current search procedure seems to make more or less sense after a manual check of 20 entries.
+1.4G    ./sk
+1.9G    ./sv
+9.5G    ./pl
+4.8G    ./pt
+98M     ./el
+532M    ./et
+1.0K    ./da
+177M    ./lt
+35G     ./nl
+21G     ./es
+12G     ./it
+11G     ./fr
+395M    ./sl
+6.8G    ./cs
+6.7M    ./ga
+27G     ./de
 de: 26G
 fr: 11G
 it: 12G
@@ -61,17 +81,23 @@ def compile_search_terms(language):
         terms = json.load(file)
     terms_list = terms['latin']
     print("ruling")
-    for country_terms in terms['ruling'][language].values():
-        print(country_terms)
-        # exclude other abbreviations such as BGHW instead of BGH
-        terms_list.extend([term + "\\s" for term in country_terms])
+    if language in terms['ruling']:
+        for country_terms in terms['ruling'][language].values():
+            print(country_terms)
+            # exclude other abbreviations such as BGHW instead of BGH
+            terms_list.extend([term + "\\s" for term in country_terms])
+    else:
+        print(f"No search terms found for rulings in {language}")
     print("law")
-    for country_terms in terms['law'][language].values():
-        print(country_terms)
-        # add \s*\d+ to reduce false positives, but only here, not with the rulings
-        # without this, the result files get huge! (de: 87G, fr: 451G, it: 208G)
-        # also they contain a lot of obviously non-legal data (e.g. general forums, general newspaper articles)
-        terms_list.extend([term + "\\s*\\d+" for term in country_terms])
+    if language in terms['law']:
+        for country_terms in terms['law'][language].values():
+            print(country_terms)
+            # add \s*\d+ to reduce false positives, but only here, not with the rulings
+            # without this, the result files get huge! (de: 87G, fr: 451G, it: 208G)
+            # also they contain a lot of obviously non-legal data (e.g. general forums, general newspaper articles)
+            terms_list.extend([term + "\\s*\\d+" for term in country_terms])
+    else:
+        print(f"No search terms found for laws in {language}")
     terms_list = list(set(terms_list))  # remove any duplicates
     return re.compile('|'.join(terms_list), flags=re.IGNORECASE)  # combine list into one regex for performance reasons
 
@@ -88,7 +114,7 @@ def filter_mc4(language):
     df.to_csv(text_path)
 
     search_terms = compile_search_terms(language)
-    mc4 = load_dataset("", languages=[language], streaming=True)['train']
+    mc4 = load_dataset("mc4", languages=[language], streaming=True)['train']
     print(f"Searching for {search_terms} in mc4 {language}")
 
     def status_update(index, begin_time):
@@ -152,7 +178,8 @@ def filter_mc4(language):
 
 if __name__ == '__main__':
     # for language in languages:
-    for language in ["pt", "es"]:
+    for language in ['da', 'ro', 'hr', 'bg', 'lv', 'mt', 'en', 'hu', 'fi']:
         filter_mc4(language)
         # TODO Quality check: look at 100 samples and do iterative filtering
         # TODO remove duplicate texts
+        # TODO sort terms.json alphabetically and check if every language is in there
