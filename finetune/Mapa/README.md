@@ -83,8 +83,8 @@ The annotations have been done on the sentence level. For each sentence the foll
 -	`token`: Token of the document.
 -	 `abstract representation of entities`: If a token is not part of a named entity the field remains blank. If a token is part of a named entity, the existence of the named is indicated by an asterisk followed by an id in brackets. In case for one and the same token two named entities were annotated, one for the global category and one for the more fine-grained category, the two named entities are separated by a pipe.
       - Example for cases with an annotation only on the global level: *[1]
-      - Example for cases with an annotation on the global level and the fine-grained level: *[2]|*[3]
--	‘named entity tag’: The annotation scheme corresponds the previous field, except that instead of the asterisk the actual tag for the named entity is provided.
+      - Example for cases with an annotation on the global level and the fine-grained level: \*[2]|*[3]
+-	`named entity tag`: The annotation scheme corresponds the previous field, except that instead of the asterisk the actual tag for the named entity is provided.
     - Example for cases with an annotation only on the global level: ORGANISATION[1]
     - Example for cases with an annotation on the global level and the fine-grained level: country[2]|ADDRESS[3]
 
