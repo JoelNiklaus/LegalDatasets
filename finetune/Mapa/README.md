@@ -67,13 +67,11 @@ task_ids:
 The dataset consists of 12 documents (2261 sentences) in Spanish taken from EUR-Lex, a multilingual corpus of court
 decisions and legal dispositions in the 24 official languages of the European Union. The documents have been annotated
 for named entities following the guidelines of the [MAPA project]( https://mapa-project.eu/) which foresees two
-annotation level, a general and a more fine-grained one. The annotated corpus can be used for named entity recognition/
-classification.
+annotation level, a general and a more fine-grained one. The annotated corpus can be used for named entity recognition/classification.
 
 ### Supported Tasks and Leaderboards
 
-The dataset supports the task of named entity recognition or, as de Gibert Bonet et al. (2022) state, named entity
-recognition and classification (NERC).
+The dataset supports the task of Named Entity Recognition and Classification (NERC).
 
 ### Languages
 
@@ -84,30 +82,29 @@ The language in the dataset is Spanish as it used in European court decisions an
 ### Data Instances
 
 The format of the annotated data is webanno tsv 3.2. Each annotated document is saved as a tsv file. The original
-dataset does not provide train-test-split.
+dataset does not provide a train-test-split.
 
 ### Data Fields
 
-The annotations have been done on the sentence level. For each sentence the following data fields or columns are
+For the annotation the documents have been split into sentences. The annotations has been done on the token level. For each token the following data fields are
 provided:
 
-- `id`: It consists of combination of the sentence id and the token id.
-- `span`:  Provides the start and end id of the token in the row.
+- `id`: Id of the token. It consists of combination of a document-specific sentence id and the sentence-specific token id.
+- `span`:  Provides the start and end id of the token in the document.
 - `token`: Token of the document.
-- `abstract representation of entities`: If a token is not part of a named entity the field remains blank. If a token is
-  part of a named entity, the existence of the named is indicated by an asterisk followed by an id in brackets. In case
-  for one and the same token two named entities were annotated, one for the global category and one for the more
-  fine-grained category, the two named entities are separated by a pipe. - Example for cases with an annotation only on
+- `abstract representation of entities`: If a token is not part of a named entity the field contains a hyphen. If a token is part of a named entity, the existence of the named entity is indicated by an asterisk followed by an id in brackets. For cases where two named entities (one named entity for the global category and one for the more fine-grained category) were assigned to one token, a pipe was used to separate the two asterisks. 
+    - Example an annotation only on
   the global level: *[1]
-    - Example for cases with an annotation on the global level and the fine-grained level: \*[2]|*[3]
-- `named entity tag`: The annotation scheme corresponds the previous field, except that instead of the asterisk the
-  actual tag for the named entity is provided. - Example for cases with an annotation only on the global level:
+  - Example for an annotation on the global level and the fine-grained level: \*[2]|*[3]
+- `named entity tag`: The annotation scheme corresponds the annotation scheme of the previous field, except that instead of the asterisk the
+  actual tag for the named entity is provided. 
+  - Example for an annotation only on the global level:
   ORGANISATION[1]
-    - Example for cases with an annotation on the global level and the fine-grained level: country[2]|ADDRESS[3]
+  - Example for an annotation on the global level and the fine-grained level: country[2]|ADDRESS[3]
 
-As previously stated, the annotation has been conducted on a global or abstract and a more fine-grained level.
+As previously stated, the annotation has been conducted on a global and a more fine-grained level.
 
-The tags used for the global and the fine-grained named entity categories are:
+The tagset used for the global and the fine-grained named entities is the following:
 
 - Address
     - Building
@@ -144,7 +141,7 @@ The tags used for the global and the fine-grained named entity categories are:
     - Profession
     - Role
     - Social Security Number
-    - Ttitle
+    - Title
     - Url
 - Organisation
 - Time
@@ -163,7 +160,7 @@ Splits created by Joel Niklaus.
 
 ### Curation Rationale
 
-*„[…] to our knowledge, there exist no open resources annotated for NERC in Spanish in the legal domain. With the
+*„[…] to our knowledge, there exist no open resources annotated for NERC [Named Entity Recognition and Classificatio] in Spanish in the legal domain. With the
 present contribution, we intend to fill this gap. With the release of the created resources for fine-tuning and
 evaluation of sensitive entities detection in the legal domain, we expect to encourage the development of domain-adapted
 anonymisation tools for Spanish in this field“* (de Gibert Bonet et al., 2022)
