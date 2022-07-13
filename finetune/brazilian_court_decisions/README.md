@@ -5,7 +5,7 @@ language_creators:
 - found
 languages:
 - pt
-licenses:
+license:
 - 'other'
 multilinguality:
 - monolingual
@@ -112,7 +112,7 @@ The dataset contains the following fields:
 
 The data has been split randomly into 80% train (3234), 10% validation (404), 10% test (405).
 
-There exist two configurations: judgment and unanimity
+There are two tasks possible for this dataset.
 
 #### Judgment
 Label Distribution
@@ -126,15 +126,16 @@ Label Distribution
 
 #### Unanimity
 
-In this configuration, all cases that have `not_determined` as `unanimity_label` are removed. The splits are not changed other than that.
+In this configuration, all cases that have `not_determined` as `unanimity_label` can be removed.
 
 Label Distribution
 
-| unanimity_label |    train | validation |    test |
-|:----------------|---------:|-----------:|--------:|
-| unanimity       |     1681 |        205 |     200 |
-| not-unanimity   |       34 |          6 |       4 |
-| **total**       | **1715** |    **211** | **204** |
+| unanimity_label  |     train |     validation |     test |
+|:-----------------|----------:|---------------:|---------:|
+| not_determined   |      1519 |            193 |      201 |
+| unanimity        |      1681 |            205 |      200 |
+| not-unanimity    |        34 |              6 |        4 |
+| **total**        |  **3234** |        **404** |  **405** |
 
 ## Dataset Creation
 

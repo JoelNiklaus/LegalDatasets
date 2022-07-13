@@ -117,16 +117,16 @@ def print_split_table_single_label(train, validation, test, label_name):
     print(table.to_markdown(index=False))
 
 
-save_splits_to_jsonl("judgment")
+save_splits_to_jsonl("")
 
 print_split_table_single_label(train, validation, test, "judgment_label")
-
-# create second config by filtering out rows with unanimity label == not_determined, while keeping the same splits
-train = train[train.unanimity_label != "not_determined"]
-validation = validation[validation.unanimity_label != "not_determined"]
-test = test[test.unanimity_label != "not_determined"]
-
 print_split_table_single_label(train, validation, test, "unanimity_label")
 
+# create second config by filtering out rows with unanimity label == not_determined, while keeping the same splits
+# train = train[train.unanimity_label != "not_determined"]
+# validation = validation[validation.unanimity_label != "not_determined"]
+# test = test[test.unanimity_label != "not_determined"]
+
+
 # it is a very small dataset and very imbalanced (only very few not-unanimity labels)
-save_splits_to_jsonl("unanimity")
+# save_splits_to_jsonl("unanimity")
