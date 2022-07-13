@@ -55,7 +55,7 @@ task_ids:
 
 - **Homepage:**
 - **
-  Repository:** https://elrc-share.eu/repository/browse/mapa-anonymization-package-spanish/b550e1a88a8311ec9c1a00155d026706687917f92f64482587c6382175dffd76/
+  Repository:** [Spanish](https://elrc-share.eu/repository/browse/mapa-anonymization-package-spanish/b550e1a88a8311ec9c1a00155d026706687917f92f64482587c6382175dffd76/), [Most](https://elrc-share.eu/repository/search/?q=mfsp:3222a6048a8811ec9c1a00155d0267067eb521077db54d6684fb14ce8491a391), [German, Portuguese, Slovak, Slovenian, Swedish](https://elrc-share.eu/repository/search/?q=mfsp:833df1248a8811ec9c1a00155d0267067685dcdb77064822b51cc16ab7b81a36)
 - **Paper:** de Gibert Bonet, O., García Pablos, A., Cuadros, M., & Melero, M. (2022). Spanish Datasets for Sensitive
   Entity Detection in the Legal Domain. Proceedings of the Language Resources and Evaluation Conference, June,
   3751–3760. http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.400.pdf
@@ -155,6 +155,34 @@ The tagset used for the global and the fine-grained named entities is the follow
 ### Data Splits
 
 Splits created by Joel Niklaus.
+
+
+| language    | # train files |  # validation files | # test files |   # train sentences | # validation sentences | # test sentences |
+|:------------|--------------:|--------------------:|-------------:|--------------------:|-----------------------:|-----------------:|
+| bg          |             9 |                   1 |            2 |                1411 |                    166 |              560 |
+| cs          |             9 |                   1 |            2 |                1464 |                    176 |              563 |
+| da          |             9 |                   1 |            2 |                1455 |                    164 |              550 |
+| de          |             9 |                   1 |            2 |                1457 |                    166 |              558 |
+| el          |             9 |                   1 |            2 |                1529 |                    174 |              584 |
+| en          |             9 |                   1 |            2 |                 893 |                     98 |              408 |
+| es          |             7 |                   1 |            1 |                 806 |                    248 |              155 |
+| et          |             9 |                   1 |            2 |                1391 |                    163 |              516 |
+| fi          |             9 |                   1 |            2 |                1398 |                    187 |              531 |
+| fr          |             9 |                   1 |            2 |                1297 |                     97 |              490 |
+| ga          |             9 |                   1 |            2 |                1383 |                    165 |              515 |
+| hr          |             9 |                   1 |            2 |                1391 |                    163 |              516 |
+| hu          |             9 |                   1 |            2 |                1390 |                    171 |              525 |
+| it          |             9 |                   1 |            2 |                1411 |                    162 |              550 |
+| lt          |             9 |                   1 |            2 |                1413 |                    173 |              548 |
+| lv          |             9 |                   1 |            2 |                1383 |                    167 |              553 |
+| mt          |             9 |                   1 |            2 |                 937 |                     93 |              442 |
+| nl          |             9 |                   1 |            2 |                1391 |                    164 |              530 |
+| pl          |             9 |                   1 |            2 |                1413 |                    173 |              548 |
+| pt          |             9 |                   1 |            2 |                1086 |                    105 |              390 |
+| ro          |             9 |                   1 |            2 |                1480 |                    175 |              557 |
+| sk          |             9 |                   1 |            2 |                1395 |                    165 |              526 |
+| sl          |             9 |                   1 |            2 |                1453 |                    175 |              539 |
+| sv          |             9 |                   1 |            2 |                1453 |                    175 |              539 |
 
 ## Dataset Creation
 
