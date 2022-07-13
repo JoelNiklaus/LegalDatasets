@@ -31,10 +31,14 @@ for country in countries:
 # validation = pd.read_csv(data_path / "all_dev_or.tsv", sep='\t', index_col="id")
 # test = pd.read_csv(data_path / "all_test_or.csv", sep='\t', index_col="id")  # yes, it also has the tab as separator
 
-# recognize language
-train['language'] = train.text.apply(lambda x: detect(text=x, low_memory=False)['lang'])
-validation['language'] = validation.text.apply(lambda x: detect(text=x, low_memory=False)['lang'])
-test['language'] = test.text.apply(lambda x: detect(text=x, low_memory=False)['lang'])
+
+country_to_lang = {"belgium": "fr", "france": "fr", "hungary": "hu", "italy": "it", "netherlands": "nl", "norway": "nb",
+                   "poland": "pl", "uk": "en"}
+
+# set language
+train['language'] = train.country.apply(lambda x: country_to_lang[x])
+validation['language'] = validation.country.apply(lambda x: country_to_lang[x])
+test['language'] = test.country.apply(lambda x: country_to_lang[x])
 
 # reorder columns
 column_list = ["language", "country", "text"]

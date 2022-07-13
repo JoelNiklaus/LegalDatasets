@@ -84,7 +84,7 @@ The file format is jsonl and three data splits are present (train, validation an
 ### Data Fields
 
 The jsonl files have the following basic columns:
-- `language`: The language of the sentence (detected automatically with ftlangdetect)
+- `language`: The language of the sentence (set based on the country)
 - `country`: The country of the sentence
 - `text`: Sentence that has been annotated
 
