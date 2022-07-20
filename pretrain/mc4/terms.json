@@ -92,16 +92,15 @@
         "Højesteret"
       ]
     },
-    "nl": {
+   "nl": {
       "Netherlands": [
-        "Rechtbank ",
-        "Hooggerechtshof",
-        "Hoge Raad"
+        "RBZWB ",
+        "RBDHA",
+        "CRVB"
       ],
       "Belgium": [
-        "Grondwettelijk Hof",
-        "hof",
-        "Raad",
+        "CASS",
+        "GHCC",
         "Gerechtshof"
       ]
     },
@@ -391,7 +390,6 @@
       "Belgium": [
         "ECLI:BE:",
         "Rolnummer",
-        "P."
       ]
     },
     "es": {
