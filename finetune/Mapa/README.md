@@ -6,7 +6,7 @@ language_creators:
 languages:
 - bg, cs, da, de, el, en, es, et, fi, fr, ga, hu, it, lt, lv, mt, nl, pt, ro, sk, sv
 license:
-- CC-BY-4.0
+- cc-by-4.0
 multilinguality:
 - multilingual
 paperswithcode_id: null
