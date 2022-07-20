@@ -4,11 +4,11 @@ annotations_creators:
 language_creators:
 - found
 languages:
-- es
+- bg, cs, da, de, el, en, es, et, fi, fr, ga, hu, it, lt, lv, mt, nl, pt, ro, sk, sv
 license:
 - CC-BY-4.0
 multilinguality:
-- monolingual
+- multilingual
 paperswithcode_id: null
 pretty_name: Spanish Datasets for Sensitive Entity Detection in the Legal Domain
 size_categories:
@@ -64,7 +64,7 @@ task_ids:
 
 ### Dataset Summary
 
-The dataset consists of 12 documents (2261 sentences) in Spanish taken from EUR-Lex, a multilingual corpus of court
+The dataset consists of 12 documents (9 for Spanish due to parsing errors) taken from EUR-Lex, a multilingual corpus of court
 decisions and legal dispositions in the 24 official languages of the European Union. The documents have been annotated
 for named entities following the guidelines of the [MAPA project]( https://mapa-project.eu/) which foresees two
 annotation level, a general and a more fine-grained one. The annotated corpus can be used for named entity recognition/classification.
@@ -75,32 +75,28 @@ The dataset supports the task of Named Entity Recognition and Classification (NE
 
 ### Languages
 
-The language in the dataset is Spanish as it used in European court decisions and legal dispositions.
+The following languages are supported: bg, cs, da, de, el, en, es, et, fi, fr, ga, hu, it, lt, lv, mt, nl, pt, ro, sk, sv
 
 ## Dataset Structure
 
 ### Data Instances
 
-The format of the annotated data is webanno tsv 3.2. Each annotated document is saved as a tsv file. The original
-dataset does not provide a train-test-split.
+The file format is jsonl and three data splits are present (train, validation and test). Named Entity annotations are
+non-overlapping.
 
 ### Data Fields
 
-For the annotation the documents have been split into sentences. The annotations has been done on the token level. For each token the following data fields are
-provided:
+For the annotation the documents have been split into sentences. The annotations has been done on the token level. 
+The files contain the following data fields
 
-- `id`: Id of the token. It consists of combination of a document-specific sentence id and the sentence-specific token id.
-- `span`:  Provides the start and end id of the token in the document.
-- `token`: Token of the document.
-- `abstract representation of entities`: If a token is not part of a named entity the field contains a hyphen. If a token is part of a named entity, the existence of the named entity is indicated by an asterisk followed by an id in brackets. For cases where two named entities (one named entity for the global category and one for the more fine-grained category) were assigned to one token, a pipe was used to separate the two asterisks. 
-    - Example an annotation only on
-  the global level: *[1]
-  - Example for an annotation on the global level and the fine-grained level: \*[2]|*[3]
-- `named entity tag`: The annotation scheme corresponds the annotation scheme of the previous field, except that instead of the asterisk the
-  actual tag for the named entity is provided. 
-  - Example for an annotation only on the global level:
-  ORGANISATION[1]
-  - Example for an annotation on the global level and the fine-grained level: country[2]|ADDRESS[3]
+- `language`: language of the sentence
+- `type`:  The document type of the sentence. Currently, only EUR-LEX is supported.
+- `file_name`: The document file name the sentence belongs to.
+- `sentence_number`: The number of the sentence inside its document.
+- `tokens`: The list of tokens in the sentence.
+- `coarse_grained`: The coarse-grained annotations for each token
+- `fine_grained`: The fine-grained annotations for each token
+
 
 As previously stated, the annotation has been conducted on a global and a more fine-grained level.
 
@@ -157,32 +153,29 @@ The tagset used for the global and the fine-grained named entities is the follow
 Splits created by Joel Niklaus.
 
 
-| language    | # train files |  # validation files | # test files |   # train sentences | # validation sentences | # test sentences |
-|:------------|--------------:|--------------------:|-------------:|--------------------:|-----------------------:|-----------------:|
-| bg          |             9 |                   1 |            2 |                1411 |                    166 |              560 |
-| cs          |             9 |                   1 |            2 |                1464 |                    176 |              563 |
-| da          |             9 |                   1 |            2 |                1455 |                    164 |              550 |
-| de          |             9 |                   1 |            2 |                1457 |                    166 |              558 |
-| el          |             9 |                   1 |            2 |                1529 |                    174 |              584 |
-| en          |             9 |                   1 |            2 |                 893 |                     98 |              408 |
-| es          |             7 |                   1 |            1 |                 806 |                    248 |              155 |
-| et          |             9 |                   1 |            2 |                1391 |                    163 |              516 |
-| fi          |             9 |                   1 |            2 |                1398 |                    187 |              531 |
-| fr          |             9 |                   1 |            2 |                1297 |                     97 |              490 |
-| ga          |             9 |                   1 |            2 |                1383 |                    165 |              515 |
-| hr          |             9 |                   1 |            2 |                1391 |                    163 |              516 |
-| hu          |             9 |                   1 |            2 |                1390 |                    171 |              525 |
-| it          |             9 |                   1 |            2 |                1411 |                    162 |              550 |
-| lt          |             9 |                   1 |            2 |                1413 |                    173 |              548 |
-| lv          |             9 |                   1 |            2 |                1383 |                    167 |              553 |
-| mt          |             9 |                   1 |            2 |                 937 |                     93 |              442 |
-| nl          |             9 |                   1 |            2 |                1391 |                    164 |              530 |
-| pl          |             9 |                   1 |            2 |                1413 |                    173 |              548 |
-| pt          |             9 |                   1 |            2 |                1086 |                    105 |              390 |
-| ro          |             9 |                   1 |            2 |                1480 |                    175 |              557 |
-| sk          |             9 |                   1 |            2 |                1395 |                    165 |              526 |
-| sl          |             9 |                   1 |            2 |                1453 |                    175 |              539 |
-| sv          |             9 |                   1 |            2 |                1453 |                    175 |              539 |
+| language   |   # train files |   # validation files |   # test files |   # train sentences |   # validation sentences |   # test sentences |
+|:-----------|----------------:|---------------------:|---------------:|--------------------:|-------------------------:|-------------------:|
+| bg         |               9 |                    1 |              2 |                1411 |                      166 |                560 |
+| cs         |               9 |                    1 |              2 |                1464 |                      176 |                563 |
+| da         |               9 |                    1 |              2 |                1455 |                      164 |                550 |
+| de         |               9 |                    1 |              2 |                1457 |                      166 |                558 |
+| el         |               9 |                    1 |              2 |                1529 |                      174 |                584 |
+| en         |               9 |                    1 |              2 |                 893 |                       98 |                408 |
+| es         |               7 |                    1 |              1 |                 806 |                      248 |                155 |
+| et         |               9 |                    1 |              2 |                1391 |                      163 |                516 |
+| fi         |               9 |                    1 |              2 |                1398 |                      187 |                531 |
+| fr         |               9 |                    1 |              2 |                1297 |                       97 |                490 |
+| ga         |               9 |                    1 |              2 |                1383 |                      165 |                515 |
+| hu         |               9 |                    1 |              2 |                1390 |                      171 |                525 |
+| it         |               9 |                    1 |              2 |                1411 |                      162 |                550 |
+| lt         |               9 |                    1 |              2 |                1413 |                      173 |                548 |
+| lv         |               9 |                    1 |              2 |                1383 |                      167 |                553 |
+| mt         |               9 |                    1 |              2 |                 937 |                       93 |                442 |
+| nl         |               9 |                    1 |              2 |                1391 |                      164 |                530 |
+| pt         |               9 |                    1 |              2 |                1086 |                      105 |                390 |
+| ro         |               9 |                    1 |              2 |                1480 |                      175 |                557 |
+| sk         |               9 |                    1 |              2 |                1395 |                      165 |                526 |
+| sv         |               9 |                    1 |              2 |                1453 |                      175 |                539 |
 
 ## Dataset Creation
 
@@ -197,7 +190,7 @@ anonymisation tools for Spanish in this field“* (de Gibert Bonet et al., 2022)
 
 #### Initial Data Collection and Normalization
 
-The dataset consists of documents in Spanish taken from EUR-Lex corpus which is publicly available. No further
+The dataset consists of documents taken from EUR-Lex corpus which is publicly available. No further
 information on the data collection process are given in de Gibert Bonet et al. (2022).
 
 #### Who are the source language producers?
@@ -235,8 +228,8 @@ Only one annotator conducted the annotation. More information are not provdided 
 
 ### Other Known Limitations
 
-Note that the dataset at hand presents only a small portion of a bigger corpus as described in de Gibert Bonet et al. (
-2022). At the time of writing only the annotated documents from the EUR-Lex corpus were available.
+Note that the dataset at hand presents only a small portion of a bigger corpus as described in de Gibert Bonet et al. 
+(2022). At the time of writing only the annotated documents from the EUR-Lex corpus were available.
 
 Note that the information given in this dataset card refer to the dataset version as provided by Joel Niklaus and Veton
 Matoshi. The dataset at hand is intended to be part of a bigger benchmark dataset. Creating a benchmark dataset
