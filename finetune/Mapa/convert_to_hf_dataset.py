@@ -92,9 +92,9 @@ def get_token_annotations(token, annotations):
         if token.start >= annotation.start and token.stop <= annotation.stop:  # course_grained annotation
             # we don't support multilabel annotations for each token for simplicity.
             # So when a token already has an annotation for either coarse or fine grained, we don't assign new ones.
-            if coarse_grained != "O" and is_coarse_grained(label):
+            if coarse_grained == "O" and is_coarse_grained(label):
                 coarse_grained = label
-            elif fine_grained != "o" and is_fine_grained(label):
+            elif fine_grained == "o" and is_fine_grained(label):
                 # some DATE are mislabeled as day but it is hard to correct this. So we ignore it
                 fine_grained = label
 
@@ -146,6 +146,8 @@ for language in languages:
     print(f"Parsing language {language}")
     df, not_parsable_files = parse_files(language)
     file_names = df.file_name.unique()
+
+    # df.coarse_grained.apply(lambda x: print(set(x)))
 
     # split by file_name
     num_fn = len(file_names)

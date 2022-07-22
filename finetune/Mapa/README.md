@@ -23,7 +23,7 @@ task_ids:
 
 ---
 
-# Dataset Card for Spanish Datasets for Sensitive Entity Detection in the Legal Domain
+# Dataset Card for Multilingual European Datasets for Sensitive Entity Detection in the Legal Domain
 
 ## Table of Contents
 
