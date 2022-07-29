@@ -31,8 +31,8 @@ from datasets import load_dataset
 #                     'Berufung', 'Beschwerdeführer', 'Kläger', 'Beschwerdegegner']
 
 scraped_languages = ["de", "fr", "it", "pl", "sk", "cs", "pt", "es"]
-all_languages = ["bg", "hr", "cs", "da", "nl", "en", "et", "fi", "fr", "de", "el", "hu", "ga", "it", "lv", "lt", "mt", "pl",
-             "pt", "ro", "sk", "sl", "es", "sv"]
+all_languages = ["bg", "hr", "cs", "da", "nl", "en", "et", "fi", "fr", "de", "el", "hu", "ga", "it", "lv", "lt", "mt",
+                 "pl", "pt", "ro", "sk", "sl", "es", "sv"]
 new_languages = list(set(all_languages) - set(scraped_languages))
 
 debug = False
@@ -49,30 +49,30 @@ fsspec.spec.AbstractBufferedFile.DEFAULT_BLOCK_SIZE = download_size * 2 ** 20
 
 """
 The current search procedure seems to make more or less sense after a manual check of 20 entries.
+7.6G    ./fi
 1.4G    ./sk
 1.9G    ./sv
 9.5G    ./pl
 4.8G    ./pt
 98M     ./el
+52M     ./bg
 532M    ./et
-1.0K    ./da
+110M    ./da
 177M    ./lt
-35G     ./nl
+273M    ./nl
+1.4G    ./hu
 21G     ./es
+2.1G    ./ro
+23G     ./en
+230M    ./mt
+7.4M    ./lv
 12G     ./it
 11G     ./fr
 395M    ./sl
 6.8G    ./cs
 6.7M    ./ga
 27G     ./de
-de: 26G
-fr: 11G
-it: 12G
-pl: 9.3G
-sk: 1.3G
-cs: 6.8G
-pt: 4.5G
-es: 20G
+
 """
 
 
@@ -114,7 +114,11 @@ def filter_mc4(language):
     df.to_csv(text_path)
 
     search_terms = compile_search_terms(language)
-    mc4 = load_dataset("mc4", languages=[language], streaming=True)['train']
+    try:
+        mc4 = load_dataset("mc4", languages=[language], streaming=True)['train']
+    except KeyError:
+        print(f"No subset of mc4 available for language {language}")
+        return
     print(f"Searching for {search_terms} in mc4 {language}")
 
     def status_update(index, begin_time):
@@ -178,7 +182,7 @@ def filter_mc4(language):
 
 if __name__ == '__main__':
     # for language in languages:
-    for language in ['da', 'ro', 'hr', 'bg', 'lv', 'mt', 'en', 'hu', 'fi']:
+    for language in ['nl', 'hu', 'fi']:
         filter_mc4(language)
         # TODO Quality check: look at 100 samples and do iterative filtering
         # TODO remove duplicate texts
