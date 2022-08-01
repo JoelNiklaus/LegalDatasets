@@ -6,8 +6,8 @@ import pandas as pd
 
 data_path = Path("corpus_NLLP2021")
 languages = ["de", "en", "it", "pl"]
-clause_topics = ["a", "ch", "cr", "j", "law", "ltd", "ter", "use", "pinc"]
 unfairness_levels = {1: "clearly_fair", 2: "potentially_unfair", 3: "clearly_unfair", -1: "untagged"}
+clause_topics = ["a", "ch", "cr", "j", "law", "ltd", "ter", "use", "pinc"]
 
 file_names = glob.glob(str(data_path / "sentences" / "de" / "original/*"))
 companies = sorted([Path(file_name).stem for file_name in file_names])
@@ -54,6 +54,17 @@ def read_companies(languages, companies):
 df = read_companies(languages, companies)
 
 df.to_csv("dataset.csv")
+
+
+def aggregate_topics(row):
+    all_topics = []
+    for clause_topic in clause_topics:
+        if row[clause_topic]:
+            all_topics.append(clause_topic)
+    return all_topics
+
+
+df["all_topics"] = df.apply(aggregate_topics, axis=1)
 
 # not removing sentences with no tag ==> detecting whether a tag at all applies is part of the task
 # print(len(df.index))
