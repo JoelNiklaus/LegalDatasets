@@ -33,7 +33,7 @@ license:
 multilinguality:
 - multilingual
 paperswithcode_id: null
-pretty_name: LEXTREME: A Multilingual Legal Benchmark for Natural Language Understanding
+pretty_name: "LEXTREME: A Multilingual Legal Benchmark for Natural Language Understanding"
 size_categories:
 - 1K<n<100K
 source_datasets:
