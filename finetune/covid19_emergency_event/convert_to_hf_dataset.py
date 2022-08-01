@@ -48,6 +48,19 @@ validation = validation[column_list]
 test = test[column_list]
 
 
+def aggregate_events(row):
+    all_events = []
+    for label_col in label_cols:
+        if row[label_col]:
+            all_events.append(label_col)
+    return all_events
+
+
+train["all_events"] = train.apply(aggregate_events, axis=1)
+validation["all_events"] = validation.apply(aggregate_events, axis=1)
+test["all_events"] = test.apply(aggregate_events, axis=1)
+
+
 # save splits
 def save_splits_to_jsonl(config_name):
     # save to jsonl files for huggingface

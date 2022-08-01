@@ -88,7 +88,7 @@ The jsonl files have the following basic columns:
 - `country`: The country of the sentence
 - `text`: Sentence that has been annotated
 
-The documents have been annotated with 8 labels, each label representing a specific measurement against COVID-19. Each label is represented by one field in the jsonl file. The labels, i.e. the specific measure classes, are:
+The documents have been annotated with 8 labels, each label representing a specific measurement against COVID-19. Each label is represented by one boolean field in the jsonl file. The labels, i.e. the specific measure classes, are:
 - `event1`: State of Emergency
 - `event2`: Restrictions of fundamental rights and civil liberties
 - `event3`: Restrictions of daily liberties
@@ -97,7 +97,7 @@ The documents have been annotated with 8 labels, each label representing a speci
 - `event6`: Police mobilization
 - `event7`: Army mobilization 
 - `event8`: Government oversight
-
+- `all_events`: an aggregate column containing all applicable events combined
 
 ### Data Splits
 
