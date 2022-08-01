@@ -3,7 +3,7 @@ annotations_creators:
 - other
 language_creators:
 - found
-languages:
+language:
 - el
 license:
 - cc-by-nc-sa-4.0

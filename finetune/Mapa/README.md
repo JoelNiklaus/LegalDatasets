@@ -3,7 +3,7 @@ annotations_creators:
 - other
 language_creators:
 - found
-languages:
+language:
 - bg, cs, da, de, el, en, es, et, fi, fr, ga, hu, it, lt, lv, mt, nl, pt, ro, sk, sv
 license:
 - cc-by-4.0
