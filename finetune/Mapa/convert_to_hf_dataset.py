@@ -26,6 +26,8 @@ annotation_labels = {'ADDRESS': ['building', 'city', 'country', 'place', 'postco
 # make all coarse_grained upper case and all fine_grained lower case
 annotation_labels = {key.upper(): [label.lower() for label in labels] for key, labels in annotation_labels.items()}
 print(annotation_labels)
+print("coarse_grained:", list(annotation_labels.keys()))
+print("fine_grained:", [finegrained for finegrained in [finegrained_list for finegrained_list in annotation_labels.values()]])
 
 base_path = Path("extracted")
 
