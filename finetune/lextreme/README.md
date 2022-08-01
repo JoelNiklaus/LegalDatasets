@@ -94,6 +94,23 @@ The dataset consists of 11 diverse multilingual legal NLU tasks. 6 tasks have on
 ### Supported Tasks and Leaderboards
 
 The dataset supports the tasks of text classification and token classification.
+In detail, we support the folliwing tasks and configurations:
+
+
+| task                       |                 task type |                  configurations |                                                                                                   link |
+|:---------------------------|--------------------------:|--------------------------------:|-------------------------------------------------------------------------------------------------------:|
+| Brazilian Court Decisions  |       Judgment Prediction |           (judgment, unanimity) | [joelito/brazilian_court_decisions](https://huggingface.co/datasets/joelito/brazilian_court_decisions) |
+| Swiss Judgment Prediction  |       Judgment Prediction |                         default |         [joelito/swiss_judgment_prediction](https://huggingface.co/datasets/swiss_judgment_prediction) |
+| German Argument Mining     |           Argument Mining |                         default |       [joelito/german_argument_mining](https://huggingface.co/datasets/joelito/german_argument_mining) |
+| Greek Legal Code           |      Topic Classification |      (volume, chapter, subject) |                                   [greek_legal_code](https://huggingface.co/datasets/greek_legal_code) |
+| Online Terms of Service    | Unfairness Classification | (unfairness level, claus topic) |             [online_terms_of_service](https://huggingface.co/datasets/joelito/online_terms_of_service) |
+| Covid 19 Emergency Event   |      Event Classification |                         default |             [covid19_emergency_event](https://huggingface.co/datasets/joelito/covid19_emergency_event) |
+| MultiEURLEX                |      Topic Classification |     (level 1, level 2, level 3) |                                           [multi_eurlex](https://huggingface.co/datasets/multi_eurlex) |
+| LeNER BR                   |  Named Entity Recognition |                         default |                                                   [lener_br](https://huggingface.co/datasets/lener_br) |
+| LegalNERo                  |  Named Entity Recognition |                         default |                                         [legalnero](https://huggingface.co/datasets/joelito/legalnero) |
+| Greek Legal NER            |  Named Entity Recognition |                         default |                                     [greek_legal_ner](https://huggingface.co/datasets/greek_legal_ner) |
+| MAPA                       |  Named Entity Recognition |                  (coarse, fine) |                                                   [mapa](https://huggingface.co/datasets/joelito/mapa) |
+
 
 ### Languages
 
