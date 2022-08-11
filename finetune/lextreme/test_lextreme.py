@@ -1,8 +1,8 @@
 import datasets
 from datasets import load_dataset, get_dataset_config_names
 
-dataset_name = "joelito/lextreme"
 dataset_name = "lextreme.py"
+dataset_name = "joelito/lextreme"
 
 configs = get_dataset_config_names(dataset_name)
 print(configs)
