@@ -50,6 +50,7 @@ class LextremeConfig(datasets.BuilderConfig):
             url,
             citation,
             hf_hub_name,
+            language="multilingual",
             config_name="default",
             label_classes=None,
             task_type=None,
@@ -64,6 +65,7 @@ class LextremeConfig(datasets.BuilderConfig):
           url: `string`, url for the original project
           citation: `string`, citation for the data set
           hf_hub_name: `string`, huggingface dataset identifier
+          hf_hub_name: `string`, the language of the dataset (either multilingual or a single language ISO code)
           config_name: `string`, huggingface dataset config name
           label_classes: `list[string]`, the list of classes if the label is
             categorical. If not provided, then the label will be of type
@@ -78,6 +80,7 @@ class LextremeConfig(datasets.BuilderConfig):
         self.description = textwrap.dedent(self.description)
         self.citation = textwrap.dedent(citation)
         self.hf_hub_name = hf_hub_name
+        self.language = language
         self.config_name = config_name
         self.label_classes = label_classes
         self.task_type = task_type
@@ -86,6 +89,7 @@ class LextremeConfig(datasets.BuilderConfig):
 _BRAZILIAN_COURT_DECISIONS_JUDGMENT = {
     "task_type": TaskType.SLTC,
     "hf_hub_name": "joelito/brazilian_court_decisions",
+    "language": "pt",
     "input_col": "decision_description",
     "label_col": "judgment_label",
     "url": "https://github.com/lagefreitas/predicting-brazilian-court-decisions",
@@ -150,6 +154,7 @@ _SWISS_JUDGMENT_PREDICTION = {
 _GERMAN_ARGUMENT_MINING = {
     "task_type": TaskType.SLTC,
     "hf_hub_name": "joelito/german_argument_mining",
+    "language": "de",
     "input_col": "input_sentence",
     "label_col": "label",
     "url": "https://zenodo.org/record/3936490#.X1ed7ovgomK",
@@ -179,6 +184,7 @@ _GERMAN_ARGUMENT_MINING = {
 _GREEK_LEGAL_CODE_VOLUME = {
     "task_type": TaskType.SLTC,
     "hf_hub_name": "greek_legal_code",
+    "language": "el",
     "config_name": "volume",
     "input_col": "text",
     "label_col": "label",
@@ -3766,6 +3772,7 @@ _MULTI_EURLEX_LEVEL_3 = {
 _LENER_BR = {
     "task_type": TaskType.NER,
     "hf_hub_name": "lener_br",
+    "language": "pt",
     "config_name": "lener_br",
     "input_col": "tokens",
     "label_col": "ner_tags",
@@ -3813,6 +3820,7 @@ _LENER_BR = {
 _LEGAL_NERO = {
     "task_type": TaskType.NER,
     "hf_hub_name": "joelito/legalnero",
+    "language": "ro",
     "input_col": "words",
     "label_col": "ner",
     "url": "https://zenodo.org/record/4922385",
@@ -3853,6 +3861,7 @@ _LEGAL_NERO = {
 _GREEK_LEGAL_NER = {
     "task_type": TaskType.NER,
     "hf_hub_name": "joelito/greek_legal_ner",
+    "language": "el",
     "input_col": "words",
     "label_col": "ner",
     "url": "http://legislation.di.uoa.gr/publications?language=en",
@@ -4006,6 +4015,7 @@ class LEXTREME(datasets.GeneratorBasedBuilder):
             features=datasets.Features({
                 "input": input_type,
                 "label": label_type,
+                "language": datasets.Value("string"),
             }),
         )
 
@@ -4030,7 +4040,12 @@ class LEXTREME(datasets.GeneratorBasedBuilder):
                 label = dataset.features[label_col].int2str(label)
             if self.config.task_type == TaskType.SLTC and label not in self.config.label_classes:
                 continue  # filter out invalid classes to construct ClassLabel
+            if "language" in item.keys():
+                language = item["language"]
+            else:
+                language = self.config.language
             yield id, {
                 "input": item[self.config.input_col],
                 "label": label,
+                "language": language,
             }
