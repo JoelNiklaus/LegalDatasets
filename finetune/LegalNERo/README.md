@@ -89,6 +89,8 @@ The files contain the following data fields
     - `TIME`: Time reference
     - `O`: No entity annotation present
 
+The final tagset (in IOB notation) is the following: `['O', 'B-TIME', 'I-TIME', 'B-LEGAL', 'I-LEGAL', 'B-ORG', 'I-ORG', 'B-LOC', 'I-LOC', 'B-PER', 'I-PER']`
+
 ### Data Splits
 
 Splits created by Joel Niklaus. 

@@ -1,5 +1,4 @@
 import os
-import re
 from glob import glob
 from pathlib import Path
 
@@ -16,9 +15,6 @@ pd.set_option('display.max_columns', None)
 base_path = Path("legalnero-data")
 tokenizer = Romanian().tokenizer
 
-
-# A and D are different government gazettes
-# A is the general one, publishing standard legislation, and D is meant for legislation on urban planning and such things
 
 def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) -> List[dict]:
     """Processes one document (.ann file and .txt file) and returns a list of annotated sentences"""
@@ -55,7 +51,7 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
                 print(f"Could not find entity `{row['entity_text']}` in sentence `{sentence}`")
 
         ann_sent["words"] = [str(tok) for tok in doc]
-        ann_sent["ner"] = [tok.ent_type_ if tok.ent_type_ else "O" for tok in doc]
+        ann_sent["ner"] = [tok.ent_iob_ + "-" + tok.ent_type_ if tok.ent_type_ else "O" for tok in doc]
 
         annotated_sentences.append(ann_sent)
     if not_found_entities > 0:
@@ -88,6 +84,8 @@ df.ner = df.ner.apply(lambda x: x[:-1])
 
 # remove rows with containing only one word
 df = df[df.words.map(len) > 1]
+
+print(f"The final tagset (in IOB notation) is the following: `{list(df.ner.explode().unique())}`")
 
 # split by file_name
 num_fn = len(file_names)
