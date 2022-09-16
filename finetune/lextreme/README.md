@@ -108,7 +108,7 @@ In detail, we support the folliwing tasks and configurations:
 | MultiEURLEX                |      Topic Classification |     (level 1, level 2, level 3) |                                           [multi_eurlex](https://huggingface.co/datasets/multi_eurlex) |
 | LeNER BR                   |  Named Entity Recognition |                         default |                                                   [lener_br](https://huggingface.co/datasets/lener_br) |
 | LegalNERo                  |  Named Entity Recognition |                         default |                                         [legalnero](https://huggingface.co/datasets/joelito/legalnero) |
-| Greek Legal NER            |  Named Entity Recognition |                         default |                                     [greek_legal_ner](https://huggingface.co/datasets/greek_legal_ner) |
+| Greek Legal NER            |  Named Entity Recognition |                         default |                             [greek_legal_ner](https://huggingface.co/datasets/joelito/greek_legal_ner) |
 | MAPA                       |  Named Entity Recognition |                  (coarse, fine) |                                                   [mapa](https://huggingface.co/datasets/joelito/mapa) |
 
 
