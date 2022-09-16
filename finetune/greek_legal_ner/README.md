@@ -93,6 +93,8 @@ The files contain the following data fields
     - `PUBLIC-DOCS`: Public Document Reference; any reference to documents or decisions that have been published by a public institution (organization) that are not considered a primary source of legislation (e.g., local decisions, announcements, memorandums, directives).
     - `O`: No entity annotation present
 
+The final tagset (in IOB notation) is the following: `['O', 'B-ORG', 'I-ORG', 'B-GPE', 'I-GPE', 'B-LEG-REFS', 'I-LEG-REFS', 'B-PUBLIC-DOCS', 'I-PUBLIC-DOCS', 'B-PERSON', 'I-PERSON', 'B-FACILITY', 'I-FACILITY', 'B-LOCATION-UNK', 'I-LOCATION-UNK', 'B-LOCATION-NAT', 'I-LOCATION-NAT']`
+
 ### Data Splits
 
 The dataset has three splits: *train*, *validation* and *test*.

@@ -53,7 +53,7 @@ def process_document(ann_file: str, text_file: Path, metadata: dict, tokenizer) 
                 print(f"Could not find entity `{row['entity_text']}` in sentence `{sentence}`")
 
         ann_sent["words"] = [str(tok) for tok in doc]
-        ann_sent["ner"] = [tok.ent_type_ if tok.ent_type_ else "O" for tok in doc]
+        ann_sent["ner"] = [tok.ent_iob_ + "-" + tok.ent_type_ if tok.ent_type_ else "O" for tok in doc]
 
         annotated_sentences.append(ann_sent)
 
@@ -84,6 +84,9 @@ splits = ["TRAIN", "VALIDATION", "TEST"]
 train = read_to_df("TRAIN")
 validation = read_to_df("VALIDATION")
 test = read_to_df("TEST")
+
+df = pd.concat([train, validation, test])
+print(f"The final tagset (in IOB notation) is the following: `{list(df.ner.explode().unique())}`")
 
 
 # save splits
