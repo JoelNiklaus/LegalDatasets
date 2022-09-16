@@ -253,21 +253,6 @@ cc-by-nc-2.5
 }
 ```
 
-```
-@article{Lippi2019,
-  author = {Lippi, Marco and Pa{\l}ka, Przemys{\l}aw and Contissa, Giuseppe and Lagioia, Francesca and Micklitz, Hans-Wolfgang and Sartor, Giovanni and Torroni, Paolo},
-  doi = {10.1007/s10506-019-09243-2},
-  issn = {1572-8382},
-  journal = {Artificial Intelligence and Law},
-  number = {2},
-  pages = {117--139},
-  title = {{CLAUDETTE: an automated detector of potentially unfair clauses in online terms of service}},
-  url = {https://doi.org/10.1007/s10506-019-09243-2},
-  volume = {27},
-  year = {2019}
-}
-```
-
 ### Contributions
 
 Thanks to [@JoelNiklaus](https://github.com/joelniklaus) and [@kapllan](https://github.com/kapllan) for adding this
