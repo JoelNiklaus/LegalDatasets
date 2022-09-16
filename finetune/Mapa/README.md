@@ -148,6 +148,62 @@ The tagset used for the global and the fine-grained named entities is the follow
     - Model
     - Type
 
+The final coarse grained tagset (in IOB notation) is the following: 
+
+`['O', 'B-ORGANISATION', 'I-ORGANISATION', 'B-ADDRESS', 'I-ADDRESS', 'B-DATE', 'I-DATE', 'B-PERSON', 'I-PERSON', 'B-AMOUNT', 'I-AMOUNT', 'B-TIME', 'I-TIME']`
+
+
+The final fine grained tagset (in IOB notation) is the following: 
+
+`[
+        'o',
+        'b-day',
+        'i-day',
+        'b-month',
+        'i-month',
+        'b-year',
+        'i-year',
+        'b-title',
+        'i-title',
+        'b-family name',
+        'i-family name',
+        'b-initial name',
+        'i-initial name',
+        'b-age',
+        'i-age',
+        'b-value',
+        'i-value',
+        'b-unit',
+        'i-unit',
+        'b-country',
+        'i-country',
+        'b-city',
+        'i-city',
+        'b-place',
+        'i-place',
+        'b-territory',
+        'i-territory',
+        'b-role',
+        'i-role',
+        'b-profession',
+        'i-profession',
+        'b-marital status',
+        'i-marital status',
+        'b-url',
+        'i-url',
+        'b-ethnic category',
+        'i-ethnic category',
+        'b-standard abbreviation',
+        'i-standard abbreviation'
+        'b-type',
+        'i-type',
+        'b-building',
+        'i-building',
+        'b-nationality',
+        'i-nationality',
+]`
+
+
 ### Data Splits
 
 Splits created by Joel Niklaus.

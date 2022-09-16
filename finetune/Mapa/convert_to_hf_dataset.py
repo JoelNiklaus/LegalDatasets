@@ -27,7 +27,8 @@ annotation_labels = {'ADDRESS': ['building', 'city', 'country', 'place', 'postco
 annotation_labels = {key.upper(): [label.lower() for label in labels] for key, labels in annotation_labels.items()}
 print(annotation_labels)
 print("coarse_grained:", list(annotation_labels.keys()))
-print("fine_grained:", [finegrained for finegrained in [finegrained_list for finegrained_list in annotation_labels.values()]])
+print("fine_grained:",
+      [finegrained for finegrained in [finegrained_list for finegrained_list in annotation_labels.values()]])
 
 base_path = Path("extracted")
 
@@ -103,6 +104,22 @@ def get_token_annotations(token, annotations):
     return coarse_grained.upper(), fine_grained.lower()
 
 
+def generate_IOB_labelset(series, casing_function):
+    last_ent = ""
+    new_series = []
+    for ent in series:
+        if ent in ["o", "O"]:
+            ent_to_add = ent
+        else:
+            if ent != last_ent:  # we are the first one
+                ent_to_add = "B-" + ent
+            else:
+                ent_to_add = "I-" + ent
+        new_series.append(casing_function(ent_to_add))
+        last_ent = ent
+    return new_series
+
+
 def get_annotated_sentence(result_sentence, sentence):
     result_sentence["tokens"] = []
     result_sentence["coarse_grained"] = []
@@ -114,6 +131,8 @@ def get_annotated_sentence(result_sentence, sentence):
             result_sentence["tokens"].append(token)
             result_sentence["coarse_grained"].append(coarse_grained)
             result_sentence["fine_grained"].append(fine_grained)
+    result_sentence["coarse_grained"] = generate_IOB_labelset(result_sentence["coarse_grained"], str.upper)
+    result_sentence["fine_grained"] = generate_IOB_labelset(result_sentence["fine_grained"], str.lower)
     return result_sentence
 
 
@@ -181,6 +200,13 @@ print(stat_df.to_markdown(index=False))
 train = pd.concat(train_dfs)
 validation = pd.concat(validation_dfs)
 test = pd.concat(test_dfs)
+
+df = pd.concat([train, validation, test])
+print(f"The final coarse grained tagset (in IOB notation) is the following: "
+      f"`{list(df.coarse_grained.explode().unique())}`")
+print(f"The final fine grained tagset (in IOB notation) is the following: "
+      f"`{list(df.fine_grained.explode().unique())}`")
+
 
 # save splits
 def save_splits_to_jsonl(config_name):
