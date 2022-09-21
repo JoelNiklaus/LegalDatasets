@@ -3988,7 +3988,7 @@ _MAPA_FINE = {
         'b-ethnic category',
         'i-ethnic category',
         'b-standard abbreviation',
-        'i-standard abbreviation'
+        'i-standard abbreviation',
         'b-type',
         'i-type',
         'b-building',
