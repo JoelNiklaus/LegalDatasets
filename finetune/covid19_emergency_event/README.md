@@ -60,7 +60,7 @@ task_ids:
 - **Repository:** https://github.com/tommasoc80/COVID19_emergency_event
 - **Paper:** Tziafas, G., de Saint-Phalle, E., de Vries, W., Egger, C., & Caselli, T. (2021). A Multilingual Approach to Identify and Classify Exceptional Measures against {COVID}-19. Proceedings of the Natural Legal Language Processing Workshop 2021, 46–62. https://doi.org/10.18653/v1/2021.nllp-1.5
 - **Leaderboard:**
-- **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -174,7 +174,7 @@ Note that the information given in this dataset card refer to the dataset versio
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
-Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
 
 
 ### Licensing Information

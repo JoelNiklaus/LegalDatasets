@@ -57,7 +57,7 @@ task_ids:
   Corpora. Proceedings of the 13th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART,
   515–521. https://doi.org/10.5220/0010187305150521
 - **Leaderboard:**
-- **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -215,8 +215,8 @@ the bibliographical references and the original Github repositories and/or web p
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation
-Information*. Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch)
-; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch)
+Information*. Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch)
+; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch)
 ; [Github](https://github.com/kapllan)).
 
 ### Licensing Information

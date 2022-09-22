@@ -62,7 +62,7 @@ task_ids:
   Entity Detection in the Legal Domain. Proceedings of the Language Resources and Evaluation Conference, June,
   3751–3760. http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.400.pdf
 - **Leaderboard:**
-- **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -303,8 +303,8 @@ the bibliographical references and the original Github repositories and/or web p
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation
-Information*. Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch)
-; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch)
+Information*. Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch)
+; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch)
 ; [Github](https://github.com/kapllan)).
 
 ### Licensing Information
