@@ -23,8 +23,8 @@ annotation_labels = {'ADDRESS': ['building', 'city', 'country', 'place', 'postco
                      'TIME': [],
                      'VEHICLE': ['build year', 'colour', 'license plate number', 'model', 'type']}
 
-# make all coarse_grained upper case and all fine_grained lower case
-annotation_labels = {key.upper(): [label.lower() for label in labels] for key, labels in annotation_labels.items()}
+# make all labels upper case
+annotation_labels = {key.upper(): [label.upper() for label in labels] for key, labels in annotation_labels.items()}
 print(annotation_labels)
 print("coarse_grained:", list(annotation_labels.keys()))
 print("fine_grained:",
@@ -61,7 +61,7 @@ def get_coarse_grained_for_fine_grained(label):
 
 def is_fine_grained(label):
     for coarse_grained, fine_grained_set in annotation_labels.items():
-        if label.lower() in fine_grained_set:
+        if label.upper() in fine_grained_set:
             return True
     return False
 
@@ -101,7 +101,7 @@ def get_token_annotations(token, annotations):
                 # some DATE are mislabeled as day but it is hard to correct this. So we ignore it
                 fine_grained = label
 
-    return coarse_grained.upper(), fine_grained.lower()
+    return coarse_grained.upper(), fine_grained.upper()
 
 
 def generate_IOB_labelset(series, casing_function):
@@ -132,7 +132,7 @@ def get_annotated_sentence(result_sentence, sentence):
             result_sentence["coarse_grained"].append(coarse_grained)
             result_sentence["fine_grained"].append(fine_grained)
     result_sentence["coarse_grained"] = generate_IOB_labelset(result_sentence["coarse_grained"], str.upper)
-    result_sentence["fine_grained"] = generate_IOB_labelset(result_sentence["fine_grained"], str.lower)
+    result_sentence["fine_grained"] = generate_IOB_labelset(result_sentence["fine_grained"], str.upper)
     return result_sentence
 
 
