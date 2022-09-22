@@ -24,7 +24,6 @@ source_datasets:
 task_categories:
 - text-classification
 task_ids:
-- multi-class-classification
 - multi-label-classification
 ---
 
@@ -69,7 +68,7 @@ This dataset presents a new corpus of legislative documents from 8 European coun
 
 ### Supported Tasks and Leaderboards
 
-The dataset can be used for multi-class and multi-label text classification tasks.
+The dataset can be used for multi-label text classification tasks.
 
 ### Languages
 
