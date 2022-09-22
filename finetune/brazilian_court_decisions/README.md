@@ -55,7 +55,7 @@ task_ids:
 - **Paper:** Lage-Freitas, A., Allende-Cid, H., Santana, O., & Oliveira-Lage, L. (2022). Predicting Brazilian Court
   Decisions. PeerJ. Computer Science, 8, e904–e904. https://doi.org/10.7717/peerj-cs.904
 - **Leaderboard:**
-- **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -205,8 +205,8 @@ Lage-Freitas, A., Allende-Cid, H., Santana Jr, O., & Oliveira-Lage, L. (2019). P
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation
-Information*. Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch)
-; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch)
+Information*. Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch)
+; [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch)
 ; [Github](https://github.com/kapllan)).
 
 ### Licensing Information

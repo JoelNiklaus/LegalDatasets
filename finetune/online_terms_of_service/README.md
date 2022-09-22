@@ -61,7 +61,7 @@ task_ids:
   G., & Torroni, P. (2021). A Corpus for Multilingual Analysis of Online Terms of Service. Proceedings of the Natural
   Legal Language Processing Workshop 2021, 1–8. https://doi.org/10.18653/v1/2021.nllp-1.1
 - **Leaderboard:**
-- **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -229,7 +229,7 @@ Note that the information given in this dataset card refer to the dataset versio
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
-Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
 
 
 ### Licensing Information

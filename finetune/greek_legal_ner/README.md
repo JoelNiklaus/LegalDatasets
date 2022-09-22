@@ -54,7 +54,7 @@ task_ids:
 - **Repository:** 
 - **Paper:** Angelidis, I., Chalkidis, I., & Koubarakis, M. (2018). Named Entity Recognition, Linking and Generation for Greek Legislation. JURIX.
 - **Leaderboard:** 
-- **Point of Contact:** [Ilias Chalkidis](ilias.chalkidis@di.ku.dk); [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Ilias Chalkidis](mailto:ilias.chalkidis@di.ku.dk); [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -187,7 +187,7 @@ Note that the information given in this dataset card refer to the dataset versio
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
-Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
 
 
 ### Licensing Information

@@ -54,7 +54,7 @@ task_ids:
 - **Repository:** https://zenodo.org/record/4922385
 - **Paper:** Pais, V., Mitrofan, M., Gasan, C. L., Coneschi, V., & Ianov, A. (2021). Named Entity Recognition in the {R}omanian Legal Domain. Proceedings of the Natural Legal Language Processing Workshop 2021, 9–18. https://doi.org/10.18653/v1/2021.nllp-1.2
 - **Leaderboard:**
-- **Point of Contact:** [Joel Niklaus](joel.niklaus.2@bfh.ch)
+- **Point of Contact:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
 
 ### Dataset Summary
 
@@ -155,7 +155,7 @@ Note that the information given in this dataset card refer to the dataset versio
 ### Dataset Curators
 
 The names of the original dataset curators and creators can be found in references given below, in the section *Citation Information*.
-Additional changes were made by Joel Niklaus ([Email](joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
+Additional changes were made by Joel Niklaus ([Email](mailto:joel.niklaus.2@bfh.ch); [Github](https://github.com/joelniklaus)) and Veton Matoshi ([Email](mailto:veton.matoshi@bfh.ch); [Github](https://github.com/kapllan)).
 
 
 ### Licensing Information
