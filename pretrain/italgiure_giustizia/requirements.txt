@@ -1,5 +1,0 @@
-scrapy
-pdfminer.six
-requests
-pathlib
-fake-headers
