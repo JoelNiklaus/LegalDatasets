@@ -4,14 +4,14 @@
 The goal of project is to provide databases for the main project (see more at [Web Scraping for a Database of Court Decision Related Documents](https://www.digitale-nachhaltigkeit.unibe.ch/studies/bachelor_s__and_master_s_theses_at_inf/natural_language_processing/web_scraping_for_a_database_of_court_decision_related_documents/index_eng.html)) about an automated system to prove true anonymity of people involved in court rulings. 
 
 The following websites have been used to build 6 databases (.jsonl):
-- Website 1: [https://www.legifrance.gouv.fr](https://www.legifrance.gouv.fr)
-- Website 2: [https://www.gesetze-bayern.de](https://www.gesetze-bayern.de)
-- Website 3: [https://www.ris.bka.gv.at](https://www.ris.bka.gv.at)
-- Website 4: [http://www.bailii.org](http://www.bailii.org)
-- Website 5: [http://www.sentenze.ti.ch](http://www.sentenze.ti.ch)
-- Website 6: [https://www.retsinformation.dk](https://www.retsinformation.dk)
+- legifrance: [https://www.legifrance.gouv.fr](https://www.legifrance.gouv.fr)
+- gesetze_bayern: [https://www.gesetze-bayern.de](https://www.gesetze-bayern.de)
+- ris_bka_gv_at: [https://www.ris.bka.gv.at](https://www.ris.bka.gv.at)
+- bailii: [http://www.bailii.org](http://www.bailii.org)
+- sentenze_ti: [http://www.sentenze.ti.ch](http://www.sentenze.ti.ch)
+- retsinformation: [https://www.retsinformation.dk](https://www.retsinformation.dk)
 
-For each website a python script has been created, and accordingly named. The naming convention for the Website `<N>` is `WebscrapingWebsite<N>.py` for the script and `DBWebsite<N>.jsonl` for the corresponding database.
+For each website a python script has been created, and accordingly named. The naming convention for the Website `<name>` is `<name>.py` for the script and `<name>.jsonl` for the corresponding database.
 
 The general assumption for the script to work is that the articles found on a website have the same structure and data format. Heterogeneity is tough to deal with, so in obvious cases I managed to ignore articles that didn't reflect the main structure, for example by using `try catch` (`try except` in python) statements as workaround.
 
@@ -70,5 +70,4 @@ The structure of a `JSON` object, containgin an article's data, is the following
 **Remark:** In the code there's the possibility to generate common `JSON` files as databases. As default the lines of code to generate `JSON` databases are commented. Simply comment in/out those lines at your necessity.
 
 ## Statistics
-Few variables have been used to compute simple statistics on the fly. Those variable are recognized by the prefix `stat_`.
 Few variables have been used to compute simple statistics on the fly. Those variable are recognized by the prefix `stat_`.

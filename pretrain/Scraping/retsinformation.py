@@ -100,7 +100,7 @@ driver.quit()
 # file = open(fileName, "w", encoding='utf8')
 # json.dump(articles_JSON, file, ensure_ascii=False)
 # file.close()
-fileName = "DBWebsite6.jsonl"
+fileName = "retsinformation.jsonl"
 writer = jsonlines.open(fileName, 'w')
 for article in articles_JSON:
     writer.write(article)
