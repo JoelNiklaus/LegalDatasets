@@ -1,6 +1,7 @@
 import pandas as pd
 
-language = 'sk'
-df = pd.read_csv(f'data/{language}/legal_mc4.csv', nrows=20)
+language = 'de'
+df = pd.read_csv(f'{language}/legal_mc4.csv', nrows=5)
 
-print(df.to_string())
+print(df.matches)
+print(df.text)
