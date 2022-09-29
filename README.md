@@ -7,17 +7,17 @@ downstream tasks, such as pretraining language models or judgment prediction.
 
 ## Pretraining Datasets
 
-Each of the pretraining datastes will be saved in jsonl format with the following fields:
+Each of the pretraining datasets will be saved in jsonl format with the following fields:
 
 - `id`: unique identifier for the document (uuid5 if not present yet)
 - `type`: type of the document (e.g. `legislation`, `caselaw`, `commentary`)
 - `language`: language of the document
 - `jurisdiction`: jurisdiction of the document (e.g. `germany`)
 - `title`: title of the document
-- `text`: the text of the document
 - `date`: date of the document
 - `url`: url of the document
 - `metadata`: additional metadata of the document (as a json object)
+- `text`: the text of the document
 
 These pretraining datasets will be used to train the language models.
 
