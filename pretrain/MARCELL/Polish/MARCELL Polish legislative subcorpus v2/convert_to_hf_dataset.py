@@ -109,4 +109,4 @@ df = pd.DataFrame(items)
 #files_as_dict = [format_xml_file(x) for x in tqdm(files)]
 #df = pd.DataFrame(files_as_dict)
 
-df.to_json('Polish_Poland_MARCELL_Polish_legislative_subcorpus_v2.jsonl',force_ascii=False,orient='records', lines=True,indent=2)
+df.to_json('Polish_Poland_MARCELL_Polish_legislative_subcorpus_v2.jsonl',force_ascii=False,orient='records', lines=True)

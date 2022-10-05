@@ -59,4 +59,4 @@ print('Number of documents to be processed: ', len(files))
 files_as_dict = [format_conllup_file(x) for x in tqdm(files)]
 df = pd.DataFrame(files_as_dict)
 
-df.to_json('Hungarian_Hungaria_MARCELL_Hungarian_legislative_subcorpus_v2.jsonl',force_ascii=False,orient='records', lines=True,indent=2)
+df.to_json('Hungarian_Hungaria_MARCELL_Hungarian_legislative_subcorpus_v2.jsonl',force_ascii=False,orient='records', lines=True)
