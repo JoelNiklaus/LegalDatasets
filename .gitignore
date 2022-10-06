@@ -135,3 +135,12 @@ Thirith-Yang/
 # Data
 *.jsonl
 *.zip
+*.csv
+*.jsonl.xz
+*.tar.xz
+*.tsv
+*.txt
+*.conllup
+*.xml
+*.ann
+
