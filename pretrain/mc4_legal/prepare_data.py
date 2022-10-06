@@ -1,6 +1,6 @@
-import os
-
 import datasets
+
+from utils import save_and_compress
 
 _LANGUAGES = [
     "bg",
@@ -28,13 +28,19 @@ _LANGUAGES = [
     "sl",
     "sv",
 ]
+
 for language in _LANGUAGES:
     print(language)
     dataset = datasets.load_dataset("csv", data_files=f"{language}/legal_mc4.csv")["train"]
     dataset = dataset.remove_columns("Unnamed: 0")
 
-    path = f"{language}.jsonl"
-    dataset.to_json(path, force_ascii=False)
+    save_and_compress(dataset, language, None)
 
-    print("Compressing...")
-    os.system(f'xz -zkf -T0 {path}')  # -TO to use multithreading
+for language in ["de", "en", "es"]:  # too large files
+    print(language)
+    dataset = datasets.load_dataset("json", data_files=f"{language}.jsonl")["train"]
+
+    # KISS: just use train_test_split to divide
+    split = dataset.train_test_split(test_size=0.5, shuffle=False)
+    save_and_compress(split["train"], language, 0)
+    save_and_compress(split["test"], language, 1)
