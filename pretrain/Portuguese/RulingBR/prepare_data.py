@@ -37,4 +37,4 @@ print(df.head())
 
 print('Total number of documents: ', df.shape[0])
 
-save_and_compress(df, 'Portuguese_Brazil_RulingBR')
+save_and_compress(df, 'RulingBR')

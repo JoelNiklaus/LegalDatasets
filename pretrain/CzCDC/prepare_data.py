@@ -1,19 +1,6 @@
-import os
-
 import pandas as pd
 import datasets
-
-
-def save_and_compress(dataset, court, idx):
-    if idx:
-        path = f"{court}_{idx}.jsonl"
-    else:
-        path = f"{court}.jsonl"
-    dataset.to_json(path, force_ascii=False)
-
-    print("Compressing...")
-    os.system(f'xz -zkf -T0 {path}')  # -TO to use multithreading
-
+from utils import save_and_compress
 
 for court in ["ConCo", "SupAdmCo", "SupCo"]:
     df = pd.read_csv(f"{court}.csv", names=["file_name", "docket_number", "date", "court_abbreviation"],
