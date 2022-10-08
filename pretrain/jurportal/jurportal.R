@@ -42,7 +42,7 @@ for (y in 2007:2022) {
       template$text=test
       to_Write=toJSON(template)
       to_Write<-str_sub(to_Write,2,-2)
-      write(to_Write,  file="belgique.json",append = TRUE)
+      write(to_Write,  file="belgium.json",append = TRUE)
       remove(article)
       remove(to_Write)
       stop("Error !")
