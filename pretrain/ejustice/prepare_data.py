@@ -1,6 +1,6 @@
 import pandas as pd
 
-from utils import save_and_compress
+from utils import save_and_compress, select_and_clean
 
 """
 Legislation from Belgium in fr and nl
@@ -29,7 +29,7 @@ df = df.rename(columns={
     'Language': 'language',
 })
 df['type'] = 'legislation'
-df = df[['type', 'language', 'jurisdiction', 'text']]
-df.dropna(subset=['text'], inplace=True)  # remove nans
-df = df[df['text'].str.len() > 100]  # remove very small instances
+
+df = select_and_clean(df)
+
 save_and_compress(df, 'ejustice')
