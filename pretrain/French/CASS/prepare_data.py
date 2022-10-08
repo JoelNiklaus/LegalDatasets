@@ -3,7 +3,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from utils import save_and_compress
+from utils import save_and_compress, select_and_clean
 
 
 def format_file(file_path):
@@ -75,8 +75,13 @@ cass_files = [f for f in path_to_cass.glob('**/*') if f.is_file()]
 cass_files = [format_file(f) for f in tqdm(cass_files) if str(f).endswith('xml')]
 print(len(cass_files))
 
-cass_files_df = pd.DataFrame(cass_files)
+df = pd.DataFrame(cass_files)
 
-print('Number of records is: ', cass_files_df.shape)
+print('Number of records is: ', df.shape)
+df['type'] = 'caselaw'
+df['jurisdiction'] = 'France'
+df['language'] = 'fr'
 
-save_and_compress(cass_files_df, 'cass')
+df = select_and_clean(df)
+
+save_and_compress(df, 'cass')
