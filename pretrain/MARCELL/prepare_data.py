@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 from tqdm import tqdm
 
-from utils import save_and_compress
+from utils import save_and_compress, select_and_clean
 
 languages = ["bg", "hu", "pl", "ro", "sk", "sl"]
 jurisdictions = {"bg": "Bulgaria", "hu": "Hungary", "pl": "Poland", "ro": "Romania", "sk": "Slovakia", "sl": "Slovenia"}
@@ -32,6 +32,6 @@ for language in languages:
     df['language'] = language
     df['jurisdiction'] = jurisdictions[language]
     df['type'] = 'legislation'
-    df = df[['type', 'language', 'jurisdiction', 'text']]
+    df = select_and_clean(df)
 
-    save_and_compress(df, f"data/{language}")
+    save_and_compress(df, f"MARCELL_{language}")
