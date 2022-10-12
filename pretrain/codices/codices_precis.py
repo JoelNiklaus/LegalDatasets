@@ -18,7 +18,6 @@ options.add_experimental_option('useAutomationExtension', False)
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_argument("disable-infobars")
 
-
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 driver.maximize_window()
@@ -37,10 +36,9 @@ driver.switch_to.default_content()
 
 driver.switch_to.frame(driver.find_element_by_id('document-frameset'))
 
-stop_state =  driver.find_element_by_css_selector('div.A div').text
+stop_state = driver.find_element_by_css_selector('div.A div').text
 
 first = 1
-
 
 while stop_state != 'Systematic thesaurus - Thésaurus systématique - Thesaurus sistemático':
     try:
@@ -56,7 +54,7 @@ while stop_state != 'Systematic thesaurus - Thésaurus systématique - Thesaurus
 
     try:
         level3 = driver.find_element_by_css_selector('div.C div').text
-        three =level3
+        three = level3
     except:
         level3 = ""
     try:
@@ -66,28 +64,26 @@ while stop_state != 'Systematic thesaurus - Thésaurus systématique - Thesaurus
         level4 = ""
     try:
         level5 = driver.find_element_by_css_selector('div.E').text
-        five= level5
+        five = level5
     except:
         level5 = ""
 
     if first == 1:
         data_dictionary = {level1: {level2: {level3: {str(level4): [level5]}}}}
-        first+=1
+        first += 1
 
     else:
-        if level1=="" and level2=="" and level3=="" and level4=="":
+        if level1 == "" and level2 == "" and level3 == "" and level4 == "":
             data_dictionary[one][two][three][four].append(level5)
 
-        elif level1=="" and level2=="" and level3=="":
+        elif level1 == "" and level2 == "" and level3 == "":
             if level4 not in data_dictionary[one][two][three].keys():
                 data_dictionary[one][two][three][str(level4)] = [level5]
         elif level1 == "" and level2 == "":
-            data_dictionary[one][two][level3] = {str(level4):[level5]}
+            data_dictionary[one][two][level3] = {str(level4): [level5]}
 
         elif level1 == "":
-            data_dictionary[one][level2] = {level3:{str(level4): [level5]}}
-
-
+            data_dictionary[one][level2] = {level3: {str(level4): [level5]}}
 
     driver.switch_to.default_content()
     driver.find_element_by_css_selector('img[alt="Next Doc"]').click()
@@ -101,13 +97,3 @@ while stop_state != 'Systematic thesaurus - Thésaurus systématique - Thesaurus
 driver.close()
 with open("Data.json", "w") as outfile:
     json.dump(data_dictionary, outfile)
-
-
-
-
-
-
-
-
-
-
