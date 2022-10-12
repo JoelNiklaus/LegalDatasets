@@ -9,7 +9,8 @@ def select_and_clean(df):
     df = df[['type', 'language', 'jurisdiction', 'text']]
     df.dropna(subset=['text'], inplace=True)  # remove nans
     df = df[df['text'].str.len() > 100]  # remove very small instances
-    return df.text.str.strip()
+    df.text = df.text.str.strip()  # remove beginning and trailing whitespace
+    return df
 
 
 def save_and_compress(dataset: Union[datasets.Dataset, pd.DataFrame], name: str, idx=None):

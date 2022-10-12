@@ -29,7 +29,8 @@ df = df.rename(columns={
     'Language': 'language',
 })
 df['type'] = 'legislation'
-
 df = select_and_clean(df)
 
-save_and_compress(df, 'ejustice')
+for language in df.language.unique().tolist():
+    lang_df = df[df.language == language]
+    save_and_compress(lang_df, f'ejustice_{language}')
