@@ -1,4 +1,3 @@
-import datasets
 import pandas as pd
 from bs4 import BeautifulSoup
 
@@ -8,7 +7,7 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 """
-Case law and Legislation from Switzerland in de, fr, it 
+Legislation from Switzerland in de, fr, it, en and rm
 """
 # somehow it doesn't work with datasets: https://github.com/huggingface/datasets/issues/3965
 #dataset = datasets.load_dataset("json", data_files=f"lexfind.jsonl")["train"]
