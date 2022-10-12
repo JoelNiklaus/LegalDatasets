@@ -32,7 +32,9 @@ def prepare(type):
 
     df = select_and_clean(df)
 
-    save_and_compress(df, type)
+    for language in df.language.unique().tolist():
+        lang_df = df[df.language.str.contains(language)]
+        save_and_compress(lang_df, f'{type}_{language}')
 
 
 for type in ['constitution', 'caselaw', 'law', 'summary']:

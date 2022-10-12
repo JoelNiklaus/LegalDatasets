@@ -18,4 +18,10 @@ for court in ["ConCo", "SupAdmCo", "SupCo"]:
 
     dataset = datasets.Dataset.from_pandas(df)
 
+    if court == 'ConCo':
+        court = "ConstitutionalCourt"
+    elif court == 'SupAdmCo':
+        court = "SupremeAdministrativeCourt"
+    elif court == 'SupCo':
+        court = "SupremeCourt"
     save_and_compress(dataset, court, None)
