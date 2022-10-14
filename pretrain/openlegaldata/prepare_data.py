@@ -14,23 +14,23 @@ def parse_text(example):
     return example
 
 
-def process_data(df, type):
+def process_data(dataset, type):
     if type == 'caselaw':
         cols_to_remove = ['id', 'slug', 'court', 'file_number', 'date', 'created_date', 'updated_date', 'type', 'ecli']
     if type == 'legislation':
         cols_to_remove = ['id', 'book', 'title', 'slug', 'created_date', 'updated_date',
                           'section', 'amtabk', 'kurzue', 'doknr', 'order']
-    df = df.rename_column('content', 'text')
-    df = df.remove_columns(cols_to_remove)
-    df = df.filter(lambda example: len(example['text']) > 100)
+    dataset = dataset.rename_column('content', 'text')
+    dataset = dataset.remove_columns(cols_to_remove)
+    dataset = dataset.filter(lambda example: len(example['text']) > 100)
 
-    df = df.map(parse_text, num_proc=16)
+    dataset = dataset.map(parse_text, num_proc=16)
 
-    df = df.add_column("type", [type] * len(df))
-    df = df.add_column("language", ["de"] * len(df))
-    df = df.add_column("jurisdiction", ["Germany"] * len(df))
+    dataset = dataset.add_column("type", [type] * len(dataset))
+    dataset = dataset.add_column("language", ["de"] * len(dataset))
+    dataset = dataset.add_column("jurisdiction", ["Germany"] * len(dataset))
 
-    save_and_compress(df, f'german_{type}')
+    save_and_compress(dataset, f'german_{type}')
 
 
 process_data(load_dataset('json', data_files='data/cases.jsonl')['train'], 'caselaw')
