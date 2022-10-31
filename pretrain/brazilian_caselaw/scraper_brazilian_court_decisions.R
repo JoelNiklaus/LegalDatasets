@@ -1,14 +1,17 @@
 # to install the packages, run the following commands:
-# install.packages("remotes"), remotes::install_github("jjesusfilho/tjsp"), install.packages("rjson")
+# install.packages("remotes"), remotes::install_github("jjesusfilho/tjsp"), install.packages("rjson"), remotes::install_github("courtsbr/JurisMiner") 
+
+remotes::install_github("courtsbr/JurisMiner") 
+
 
 library(tjsp)
 library(rjson)
 
-slackr_setup()
+#slackr_setup()
 
 print_and_report <- function(message) {
   print(message)
-  slackr_bot(message)
+  #slackr_bot(message)
 }
 
 save_type <- function(json_dir, type) {
@@ -47,11 +50,25 @@ types <- c("cjpg", "cjsg") # "cpopg", "cposg" require special treatment
 
 
 for (type in types) {
+
   dir.create(type) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
+  
+  dates <- JurisMiner::agrupar_datas("01/10/2022", "31/10/2022",intervalos = 20)
 
   print_and_report(paste("Scraping documents for type: ", type))
-  download_function <- getFunction(paste("baixar_", type, sep = ""))
-  download_function(livre = keyword, diretorio = type) # fetch the documents and save them in the specified directory
+  #download_function <- getFunction(paste("baixar_", type, sep = ""))
+
+  purrr::walk2(dates$data_inicial, dates$data_final,~{
+        
+        if(setequal(type,'cjpg')){
+          tjsp::tjsp_baixar_cjpg(inicio = .x, fim = .y, diretorio = type)
+        }
+        else if(setequal(type,'cjsg')){
+          tjsp::tjsp_baixar_cjsg(inicio = .x, fim = .y, diretorio = type)
+          }
+ 
+  })
+  #download_function(livre = keyword, diretorio = type) # fetch the documents and save them in the specified directory
 
   save_type(json_dir, type)
 
