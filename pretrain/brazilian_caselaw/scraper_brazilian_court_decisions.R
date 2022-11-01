@@ -1,8 +1,12 @@
+# More information here: https://tjsp.consudata.com.br/
+
 # to install the packages, run the following commands:
 # install.packages("remotes"), remotes::install_github("jjesusfilho/tjsp"), install.packages("rjson")
 
 library(tjsp)
 library(rjson)
+library(slackr)
+
 
 slackr_setup()
 
