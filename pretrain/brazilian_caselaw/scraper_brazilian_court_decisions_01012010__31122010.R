@@ -4,12 +4,12 @@
 
 library(tjsp)
 library(rjson)
-library(courtsbr / JurisMiner)
 
 
-start_date <- "01/01/2010"
-end_date <- "31/12/2010"
-download <- TRUE
+year <- 2010
+start_date <- paste("01/01/", year)
+end_date <- paste("31/12/", year)
+download <- FALSE
 
 #slackr_setup()
 
