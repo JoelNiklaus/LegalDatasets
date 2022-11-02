@@ -1,6 +1,6 @@
 # to install the packages, run the following commands:
 # install.packages("remotes"), remotes::install_github("jjesusfilho/tjsp"), install.packages("rjson"), remotes::install_github("courtsbr/JurisMiner") 
-
+ 
 
 library(tjsp)
 library(rjson)
@@ -49,8 +49,8 @@ types <- c("cjpg", "cjsg") # "cpopg", "cposg" require special treatment
 
 for (type in types) {
   
-  start_date <- "01/01/2019"
-  end_date <- "31/12/2019"
+  start_date <- "01/01/2010"
+  end_date <- "31/12/2010"
   
   dates <- JurisMiner::agrupar_datas(start_date, end_date,intervalos = 20)
 
