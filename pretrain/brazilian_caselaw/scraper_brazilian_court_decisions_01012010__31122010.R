@@ -7,8 +7,8 @@ library(rjson)
 
 
 year <- 2010
-start_date <- paste("01/01/", year)
-end_date <- paste("31/12/", year)
+start_date <- paste("01/01/", year, sep="")
+end_date <- paste("31/12/", year, sep="")
 download <- FALSE
 
 #slackr_setup()
@@ -23,7 +23,7 @@ save_type <- function(json_dir, dir_name, type) {
   print_and_report(paste("Converting to a table the data from this directory: ", type))
 
   read_function <- getFunction(paste("ler_", type, sep = ""))
-  table <- read_function(diretorio = type)
+  table <- read_function(diretorio = dir_name)
 
   filename <- paste(json_dir, "/", dir_name, ".json", sep = "")
   sink(filename)
@@ -41,7 +41,9 @@ save_type <- function(json_dir, dir_name, type) {
 
 
 json_dir <- "results_as_json"
-dir.create(json_dir)
+if (dir.exists(json_dir)==FALSE) {
+        dir.create(json_dir) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
+      }
 
 
 # You can insert (comma seperated) other keywords that you want to use to find documents
@@ -53,6 +55,8 @@ keyword <- "a" # just use a simple article "a" so that we find everything
 types <- c("cjpg", "cjsg") # "cpopg", "cposg" require special treatment
 
 dates <- JurisMiner::agrupar_datas(start_date, end_date, intervalos = 20)
+print(typeof(dates))
+print(dates)
 
 
 for (type in types) {
@@ -61,7 +65,9 @@ for (type in types) {
 
   print(dir_name)
 
-  dir.create(dir_name) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
+  if (dir.exists(dir_name)==FALSE) {
+        dir.create(dir_name) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
+      }
 
   print_and_report(paste("Scraping documents for type: ", type))
 
