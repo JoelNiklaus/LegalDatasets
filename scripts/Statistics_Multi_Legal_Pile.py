@@ -88,6 +88,6 @@ iteration_dict["pile-of-law/pile-of-law"]= ['r_legaladvice', 'courtlistener_dock
 
 for k, v in iteration_dict.items():
     print('Processing ', k)
-    create_overview(k, v[:2])
+    create_overview(k, v)
 
 
