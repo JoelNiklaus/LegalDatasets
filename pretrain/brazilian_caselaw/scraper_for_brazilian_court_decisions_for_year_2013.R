@@ -6,7 +6,7 @@ library(tjsp)
 library(rjson)
 
 
-year <- 2010
+year <- 2013
 start_date <- paste("01/01/", year, sep="")
 end_date <- paste("31/12/", year, sep="")
 download <- FALSE
@@ -55,8 +55,6 @@ keyword <- "a" # just use a simple article "a" so that we find everything
 types <- c("cjpg", "cjsg") # "cpopg", "cposg" require special treatment
 
 dates <- JurisMiner::agrupar_datas(start_date, end_date, intervalos = 20)
-print(typeof(dates))
-print(dates)
 
 
 for (type in types) {
@@ -88,4 +86,5 @@ for (type in types) {
 
   print_and_report(paste("Finished scraping documents for type: ", type))
 }
+
 

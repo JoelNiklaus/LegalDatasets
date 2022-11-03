@@ -1,4 +1,4 @@
 import os
 
 
-os.system("kill $(ps aux | grep scraper_brazilian_court | awk '{print $2}')")
+os.system("kill -9 $(ps aux | grep scraper_for_brazilian_court_decisions_for_year | awk '{print $2}')")
