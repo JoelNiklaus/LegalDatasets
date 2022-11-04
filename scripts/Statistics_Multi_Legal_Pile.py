@@ -36,8 +36,7 @@ def get_overview(dataset_name, config):
             results_scattered.append(result_dict)
         except Exception as e:
             print(print_exc())
-            print('No ', split, 'in ', dataset_name, ' ', config)
-            pass
+            print('No ', split, ' in ', dataset_name, ' ', config)
 
     results_scattered = pd.DataFrame(results_scattered)
 
@@ -45,7 +44,7 @@ def get_overview(dataset_name, config):
     final_result_dict["config"] = config
     final_result_dict["Tokens"] = results_scattered.Tokens.sum()
     final_result_dict["Documents"] = results_scattered.Documents.sum()
-    final_result_dict["Words/Document"] = round(int(final_result_dict["Tokens"] / final_result_dict["Documents"]), 0)
+    final_result_dict["Tokens/Document"] = round(int(final_result_dict["Tokens"] / final_result_dict["Documents"]), 0)
 
     filename = re.sub(r'\/', '_', dataset_name)
     file_name = 'results_of_' + filename + '.csv'
@@ -62,6 +61,7 @@ def create_overview(dataset_name, available_configs):
     results = list()
 
     for config in available_configs:
+        # TODO skip configs that have been computed already so that we can resume
         result_dict = get_overview(dataset_name, config)
         results.append(result_dict)
 
@@ -79,6 +79,6 @@ if __name__ == '__main__':
                      'pile-of-law/pile-of-law']
     iteration_dict = {dataset_name: get_dataset_config_names(dataset_name) for dataset_name in dataset_names}
 
-    for dataset_name, config in iteration_dict.items():
+    for dataset_name, configs in iteration_dict.items():
         print('Processing ', dataset_name)
-        create_overview(dataset_name, config)
+        create_overview(dataset_name, configs)
