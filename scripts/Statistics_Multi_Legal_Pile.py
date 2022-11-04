@@ -25,14 +25,13 @@ def get_overview(dataset_name, config):
             result_dict = dict()
             Tokens = 0
             Documents = 0
-            for batch in dataset:
-                Tokens += batch['length']
+            for document in dataset:
+                Tokens += document['length']
                 Documents += 1
 
             result_dict['config'] = config
             result_dict['Tokens'] = Tokens
             result_dict['Documents'] = Documents
-            # result_dict['Words/Document'] = int(round(mean(dataset["length"]),0))
             results_scattered.append(result_dict)
         except Exception as e:
             print(print_exc())
