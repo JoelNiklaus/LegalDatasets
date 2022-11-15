@@ -31,13 +31,13 @@ _LANGUAGES = [
 _RESOURCE_TYPES = ["caselaw", "decision", "directive", "intagr", "proposal", "recommendation", "regulation"]
 
 
-def prepare_data(language, resource_type, do_preproces=False):
-    path = f"{language}/{resource_type}.jsonl"
+def prepare_data(language, resource_type, do_preprocess=False):
+    path = f"eurlex_resources/data/{language}/{resource_type}.jsonl"
     print(f"{language} {resource_type}")
 
-    if do_preproces:
+    if do_preprocess:
         print(f"Reading...")
-        df = pd.read_json(path, lines=True)
+        df = pd.read_json(path, lines=True, encoding_errors='strict')
 
         print("Preprocessing...")
         df.dropna(subset={"text"}, inplace=True)
@@ -54,4 +54,4 @@ def prepare_data(language, resource_type, do_preproces=False):
 # Filter out rows without text
 for language in _LANGUAGES:
     for resource_type in _RESOURCE_TYPES:
-        prepare_data(language, resource_type)
+        prepare_data(language, resource_type, True)
