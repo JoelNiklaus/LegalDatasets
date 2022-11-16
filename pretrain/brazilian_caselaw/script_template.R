@@ -42,8 +42,8 @@ save_type <- function(json_dir, dir_name, type) {
 
 json_dir <- "results_as_json"
 if (dir.exists(json_dir)==FALSE) {
-        dir.create(json_dir) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
-      }
+    dir.create(json_dir) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
+}
 
 
 # You can insert (comma seperated) other keywords that you want to use to find documents
@@ -64,8 +64,8 @@ for (type in types) {
   print(dir_name)
 
   if (dir.exists(dir_name)==FALSE) {
-        dir.create(dir_name) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
-      }
+    dir.create(dir_name) # A general directory will be created where the results will be stored; for each keyword you can create a separate directory if you want
+  }
 
   print_and_report(paste("Scraping documents for type: ", type))
 
