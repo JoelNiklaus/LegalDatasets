@@ -29,11 +29,18 @@ def run_in_parallel(commands_to_run):
         pool.map(run_script, commands_to_run)
 
 
+def run_sequentially(commands_to_run):
+    for command in commands_to_run:
+        run_script(command)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-dnb', '--download_boolean',
                         help='Define whether you want to download or only to convert to json.', default="TRUE")
+    parser.add_argument('-rp', '--run_in_parallel', type=lambda x: (str(x).lower() == 'true'),
+                        help='Define whether you want to run the years in parallel', default=True)
 
     args = parser.parse_args()
 
@@ -41,4 +48,7 @@ if __name__ == "__main__":
     generate_scripts(years, args.download_boolean)
     all_files = os.listdir('./')
     all_r_scripts = [x for x in all_files if x.endswith('.R') and base_name in x and bool(re.search(r'\d', x))]
-    run_in_parallel(all_r_scripts)
+    if args.run_in_parallel:
+        run_in_parallel(all_r_scripts)
+    else:
+        run_sequentially(all_r_scripts)  # do this if you don't have enough RAM
