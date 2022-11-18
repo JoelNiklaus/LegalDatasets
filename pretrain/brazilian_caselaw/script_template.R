@@ -26,9 +26,17 @@ save_type <- function(json_dir, dir_name, type) {
   table <- read_function(diretorio = dir_name)
 
   filename <- paste(json_dir, "/", dir_name, ".json", sep = "")
-  sink(filename)
-  cat(toJSON(table))
-  sink()
+  #sink(filename)
+  #cat(toJSON(table))
+  #sink()
+
+  # The download strategy below seems to be more reliable than the previous one above
+  fh <- file(filename, "w")
+  for (i in 1:nrow(table)) {
+      write.table(toJSON(table[i,]), fh,
+                  row.names = FALSE, col.names = FALSE, quote = FALSE)
+  }
+  close(fh)
 
 }
 
