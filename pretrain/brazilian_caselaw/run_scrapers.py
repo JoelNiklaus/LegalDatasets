@@ -6,7 +6,19 @@ import argparse
 base_name = "scraper_for_brazilian_court_decisions_for_year_"
 
 
+def delete_existing_scripts():
+    
+    files = os.listdir('.')
+    generated_R_scripts_previously = [x for x in files if x.startswith(base_name)]
+    for script in generated_R_scripts_previously:
+        os.remove(script)
+
+
+
 def generate_scripts(list_of_years, download_boolean):
+
+    delete_existing_scripts()
+    
     for year in list_of_years:
         year = str(year)
         r_script_template = open("script_template.R", "r").read()
