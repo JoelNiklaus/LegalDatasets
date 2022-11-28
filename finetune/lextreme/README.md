@@ -35,9 +35,9 @@ multilinguality:
 paperswithcode_id: null
 pretty_name: "LEXTREME: A Multilingual Legal Benchmark for Natural Language Understanding"
 size_categories:
-- 1K<n<100K
+- 10K<n<100K
 source_datasets:
-- original
+- extended
 task_categories:
 - text-classification
 - token-classification
@@ -90,6 +90,12 @@ task_ids:
 ### Dataset Summary
 
 The dataset consists of 11 diverse multilingual legal NLU tasks. 6 tasks have one single configuration and 5 tasks have two or three configurations. This leads to a total of 18 tasks (8 single-label text classification tasks, 5 multi-label text classification tasks and 5 token-classification tasks).
+
+Use the dataset like this:
+```python
+from datasets import load_dataset
+dataset = load_dataset("joelito/lextreme", "swiss_judgment_prediction")
+```
 
 ### Supported Tasks and Leaderboards
 
