@@ -1,0 +1,18 @@
+Language	Type	jurisdiction	Source	Size (MB)	Tokens	Documents	Words/Document
+en	caselaw	US	courtlisteneropinions	79050	xxx	xxx	xxx
+en	caselaw	US	courtlistenerdocketentries	69510	xxx	xxx	xxx
+en	caselaw	US	scotus_filings	2010	xxx	xxx	xxx
+en	caselaw	EU	echr	149	xxx	xxx	xxx
+en	caselaw	Canada	canadian_decisions	243	xxx	xxx	xxx
+en	contracts	US	atticus_contracts	41600	xxx	xxx	xxx
+en	contracts	US	edgar	14350	xxx	xxx	xxx
+en	contracts	US	cfpb_creditcard_contracts	94	xxx	xxx	xxx
+en	legislation	US	uscode	358	xxx	xxx	xxx
+en	legislation	US	state_codes	9030	xxx	xxx	xxx
+en	legislation	US	us_bills	1690	xxx	xxx	xxx
+en	legislation	US	federal_register	212	xxx	xxx	xxx
+en	legislation	US	cfr	894	xxx	xxx	xxx
+en	legislation	N/A	constitutions	33	xxx	xxx	xxx
+en	other	US	oig	2530	xxx	xxx	xxx
+en	other	US	olc_memos	49	xxx	xxx	xxx
+total	all	all	all	221851	xxx	xxx	xxx
