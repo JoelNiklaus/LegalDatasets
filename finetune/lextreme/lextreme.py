@@ -127,7 +127,7 @@ _BRAZILIAN_COURT_DECISIONS_UNANIMITY = {
 _SWISS_JUDGMENT_PREDICTION = {
     "task_type": TaskType.SLTC,
     "hf_hub_name": "swiss_judgment_prediction",
-    "config_name": "all_languages",
+    "config_name": "all",
     "input_col": "text",
     "label_col": "label",
     "url": "https://github.com/JoelNiklaus/SwissCourtRulingCorpus",
