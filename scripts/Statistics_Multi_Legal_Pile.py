@@ -18,9 +18,12 @@ def get_allready_processed_configs(output_file:str):
     return configs
 
 
-def get_overview(dataset_name, config):
+def get_overview(dataset_name, config, filename=None, repo_data_only = True):
 
-    filename = re.sub(r'\/', '_', dataset_name)
+    if filename is None:
+        filename = re.sub(r'\/', '_', dataset_name)
+    else:
+        filename = re.sub(r'\/', '_', filename)
     file_name = 'results_of_' + filename + '.csv'
 
     if os.path.isfile(file_name):
@@ -34,8 +37,7 @@ def get_overview(dataset_name, config):
 
         for split in ["train", "validation", "test"]:
             try:
-                dataset = load_dataset(dataset_name, config, split=split, streaming=True)
-                print(dataset)
+                dataset = load_dataset(dataset_name, config, split=split, streaming=True, repo_data_only = repo_data_only)
                 dataset = dataset.map(
                     lambda examples: tokenizer(examples["text"], add_special_tokens=False, return_length=True),
                     batched=True, batch_size=1000)
@@ -78,17 +80,18 @@ def get_overview(dataset_name, config):
 
 
 
-def create_overview(dataset_name, available_configs):
+def create_overview(dataset_name, available_configs, filename = None):
     results = list()
 
     for config in available_configs:
         # TODO skip configs that have been computed already so that we can resume
-        result_dict = get_overview(dataset_name, config)
+        result_dict = get_overview(dataset_name, config, filename)
         results.append(result_dict)
 
     results_df = pd.DataFrame(results)
 
-    filename = re.sub(r'\/', '_', dataset_name)
+    if filename is None:
+        filename = re.sub(r'\/', '_', dataset_name)
 
     with open('results_of_' + filename + '.md', 'w') as f:
         print(results_df.to_markdown(), file=f)
@@ -99,9 +102,9 @@ if __name__ == '__main__':
     dataset_names = ['joelito/Multi_Legal_Pile', 'joelito/mc4_legal', 'joelito/eurlex_resources',
                      'pile-of-law/pile-of-law']
 
-    dataset_names = ['joelito/mc4_legal']
+    dataset_names = ['joelito/Multi_Legal_Pile']
     iteration_dict = {dataset_name: get_dataset_config_names(dataset_name) for dataset_name in dataset_names}
 
     for dataset_name, configs in iteration_dict.items():
         print('Processing ', dataset_name)
-        create_overview(dataset_name, configs)
+        create_overview(dataset_name, configs, filename='joelito/Multi_Legal_Pile_repo_data_only')

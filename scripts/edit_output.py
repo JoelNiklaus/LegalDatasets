@@ -2,6 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 from datasets import load_dataset, get_dataset_config_names
 from datasets import disable_caching
+from hurry import filesize
 
 tqdm.pandas()
 
@@ -14,13 +15,17 @@ def get_size(dataset_name, config):
     final_size = 0
     for split in splits:
         try:
-            size = round(config_dataset[split].size_in_bytes/1000000,0)
+            size = config_dataset[split].size_in_bytes
             final_size+=size
         except Exception as e:
             print('Stop!')
             print(e)
             print(dataset_name, config)
             break
+    
+    config_dataset.cleanup_cache_files()
+
+    final_size = filesize.size(final_size)
     return final_size
 
 def apply_changes(dataset_name, file_path):
@@ -56,8 +61,8 @@ def apply_changes(dataset_name, file_path):
 
 if __name__ == '__main__':
     
-    file_path = 'Finished/results_of_joelito_Multi_Legal_Pile.csv'
-    dataset_name = 'joelito/Multi_Legal_Pile'
+    file_path = 'Finished/results_of_pile-of-law_pile-of-law.csv'
+    dataset_name = 'pile-of-law/pile-of-law'
 
     apply_changes(file_path=file_path, dataset_name=dataset_name)
 
