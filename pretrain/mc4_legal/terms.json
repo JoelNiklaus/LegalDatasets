@@ -60,8 +60,7 @@
     "fr": {
       "France": [],
       "Switzerland": [
-        "ATF",
-        "arrêt"
+        "ATF"
       ],
       "Belgium": [
         "Zie Cass."
@@ -76,7 +75,9 @@
     },
     "it": {
       "Italy": [
-        "Cass. Sez."
+        "Cass. Sez.",
+        "Cass.",
+        "provvedimento n."
       ],
       "Switzerland": [
         "DTF",
@@ -92,7 +93,7 @@
         "Højesteret"
       ]
     },
-   "nl": {
+    "nl": {
       "Netherlands": [
         "RBZWB ",
         "RBDHA",
@@ -194,7 +195,10 @@
     },
     "es": {
       "Spain": [
-        "Roj"
+        "Roj",
+        "Decisión nº",
+        "Resolución",
+        "Real Decreto"
       ]
     }
   },
@@ -243,6 +247,7 @@
     "it": {
       "Italy": [
         "art.",
+        "articolo",
         "§"
       ],
       "Switzerland": [
