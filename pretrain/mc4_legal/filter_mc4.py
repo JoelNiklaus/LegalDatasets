@@ -85,7 +85,7 @@ def compile_search_terms(language):
         for country_terms in terms['ruling'][language].values():
             print(country_terms)
             # exclude other abbreviations such as BGHW instead of BGH
-            terms_list.extend([f"\\s{term}\\s" for term in country_terms])
+            terms_list.extend([f"\\s{re.escape(term)}\\s" for term in country_terms])
     else:
         print(f"No search terms found for rulings in {language}")
     print("law")
@@ -95,7 +95,7 @@ def compile_search_terms(language):
             # add \s*\d+ to reduce false positives, but only here, not with the rulings
             # without this, the result files get huge! (de: 87G, fr: 451G, it: 208G)
             # also they contain a lot of obviously non-legal data (e.g. general forums, general newspaper articles)
-            terms_list.extend([f"\\s{term}\\s*\\d+" for term in country_terms])
+            terms_list.extend([f"\\s{re.escape(term)}\\s*\\d+" for term in country_terms])
     else:
         print(f"No search terms found for laws in {language}")
     terms_list = list(set(terms_list))  # remove any duplicates
