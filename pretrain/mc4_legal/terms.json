@@ -9,6 +9,12 @@
     "sui generis"
   ],
   "ruling": {
+    "bg": {
+      "Bulgaria": [
+        "BKC",
+        "съд "
+      ]
+    },
     "de": {
       "Germany": [
         "BGH",
@@ -27,10 +33,9 @@
         "EuG"
       ]
     },
-    "bg": {
-      "Bulgaria": [
-        "BKC",
-        "съд "
+    "el": {
+      "Greece": [
+        "ΑΕΔ"
       ]
     },
     "et": {
@@ -44,11 +49,6 @@
         "KKO",
         "HD",
         "tuomioistuin"
-      ]
-    },
-    "el": {
-      "Greece": [
-        "ΑΕΔ"
       ]
     },
     "hu": {
@@ -131,7 +131,10 @@
       ]
     },
     "en": {
-      "United Kingdom": [
+      "US": [
+        "v."
+      ],
+      "UK": [
         "UKSC",
         "UKHL",
         "UKPC",
@@ -278,7 +281,7 @@
       ]
     },
     "en": {
-      "United Kingdom": [
+      "UK": [
         "Art.",
         "Case No:"
       ],
