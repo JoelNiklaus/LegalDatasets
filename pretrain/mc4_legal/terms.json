@@ -9,6 +9,12 @@
     "sui generis"
   ],
   "ruling": {
+    "bg": {
+      "Bulgaria": [
+        "BKC",
+        "съд "
+      ]
+    },
     "de": {
       "Germany": [
         "BGH",
@@ -27,10 +33,9 @@
         "EuG"
       ]
     },
-    "bg": {
-      "Bulgaria": [
-        "BKC",
-        "съд "
+    "el": {
+      "Greece": [
+        "ΑΕΔ"
       ]
     },
     "et": {
@@ -46,11 +51,6 @@
         "tuomioistuin"
       ]
     },
-    "el": {
-      "Greece": [
-        "ΑΕΔ"
-      ]
-    },
     "hu": {
       "Hungary": [
         "bíróság",
@@ -60,8 +60,7 @@
     "fr": {
       "France": [],
       "Switzerland": [
-        "ATF",
-        "arrêt"
+        "ATF"
       ],
       "Belgium": [
         "Zie Cass."
@@ -76,7 +75,9 @@
     },
     "it": {
       "Italy": [
-        "Cass. Sez."
+        "Cass. Sez.",
+        "Cass.",
+        "provvedimento n."
       ],
       "Switzerland": [
         "DTF",
@@ -92,7 +93,7 @@
         "Højesteret"
       ]
     },
-   "nl": {
+    "nl": {
       "Netherlands": [
         "RBZWB ",
         "RBDHA",
@@ -130,7 +131,10 @@
       ]
     },
     "en": {
-      "United Kingdom": [
+      "US": [
+        "v."
+      ],
+      "UK": [
         "UKSC",
         "UKHL",
         "UKPC",
@@ -194,7 +198,10 @@
     },
     "es": {
       "Spain": [
-        "Roj"
+        "Roj",
+        "Decisión nº",
+        "Resolución",
+        "Real Decreto"
       ]
     }
   },
@@ -243,6 +250,7 @@
     "it": {
       "Italy": [
         "art.",
+        "articolo",
         "§"
       ],
       "Switzerland": [
@@ -273,7 +281,7 @@
       ]
     },
     "en": {
-      "United Kingdom": [
+      "UK": [
         "Art.",
         "Case No:"
       ],
