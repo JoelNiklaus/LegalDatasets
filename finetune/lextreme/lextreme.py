@@ -68,7 +68,7 @@ class LextremeConfig(datasets.BuilderConfig):
           hf_hub_name: `string`, huggingface dataset identifier
           hf_hub_name: `string`, the language of the dataset (either multilingual or a single language ISO code)
           config_name: `string`, huggingface dataset config name
-          label_level: `string`, the label level (only necessary for multieurlex)
+          label_level: `string`, the label level (only necessary for multi_eurlex)
           label_classes: `list[string]`, the list of classes if the label is
             categorical. If not provided, then the label will be of type
             `datasets.Value('float32')`.
@@ -4070,10 +4070,12 @@ class LEXTREME(datasets.GeneratorBasedBuilder):
     def _generate_examples(self, split):
         """This function returns the examples in the raw (text) form."""
         # we can just do this, since all our datasets are available on the huggingface hub
-        dataset = datasets.load_dataset(self.config.hf_hub_name,
-                                        self.config.config_name,
-                                        label_level=self.config.label_level,
-                                        split=split)
+        if "multi_eurlex" in self.config.config_name:
+            dataset = datasets.load_dataset(self.config.hf_hub_name, self.config.config_name, split=split,
+                                            label_level=self.config.label_level)
+        else:
+            dataset = datasets.load_dataset(self.config.hf_hub_name, self.config.config_name, split=split)
+
         for id, item in enumerate(dataset):
             # In case we have a class label and not just a string: convert it back to the string
             label_col = self.config.label_col
