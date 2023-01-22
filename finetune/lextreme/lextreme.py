@@ -3019,6 +3019,7 @@ _MULTI_EURLEX_LEVEL_1 = {
     "task_type": TaskType.MLTC,
     "hf_hub_name": "multi_eurlex",
     "config_name": "all_languages",
+    "label_level": "level_1",
     "input_col": "text",
     "label_col": "labels",
     "url": "https://github.com/nlpaueb/MultiEURLEX/",
@@ -3044,7 +3045,6 @@ _MULTI_EURLEX_LEVEL_1 = {
         }
         """
     ,
-    "label_level": "level_1",
     "label_classes": [
         "100149",
         "100160",
@@ -4070,8 +4070,8 @@ class LEXTREME(datasets.GeneratorBasedBuilder):
     def _generate_examples(self, split):
         """This function returns the examples in the raw (text) form."""
         # we can just do this, since all our datasets are available on the huggingface hub
-        if "multi_eurlex" in self.config.config_name:
-            dataset = datasets.load_dataset(self.config.hf_hub_name, self.config.config_name, split=split,
+        if self.config.hf_hub_name == "multi_eurlex":
+            dataset = datasets.load_dataset("multi_eurlex", language=self.config.config_name, split=split,
                                             label_level=self.config.label_level)
         else:
             dataset = datasets.load_dataset(self.config.hf_hub_name, self.config.config_name, split=split)
