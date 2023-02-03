@@ -1,5 +1,6 @@
 import argparse
 import re
+import time
 from urllib.parse import urlparse
 
 from datasets import load_dataset
@@ -240,7 +241,13 @@ def filter_mc4(language, examples_to_skip=0, output_file_idx=0):
 
     for split in ['train', 'validation']:
         try:
-            mc4 = load_dataset("mc4", languages=[language], streaming=False, split=split)
+            mc4 = None
+            while mc4 is None:
+                try:
+                    mc4 = load_dataset("mc4", languages=[language], streaming=False, split=split)
+                except:  # We usually get a ConnectionError here
+                    logger.info("Failed to load mc4 dataset, retrying in 10 seconds")
+                    time.sleep(10)
             # add the number of examples we already processed in previous jobs
             if split == 'train' and examples_to_skip > 0:
                 logger.info(f"Skipping {examples_to_skip} examples")
