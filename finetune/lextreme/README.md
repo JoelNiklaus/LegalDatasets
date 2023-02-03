@@ -194,7 +194,14 @@ The file format is jsonl and three data splits are present for each configuratio
 ### Citation Information
 
 ```
-TODO add citation
+@misc{niklaus2023lextreme,
+    title={LEXTREME: A Multi-Lingual and Multi-Task Benchmark for the Legal Domain},
+    author={Joel Niklaus and Veton Matoshi and Pooja Rani and Andrea Galassi and Matthias Stürmer and Ilias Chalkidis},
+    year={2023},
+    eprint={2301.13126},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}
 ```
 
 ### Contributions
