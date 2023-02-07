@@ -183,6 +183,14 @@ The file format is jsonl and three data splits are present for each configuratio
 
 ## Additional Information
 
+How can I contribute a dataset to lextreme?
+Please follow the following steps:
+1. Make sure your dataset is available on the huggingface hub and has a train, validation and test split.
+2. Create a pull request to the lextreme repository by adding the following to the lextreme.py file:
+   - Create a dict _{YOUR_DATASET_NAME} (similar to _BRAZILIAN_COURT_DECISIONS_JUDGMENT) containing all the necessary information about your dataset (task_type, input_col, label_col, etc.)
+   - Add your dataset to the BUILDER_CONFIGS list: `LextremeConfig(name="{your_dataset_name}", **_{YOUR_DATASET_NAME})`
+   - Test that it works correctly by loading your subset with `load_dataset("lextreme", "{your_dataset_name}")` and inspecting a few examples.
+
 ### Dataset Curators
 
 [More Information Needed]
