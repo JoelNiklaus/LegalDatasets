@@ -12,14 +12,13 @@ import os
 tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")
 
 
-def get_allready_processed_configs(output_file:str):
+def get_already_processed_configs(output_file: str):
     df = pd.read_csv(output_file)
     configs = df.config.tolist()
     return configs
 
 
-def get_overview(dataset_name, config, filename=None, repo_data_only = True):
-
+def get_overview(dataset_name, config, filename=None, repo_data_only=True, compute_tokens=False):
     if filename is None:
         filename = re.sub(r'\/', '_', dataset_name)
     else:
@@ -27,7 +26,7 @@ def get_overview(dataset_name, config, filename=None, repo_data_only = True):
     file_name = 'results_of_' + filename + '.csv'
 
     if os.path.isfile(file_name):
-        configs = get_allready_processed_configs(file_name)
+        configs = get_already_processed_configs(file_name)
     else:
         configs = []
 
@@ -35,21 +34,26 @@ def get_overview(dataset_name, config, filename=None, repo_data_only = True):
 
         results_scattered = list()
 
-        for split in ["train", "validation", "test"]:
+        for split in ["train", "validation"]:
             try:
-                dataset = load_dataset(dataset_name, config, split=split, streaming=True, repo_data_only = repo_data_only)
-                dataset = dataset.map(
-                    lambda examples: tokenizer(examples["text"], add_special_tokens=False, return_length=True),
-                    batched=True, batch_size=1000)
+                dataset = load_dataset(dataset_name, config, split=split, streaming=True, repo_data_only=repo_data_only)
+                if compute_tokens:
+                    dataset = dataset.map(
+                        lambda examples: tokenizer(examples["text"], add_special_tokens=False, return_length=True),
+                        batched=True, batch_size=1000)
+                dataset = dataset.map(lambda examples: {"length_words": len(examples["text"].split())})
                 result_dict = dict()
-                Tokens = 0
-                Documents = 0
+                Tokens, Words, Documents = 0, 0, 0
                 for document in dataset:
-                    Tokens += document['length']
+                    if compute_tokens:
+                        Tokens += document['length']
+                    Words += document['length_words']
                     Documents += 1
 
                 result_dict['config'] = config
-                result_dict['Tokens'] = Tokens
+                if compute_tokens:
+                    result_dict['Tokens'] = Tokens
+                result_dict['Words'] = Words
                 result_dict['Documents'] = Documents
                 results_scattered.append(result_dict)
             except Exception as e:
@@ -60,13 +64,18 @@ def get_overview(dataset_name, config, filename=None, repo_data_only = True):
 
         final_result_dict = dict()
         final_result_dict["config"] = config
-        final_result_dict["Tokens"] = results_scattered.Tokens.sum()
+        if compute_tokens:
+            final_result_dict["Tokens"] = results_scattered.Tokens.sum()
+        final_result_dict["Words"] = results_scattered.Words.sum()
         final_result_dict["Documents"] = results_scattered.Documents.sum()
         try:
-            final_result_dict["Tokens/Document"] = round(int(final_result_dict["Tokens"] / final_result_dict["Documents"]), 0)
+            if compute_tokens:
+                final_result_dict["Tokens/Document"] = round(int(final_result_dict["Tokens"] / final_result_dict["Documents"]), 0)
+            final_result_dict["Words/Document"] = round(int(final_result_dict["Words"] / final_result_dict["Documents"]), 0)
         except:
-            final_result_dict["Tokens/Document"] = 0
-
+            if compute_tokens:
+                final_result_dict["Tokens/Document"] = 0
+            final_result_dict["Words/Document"] = 0
 
         if os.path.isfile(file_name):
             pd.DataFrame([final_result_dict]).to_csv(file_name, mode='a', header=False, index=False)
@@ -74,13 +83,12 @@ def get_overview(dataset_name, config, filename=None, repo_data_only = True):
             pd.DataFrame([final_result_dict]).to_csv(file_name, index=False)
 
         return final_result_dict
-    
+
     else:
         print('Config ', config, ' already processed. We will skip it.')
 
 
-
-def create_overview(dataset_name, available_configs, filename = None):
+def create_overview(dataset_name, available_configs, filename=None):
     results = list()
 
     for config in available_configs:
@@ -99,8 +107,8 @@ def create_overview(dataset_name, available_configs, filename = None):
 
 if __name__ == '__main__':
     # TODO also add individual sources of native multi_legal_pile data
-    dataset_names = ['joelito/Multi_Legal_Pile', 'joelito/mc4_legal', 'joelito/eurlex_resources',
-                     'pile-of-law/pile-of-law']
+    dataset_names = ['joelito/Multi_Legal_Pile', 'joelito/legal-mc4', 'joelito/eurlex_resources',
+                     'pile-of-law/pile-of-law', 'joelito/EU_Wikipedias', 'joelito/MultiLegalPileWikipediaFiltered']
 
     dataset_names = ['joelito/Multi_Legal_Pile']
     iteration_dict = {dataset_name: get_dataset_config_names(dataset_name) for dataset_name in dataset_names}
