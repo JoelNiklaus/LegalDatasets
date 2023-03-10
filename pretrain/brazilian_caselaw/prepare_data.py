@@ -1,35 +1,51 @@
-import pandas as pd
+import json
+import os
 
-from utils import save_and_compress
+from tqdm import tqdm
+
+from datasets import load_dataset
+
+try:
+    import lzma as xz
+except ImportError:
+    import pylzma as xz
 
 """
-Caselaw from Brazil in pt
+Caselaw from Brazil in pt: cjpg
 """
 
-df = pd.read_json('scraping_results.json')
-print(df.head())
-#print(df.columns)
-# print(df.Language.value_counts())
-# print(df.Source.value_counts())
-# print(df['Nature juridique'].value_counts())
-# print(df['Département'].value_counts())
-# print(df['Domaine juridique'].value_counts())
+dataset = load_dataset("json", data_dir="cjpg/results_as_json", split="train")
 
-df = df.rename(columns={
-    'Nature juridique': 'nature_juridique',
-    'Département': 'departement',
-    'Domaine juridique': 'legal_area',
-    'Publication date': 'date',
-    'Source': 'source',
-    'Title': 'title',
-    'Text': 'text',
-    'Country': 'jurisdiction',
-    'Number': 'number',
-    'URL': 'url',
-    'Language': 'language',
-})
-df['type'] = 'legislation'
-df = df[['type', 'language', 'jurisdiction', 'text']]
-df.dropna(subset=['text'], inplace=True)  # remove nans
-df = df[df['text'].str.len() > 100]  # remove very small instances
-save_and_compress(df, 'ejustice')
+dataset = dataset.rename_column("julgado", "text")
+dataset = dataset.add_column("type", ["caselaw"] * len(dataset))
+dataset = dataset.add_column("jurisdiction", ["Brazil"] * len(dataset))
+dataset = dataset.add_column("language", ["pt"] * len(dataset))
+dataset = dataset.remove_columns(['processo', 'pagina', 'hora_coleta', 'duplicado', 'classe', 'assunto',
+                                  'magistrado', 'comarca', 'foro', 'vara', 'disponibilizacao', 'cd_doc'])
+print(dataset[0])
+
+MAX_FILE_SIZE = 2e9  # 2GB max file size
+
+
+def get_output_file_name(output_file_idx):
+    return f"cjpg.{output_file_idx}.jsonl.xz"
+
+
+def open_new_file(output_file_idx):
+    filename = get_output_file_name(output_file_idx)
+    print(f"Writing to {filename}")
+    return xz.open(filename, "wt")
+
+
+output_file_idx = 0
+file = open_new_file(output_file_idx)
+for datapoint in tqdm(dataset):
+    if os.path.getsize(get_output_file_name(output_file_idx)) > MAX_FILE_SIZE:
+        file.close()
+        output_file_idx += 1
+        file = open_new_file(output_file_idx)
+    file.write(json.dumps(datapoint) + "\n")
+file.close()
+
+# Upload stuff to mega
+# megaput --config=/home/fdn-admin/mega.cnf --path=/Root --disable-previews "/home/fdn-admin/LegalDatasets/backup.zip"

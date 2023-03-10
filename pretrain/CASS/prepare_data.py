@@ -6,6 +6,8 @@ from tqdm import tqdm
 from utils import save_and_compress, select_and_clean
 
 
+# TODO: There is much more here: https://echanges.dila.gouv.fr/OPENDATA !!!
+
 def format_file(file_path):
     result_dict = dict()
 
