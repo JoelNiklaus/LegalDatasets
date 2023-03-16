@@ -1,8 +1,8 @@
 import pandas as pd
 from tqdm import tqdm
-from datasets import load_dataset, get_dataset_config_names
-from datasets import disable_caching
+from datasets import load_dataset
 from hurry import filesize
+import argparse
 
 tqdm.pandas()
 
@@ -41,7 +41,19 @@ def apply_changes(dataset_name, file_path):
 
         df.rename(columns={"config": "Source"}, inplace=True)
 
-        df_restructured = df[['Source', 'Size (MB)', 'Tokens', 'Documents', 'Tokens/Document']]
+        df_restructured = df[['Source', 'Size (MB)', 'Words', 'Documents', 'Words/Document']]
+        df_restructured = df_restructured.sort_values(['Source'], ascending=True)
+
+        df_restructured.to_json(file_path[:-4] + '_edited.json', orient="records", lines=True, force_ascii=False)
+        df_restructured.to_csv(file_path[:-4] + '_edited.csv', index=False)
+    elif dataset_name == 'joelito/EU_Wikipedias':
+        df = pd.read_csv(file_path)
+
+        df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
+        df['Source'] = df["config"]
+        del df["config"]
+
+        df_restructured = df[['Source', 'Size (MB)', 'Words', 'Documents', 'Words/Document']]
         df_restructured = df_restructured.sort_values(['Source'], ascending=True)
 
         df_restructured.to_json(file_path[:-4] + '_edited.json', orient="records", lines=True, force_ascii=False)
@@ -54,7 +66,7 @@ def apply_changes(dataset_name, file_path):
         df['Language'] = df.config.apply(lambda x: x.split('_')[0])
         df['Source'] = df.config.apply(lambda x: x.split('_')[1])
 
-        df_restructured = df[['Language', 'Source', 'Size (MB)', 'Tokens', 'Documents', 'Tokens/Document']]
+        df_restructured = df[['Language', 'Source', 'Size (MB)', 'Words', 'Documents', 'Words/Document']]
         df_restructured = df_restructured.sort_values(['Language', 'Source'], ascending=True)
 
         df_restructured.to_json(file_path[:-4] + '_edited.json', orient="records", lines=True, force_ascii=False)
@@ -62,7 +74,16 @@ def apply_changes(dataset_name, file_path):
 
 
 if __name__ == '__main__':
-    file_path = 'Finished/results_of_pile-of-law_pile-of-law.csv'
-    dataset_name = 'pile-of-law/pile-of-law'
+    # file_path = 'Finished/results_of_joelito_Multi_Legal_Pile.csv'
+    # dataset_name = 'joelito/Multi_Legal_Pile'
 
-    apply_changes(file_path=file_path, dataset_name=dataset_name)
+    parser = argparse.ArgumentParser()
+
+    # TODO also add individual sources of native multi_legal_pile data
+
+    parser.add_argument('-dsn', '--dataset_name', help="Specify dataset name.")
+    parser.add_argument('-fp', '--file_path', help="Specify file path.")
+
+    args = parser.parse_args()
+
+    apply_changes(file_path=args.file_path, dataset_name=args.dataset_name)
