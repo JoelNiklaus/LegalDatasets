@@ -9,6 +9,10 @@ import re
 from traceback import print_exc
 import os
 import argparse
+from hurry import filesize
+
+from tqdm.notebook import tqdm
+tqdm.pandas()
 
 tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")
 
@@ -25,6 +29,7 @@ def get_overview(dataset_name, config, filename=None, repo_data_only=True, compu
     else:
         filename = re.sub(r'\/', '_', filename)
     file_name = 'results_of_' + filename + '.csv'
+    data_already_processed = pd.read_csv(file_name)
 
     if os.path.isfile(file_name):
         configs = get_already_processed_configs(file_name)
@@ -89,6 +94,9 @@ def get_overview(dataset_name, config, filename=None, repo_data_only=True, compu
 
     else:
         print('Config ', config, ' already processed. We will skip it.')
+        return data_already_processed[data_already_processed.config==config].to_dict(orient="records")[0]
+
+
 
 
 def get_size(dataset_name, config):
@@ -163,6 +171,8 @@ def create_overview(dataset_name, available_configs, filename=None):
         results.append(result_dict)
 
     results_df = pd.DataFrame(results)
+
+    print(results_df.head())
 
     results_df = add_sizes(dataset_name=dataset_name, df=results_df)
 
