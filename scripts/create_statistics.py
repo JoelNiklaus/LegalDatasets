@@ -22,6 +22,24 @@ def get_already_processed_configs(output_file: str):
     configs = df.config.tolist()
     return configs
 
+def get_size(dataset_name, config):
+    config_dataset = load_dataset(dataset_name, config)
+    splits = list(config_dataset.keys())
+    final_size = 0
+    for split in splits:
+        try:
+            size = config_dataset[split].size_in_bytes
+            final_size += size
+        except Exception as e:
+            print('Stop!')
+            print(e)
+            print(dataset_name, config)
+            break
+
+    config_dataset.cleanup_cache_files()
+
+    final_size = filesize.size(final_size)
+    return final_size
 
 def get_overview(dataset_name, config, filename=None, repo_data_only=True, compute_tokens=False):
     if filename is None:
@@ -29,7 +47,10 @@ def get_overview(dataset_name, config, filename=None, repo_data_only=True, compu
     else:
         filename = re.sub(r'\/', '_', filename)
     file_name = 'results_of_' + filename + '.csv'
-    data_already_processed = pd.read_csv(file_name)
+    if os.path.exists(file_name):
+        data_already_processed = pd.read_csv(file_name)
+    else:
+        data_already_processed = None
 
     if os.path.isfile(file_name):
         configs = get_already_processed_configs(file_name)
@@ -42,7 +63,7 @@ def get_overview(dataset_name, config, filename=None, repo_data_only=True, compu
 
         for split in ["train", "validation", "test"]:
             try:
-                dataset = load_dataset(dataset_name, config, split=split, streaming=True)
+                dataset = load_dataset(dataset_name, config, split=split, streaming=False)
                 if compute_tokens:
                     dataset = dataset.map(
                         lambda examples: tokenizer(examples["text"], add_special_tokens=False, return_length=True),
@@ -74,12 +95,18 @@ def get_overview(dataset_name, config, filename=None, repo_data_only=True, compu
             final_result_dict["Tokens"] = results_scattered.Tokens.sum()
         final_result_dict["Words"] = results_scattered.Words.sum()
         final_result_dict["Documents"] = results_scattered.Documents.sum()
+        final_result_dict['Size (Bytes)'] = dataset.dataset_size # https://huggingface.co/docs/datasets/v2.2.1/en/package_reference/main_classes#datasets.DatasetInfo
+        final_result_dict['Size (GB)'] = filesize.size(final_result_dict['Size (Bytes)'])
+
+        dataset.cleanup_cache_files()
+
         try:
             if compute_tokens:
                 final_result_dict["Tokens/Document"] = round(
                     int(final_result_dict["Tokens"] / final_result_dict["Documents"]), 0)
             final_result_dict["Words/Document"] = round(
                 int(final_result_dict["Words"] / final_result_dict["Documents"]), 0)
+
         except:
             if compute_tokens:
                 final_result_dict["Tokens/Document"] = 0
@@ -94,34 +121,23 @@ def get_overview(dataset_name, config, filename=None, repo_data_only=True, compu
 
     else:
         print('Config ', config, ' already processed. We will skip it.')
-        return data_already_processed[data_already_processed.config==config].to_dict(orient="records")[0]
+        if data_already_processed is not None:
+            return data_already_processed[data_already_processed.config==config].to_dict(orient="records")[0]
 
 
 
 
-def get_size(dataset_name, config):
-    config_dataset = load_dataset(dataset_name, config)
-    splits = list(config_dataset.keys())
-    final_size = 0
-    for split in splits:
-        try:
-            size = config_dataset[split].size_in_bytes
-            final_size += size
-        except Exception as e:
-            print('Stop!')
-            print(e)
-            print(dataset_name, config)
-            break
 
-    config_dataset.cleanup_cache_files()
-
-    final_size = filesize.size(final_size)
-    return final_size
 
 def add_sizes(dataset_name, df):
     if dataset_name == 'pile-of-law/pile-of-law':
 
-        df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
+        for i, _ in tqdm(df.iterrows()):
+            config = df.at[i, 'config']
+            if not bool(re.search(r'\d', df.at[i, 'Size (MB)'])):
+                df.at[i, 'Size (MB)'] = get_size(dataset_name, config)
+
+        # df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
 
         # df['Language']=df.config.apply(lambda x: x.split('_')[0])
         # df['Source']=df.config.apply(lambda x: x.split('_')[1])
@@ -137,7 +153,12 @@ def add_sizes(dataset_name, df):
     elif dataset_name == 'joelito/EU_Wikipedias':
         # df = pd.read_csv(file_path)
 
-        df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
+        for i, _ in tqdm(df.iterrows()):
+            config = df.at[i, 'config']
+            if not bool(re.search(r'\d', df.at[i, 'Size (MB)'])):
+                df.at[i, 'Size (MB)'] = get_size(dataset_name, config)
+        # df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
+
         df['Source'] = df["config"]
         del df["config"]
 
@@ -148,8 +169,12 @@ def add_sizes(dataset_name, df):
         # df_restructured.to_csv(file_path[:-4] + '_edited.csv', index=False)
     else:
         # df = pd.read_csv(file_path)
+        for i, _ in tqdm(df.iterrows()):
+            config = df.at[i, 'config']
+            if not bool(re.search(r'\d', df.at[i, 'Size (MB)'])):
+                df.at[i, 'Size (MB)'] = get_size(dataset_name, config)
 
-        df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
+        #df['Size (MB)'] = df.config.progress_apply(lambda config: get_size(dataset_name, config))
 
         df['Language'] = df.config.apply(lambda x: x.split('_')[0])
         df['Source'] = df.config.apply(lambda x: x.split('_')[1])
@@ -163,6 +188,7 @@ def add_sizes(dataset_name, df):
     return df_restructured
 
 def create_overview(dataset_name, available_configs, filename=None):
+
     results = list()
 
     for config in available_configs:
@@ -174,7 +200,7 @@ def create_overview(dataset_name, available_configs, filename=None):
 
     print(results_df.head())
 
-    results_df = add_sizes(dataset_name=dataset_name, df=results_df)
+    # results_df = add_sizes(dataset_name=dataset_name, df=results_df)
 
     if filename is None:
         filename = re.sub(r'\/', '_', dataset_name)
