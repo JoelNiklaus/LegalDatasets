@@ -37,42 +37,16 @@ metrics:
 
 <!-- Provide a quick summary of what the model is/does. -->
 
-This model was pretrained on [Multi Legal Pile](https://huggingface.co/datasets/joelito/Multi_Legal_Pile) ([Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?utm_source=tldrai)).
-
-Our pretraining procedure includes the following key steps:
-
-(a) Warm-starting: We initialize our models from the original XLM-R checkpoints of Conneau et al. (2019) to benefit from a well-trained base.
-
-(b) Tokenization: We train a new tokenizer of 128K BPEs to cover legal language better. However, we reuse the original XLM-R embeddings for lexically overlapping tokens and use random embeddings for the rest.
-
-(c) Pretraining: We continue pretraining on Multi Legal Pile with batches of 512 samples for an additional 1M/500K steps for the base/large model. We use warm-up steps, a linearly increasing learning rate, and cosine decay scheduling. During the warm-up phase, only the embeddings are updated, and a higher masking rate and percentage of predictions based on masked tokens are used compared to Devlin et al. (2019).
-
-(d) Sentence Sampling: We employ a sentence sampler with exponential smoothing to handle disparate token proportions across cantons and languages, preserving per-canton and language capacity.
-
-(e) Mixed Cased Models: Our models cover both upper- and lowercase letters, similar to recently developed large PLMs.
-
-(f) Long Context Training: To account for long contexts in legal documents, we train the base-size multilingual model on long contexts with windowed attention. This variant, named Legal-Swiss-LF-base, uses a 15% masking probability, increased learning rate, and similar settings to small-context models.
+This model is a multilingual model pretrained on legal data. It is based on XLM-R ([base](https://huggingface.co/xlm-roberta-base) and [large](https://huggingface.co/xlm-roberta-large)). For pretraining we used [Multi Legal Pile](https://huggingface.co/datasets/joelito/Multi_Legal_Pile) ([Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?utm_source=tldrai)), a multilingual dataset from various legal sources covering 24 languages.
 
 ## Model Details
 
 ### Model Description
 
-<!-- Provide a longer summary of what this model is. -->
-
-{{ model_description | default("", true) }}
-
-- **Developed by:** [Joel Niklaus](mailto:joel.niklaus.2@bfh.ch)
+- **Developed by:** Joel Niklaus: [huggingface](https://huggingface.co/joelito); [email](mailto:joel.niklaus.2@bfh.ch)
 - **Model type:** Transformer-based language model (RoBERTa)
 - **Language(s) (NLP):** en, pt, de, es, fr, it, cs, pl, ro, da, nl, el, sv, sk, sl, hu, bg, fi, et, mt, lt, lv, hr, ga
 - **License:** CC BY-SA
-<!-- - **Finetuned from model [optional]:** {{ finetuned_from | default("[More Information Needed]", true)}} -->
-
-<!--
-### Model Sources [optional]
-
-- **Repository:** {{ repo | default("[More Information Needed]", true)}}
-- **Paper [optional]:** {{ paper | default("[More Information Needed]", true)}}
-- **Demo [optional]:** {{ demo | default("[More Information Needed]", true)}} -->
 
 ## Uses
 
@@ -80,9 +54,11 @@ Our pretraining procedure includes the following key steps:
 
 ### Direct Use and Downstream Use
 
-You can use the raw model for either masked language modeling or next sentence prediction, but it's mostly intended to be fine-tuned on a downstream task.
+You can utilize the raw model for masked language modeling since we did not perform next sentence prediction. However, its main purpose is to be fine-tuned for downstream tasks.
 
-Note that this model is primarily aimed at being fine-tuned on tasks that use the whole sentence (potentially masked) to make decisions, such as sequence classification, token classification or question answering. For tasks such as text generation you should look at model like GPT2.
+It's important to note that this model is primarily designed for fine-tuning on tasks that rely on the entire sentence, potentially with masked elements, to make decisions. Examples of such tasks include sequence classification, token classification, or question answering. For text generation tasks, models like GPT-2 are more suitable.
+
+Additionally, the model is specifically trained on legal data, aiming to deliver strong performance in that domain. Its performance may vary when applied to non-legal data.
 
 ### Out-of-Scope Use
 
@@ -96,11 +72,11 @@ Significant research has explored bias and fairness issues with language models 
 
 ### Recommendations
 
-Users (both direct and downstream) should be made aware of the risks, biases and limitations of the model. More information needed for further recommendations.", true
+Users (both direct and downstream) should be made aware of the risks, biases and limitations of the model.
 
 ## How to Get Started with the Model
 
-See [huggingface tutorials](https://huggingface.co/learn/nlp-course/chapter7/1?fw=pt). For masked word filling see [this tutorial](https://huggingface.co/tasks/fill-mask).
+See [huggingface tutorials](https://huggingface.co/learn/nlp-course/chapter7/1?fw=pt). For masked word prediction see [this tutorial](https://huggingface.co/tasks/fill-mask).
 
 ## Training Details
 
@@ -108,11 +84,11 @@ This model was pretrained on [Multi Legal Pile](https://huggingface.co/datasets/
 
 Our pretraining procedure includes the following key steps:
 
-(a) Warm-starting: We initialize our models from the original XLM-R checkpoints of Conneau et al. (2019) to benefit from a well-trained base.
+(a) Warm-starting: We initialize our models from the original XLM-R checkpoints ([base](https://huggingface.co/xlm-roberta-base) and [large](https://huggingface.co/xlm-roberta-large)) of [Conneau et al. (2019)](https://proceedings.neurips.cc/paper/2019/file/c04c19c2c2474dbf5f7ac4372c5b9af1-Paper.pdf) to benefit from a well-trained base.
 
 (b) Tokenization: We train a new tokenizer of 128K BPEs to cover legal language better. However, we reuse the original XLM-R embeddings for lexically overlapping tokens and use random embeddings for the rest.
 
-(c) Pretraining: We continue pretraining on Multi Legal Pile with batches of 512 samples for an additional 1M/500K steps for the base/large model. We use warm-up steps, a linearly increasing learning rate, and cosine decay scheduling. During the warm-up phase, only the embeddings are updated, and a higher masking rate and percentage of predictions based on masked tokens are used compared to Devlin et al. (2019).
+(c) Pretraining: We continue pretraining on Multi Legal Pile with batches of 512 samples for an additional 1M/500K steps for the base/large model. We use warm-up steps, a linearly increasing learning rate, and cosine decay scheduling. During the warm-up phase, only the embeddings are updated, and a higher masking rate and percentage of predictions based on masked tokens are used compared to [Devlin et al. (2019)](https://aclanthology.org/N19-1423).
 
 (d) Sentence Sampling: We employ a sentence sampler with exponential smoothing to handle disparate token proportions across cantons and languages, preserving per-canton and language capacity.
 
@@ -138,7 +114,7 @@ For further details see [Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?u
 
 ## Evaluation
 
-[More Information Needed]
+We report the evaluation loss.
 
 ### Testing Data, Factors & Metrics
 
@@ -184,11 +160,11 @@ Carbon emissions can be estimated using the [Machine Learning Impact calculator]
 
 ### Compute Infrastructure
 
-Googöe TPU.
+Google TPU.
 
 #### Hardware
 
-Googöe TPU.
+Google TPU v3-8
 
 #### Software
 
@@ -204,31 +180,6 @@ pytorch, transformers.
   journal={ArXiv},
   year={2023},
   volume={abs/2306.02069}
-}
-
-@inproceedings{NEURIPS2019_c04c19c2,
-author = {CONNEAU, Alexis and Lample, Guillaume},
-booktitle = {Advances in Neural Information Processing Systems},
-editor = {Wallach, H and Larochelle, H and Beygelzimer, A and d\textquotesingle Alch{\'{e}}-Buc, F and Fox, E and Garnett, R},
-file = {:Users/vetonmatoshi/Library/Application Support/Mendeley Desktop/Downloaded/CONNEAU, Lample - 2019 - Cross-lingual Language Model Pretraining.pdf:pdf},
-publisher = {Curran Associates, Inc.},
-title = {{Cross-lingual Language Model Pretraining}},
-url = {https://proceedings.neurips.cc/paper/2019/file/c04c19c2c2474dbf5f7ac4372c5b9af1-Paper.pdf},
-volume = {32},
-year = {2019}
-}
-
-@inproceedings{devlin-etal-2019-bert,
-address = {Minneapolis, Minnesota},
-author = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
-booktitle = {Proceedings of the 2019 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)},
-doi = {10.18653/v1/N19-1423},
-month = {jun},
-pages = {4171--4186},
-publisher = {Association for Computational Linguistics},
-title = {{BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding}},
-url = {https://aclanthology.org/N19-1423},
-year = {2019}
 }
 
 ```
