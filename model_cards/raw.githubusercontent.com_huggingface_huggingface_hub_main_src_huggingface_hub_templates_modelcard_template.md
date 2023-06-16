@@ -1,36 +1,40 @@
 ---
-# For reference on model card metadata, see the spec: https://github.com/huggingface/hub-docs/blob/main/modelcard.md?plain=1
-# Doc / guide: https://huggingface.co/docs/hub/model-cards
-{ { card_data } }
----
-
----
-
 language:
-
-- "List of ISO 639-1 code for your language"
-- lang1
-- lang2
-
-thumbnail: "url to a thumbnail used in social sharing"
+  - multilingual
+  - bg
+  - cs
+  - da
+  - de
+  - el
+  - en
+  - es
+  - et
+  - fi
+  - fr
+  - ga
+  - hr
+  - hu
+  - it
+  - lt
+  - lv
+  - mt
+  - nl
+  - pl
+  - pt
+  - ro
+  - sk
+  - sl
+  - sv
 
 tags:
-
-- tag1
-- tag2
+  - multilingual
 
 license: CC BY-SA
 
 datasets:
-
-- dataset1
-- dataset2
-
-metrics:
-
-- metric1
-- metric2
-
+  - Multi Legal Pile
+  - LEXTREME
+  - LEXGLUE
 ---
 
 # Model Card for joelito/legal-swiss-roberta-base
@@ -45,7 +49,7 @@ This model is a multilingual model pretrained on legal data. It is based on XLM-
 
 - **Developed by:** Joel Niklaus: [huggingface](https://huggingface.co/joelito); [email](mailto:joel.niklaus.2@bfh.ch)
 - **Model type:** Transformer-based language model (RoBERTa)
-- **Language(s) (NLP):** en, pt, de, es, fr, it, cs, pl, ro, da, nl, el, sv, sk, sl, hu, bg, fi, et, mt, lt, lv, hr, ga
+- **Language(s) (NLP):** bg, cs, da, de, el, en, es, et, fi, fr, ga, hr, hu, it, lt, lv, mt, nl, pl, pt, ro, sk, sl, sv
 - **License:** CC BY-SA
 
 ## Uses
@@ -114,49 +118,62 @@ For further details see [Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?u
 
 ## Evaluation
 
-We report the evaluation loss.
+For further insights into the evaluation, we refer to the [trainer state](https://huggingface.co/joelito/legal-xlm-roberta-large/blob/main/last-checkpoint/trainer_state.json). Additional information is available in the [tensorboard](https://huggingface.co/joelito/legal-xlm-roberta-large/tensorboard).
 
-### Testing Data, Factors & Metrics
-
-[More Information Needed]
-
-#### Testing Data
-
-[More Information Needed]
-
-#### Factors
-
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-[More Information Needed]
-
-#### Metrics
-
-[More Information Needed]
-
-### Results
-
-[More Information Needed]
-
-#### Summary
-
-[More Information Needed]
-
-## Environmental Impact
-
-<!-- Total emissions (in grams of CO2eq) and additional considerations, such as electricity usage, go here. Edit the suggested text below accordingly -->
-
-Carbon emissions can be estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
-
-- **Hardware Type:** {{ hardware | default("[More Information Needed]", true)}}
-- **Hours used:** {{ hours_used | default("[More Information Needed]", true)}}
-- **Cloud Provider:** {{ cloud_provider | default("[More Information Needed]", true)}}
-- **Compute Region:** {{ cloud_region | default("[More Information Needed]", true)}}
-- **Carbon Emitted:** {{ co2_emitted | default("[More Information Needed]", true)}}
+For performance on downstream tasks, such as [LEXTREME](https://huggingface.co/datasets/joelito/lextreme) ([Niklaus et al. 2023](https://arxiv.org/abs/2301.13126)) or [LEXGLUE](https://huggingface.co/datasets/lex_glue) ([Chalkidis et al. 2021](https://arxiv.org/abs/2110.00976)), we refer to the results presented in [Niklaus et al. (2023)](https://arxiv.org/abs/2306.02069).
 
 ### Model Architecture and Objective
 
-{{ model_specs | default("[More Information Needed]", true)}}
+It is a RoBERTa-based model. Run the following code to view the architecture:
+
+```
+from transformers import AutoModel
+model = AutoModel.from_pretrained('model_identifier')
+print(model)
+
+RobertaModel(
+  (embeddings): RobertaEmbeddings(
+    (word_embeddings): Embedding(128000, 1024, padding_idx=0)
+    (position_embeddings): Embedding(514, 1024, padding_idx=0)
+    (token_type_embeddings): Embedding(1, 1024)
+    (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+  (encoder): RobertaEncoder(
+    (layer): ModuleList(
+      (0-23): 24 x RobertaLayer(
+        (attention): RobertaAttention(
+          (self): RobertaSelfAttention(
+            (query): Linear(in_features=1024, out_features=1024, bias=True)
+            (key): Linear(in_features=1024, out_features=1024, bias=True)
+            (value): Linear(in_features=1024, out_features=1024, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (output): RobertaSelfOutput(
+            (dense): Linear(in_features=1024, out_features=1024, bias=True)
+            (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (intermediate): RobertaIntermediate(
+          (dense): Linear(in_features=1024, out_features=4096, bias=True)
+          (intermediate_act_fn): GELUActivation()
+        )
+        (output): RobertaOutput(
+          (dense): Linear(in_features=4096, out_features=1024, bias=True)
+          (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+  )
+  (pooler): RobertaPooler(
+    (dense): Linear(in_features=1024, out_features=1024, bias=True)
+    (activation): Tanh()
+  )
+)
+
+```
 
 ### Compute Infrastructure
 
@@ -183,16 +200,6 @@ pytorch, transformers.
 }
 
 ```
-
-**BibTeX:**
-
-{{ citation_bibtex | default("[More Information Needed]", true)}}
-
-**APA:**
-
-{{ citation_apa | default("[More Information Needed]", true)}}
-
-{{ glossary | default("[More Information Needed]", true)}}
 
 ## Model Card Authors
 
