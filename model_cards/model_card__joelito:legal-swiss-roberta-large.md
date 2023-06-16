@@ -29,15 +29,15 @@ language:
 tags:
   - multilingual
 
-license: CC BY-SA
+license: cc
 
 datasets:
-  - MultiLegalPile
+  - Multi Legal Pile
   - LEXTREME
   - LEXGLUE
 ---
 
-# Model Card for joelito/legal-swiss-roberta-base
+# Model Card for joelito/legal-swiss-roberta-large
 
 This model is a multilingual model pretrained on legal data. It is based on XLM-R ([base](https://huggingface.co/xlm-roberta-base) and [large](https://huggingface.co/xlm-roberta-large)). For pretraining we used [Multi Legal Pile](https://huggingface.co/datasets/joelito/Multi_Legal_Pile) ([Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?utm_source=tldrai)), a multilingual dataset from various legal sources covering 24 languages.
 

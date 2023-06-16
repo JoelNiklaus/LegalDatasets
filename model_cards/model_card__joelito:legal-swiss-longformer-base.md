@@ -37,7 +37,7 @@ datasets:
   - LEXGLUE
 ---
 
-# Model Card for joelito/legal-swiss-roberta-base
+# Model Card for joelito/legal-swiss-longformer-base
 
 This model is a multilingual model pretrained on legal data. It is based on XLM-R ([base](https://huggingface.co/xlm-roberta-base) and [large](https://huggingface.co/xlm-roberta-large)). For pretraining we used [Multi Legal Pile](https://huggingface.co/datasets/joelito/Multi_Legal_Pile) ([Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?utm_source=tldrai)), a multilingual dataset from various legal sources covering 24 languages.
 
@@ -114,8 +114,6 @@ For further details see [Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?u
 
 ## Evaluation
 
-For further insights into the evaluation, we refer to the [trainer state](https://huggingface.co/joelito/legal-xlm-roberta-large/blob/main/last-checkpoint/trainer_state.json). Additional information is available in the [tensorboard](https://huggingface.co/joelito/legal-xlm-roberta-large/tensorboard).
-
 For performance on downstream tasks, such as [LEXTREME](https://huggingface.co/datasets/joelito/lextreme) ([Niklaus et al. 2023](https://arxiv.org/abs/2301.13126)) or [LEXGLUE](https://huggingface.co/datasets/lex_glue) ([Chalkidis et al. 2021](https://arxiv.org/abs/2110.00976)), we refer to the results presented in Niklaus et al. (2023) [1](https://arxiv.org/abs/2306.02069), [2](https://arxiv.org/abs/2306.09237).
 
 ### Model Architecture and Objective
@@ -124,47 +122,49 @@ It is a RoBERTa-based model. Run the following code to view the architecture:
 
 ```
 from transformers import AutoModel
-model = AutoModel.from_pretrained('model_identifier')
+model = AutoModel.from_pretrained('joelito/legal-swiss-longformer-base')
 print(model)
 
-RobertaModel(
-  (embeddings): RobertaEmbeddings(
-    (word_embeddings): Embedding(128000, 1024, padding_idx=0)
-    (position_embeddings): Embedding(514, 1024, padding_idx=0)
-    (token_type_embeddings): Embedding(1, 1024)
-    (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+LongformerModel(
+  (embeddings): LongformerEmbeddings(
+    (word_embeddings): Embedding(128000, 768, padding_idx=0)
+    (position_embeddings): Embedding(4098, 768, padding_idx=0)
+    (token_type_embeddings): Embedding(1, 768)
+    (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-  (encoder): RobertaEncoder(
+  (encoder): LongformerEncoder(
     (layer): ModuleList(
-      (0-23): 24 x RobertaLayer(
-        (attention): RobertaAttention(
-          (self): RobertaSelfAttention(
-            (query): Linear(in_features=1024, out_features=1024, bias=True)
-            (key): Linear(in_features=1024, out_features=1024, bias=True)
-            (value): Linear(in_features=1024, out_features=1024, bias=True)
-            (dropout): Dropout(p=0.1, inplace=False)
+      (0-11): 12 x LongformerLayer(
+        (attention): LongformerAttention(
+          (self): LongformerSelfAttention(
+            (query): Linear(in_features=768, out_features=768, bias=True)
+            (key): Linear(in_features=768, out_features=768, bias=True)
+            (value): Linear(in_features=768, out_features=768, bias=True)
+            (query_global): Linear(in_features=768, out_features=768, bias=True)
+            (key_global): Linear(in_features=768, out_features=768, bias=True)
+            (value_global): Linear(in_features=768, out_features=768, bias=True)
           )
-          (output): RobertaSelfOutput(
-            (dense): Linear(in_features=1024, out_features=1024, bias=True)
-            (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (output): LongformerSelfOutput(
+            (dense): Linear(in_features=768, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
             (dropout): Dropout(p=0.1, inplace=False)
           )
         )
-        (intermediate): RobertaIntermediate(
-          (dense): Linear(in_features=1024, out_features=4096, bias=True)
+        (intermediate): LongformerIntermediate(
+          (dense): Linear(in_features=768, out_features=3072, bias=True)
           (intermediate_act_fn): GELUActivation()
         )
-        (output): RobertaOutput(
-          (dense): Linear(in_features=4096, out_features=1024, bias=True)
-          (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        (output): LongformerOutput(
+          (dense): Linear(in_features=3072, out_features=768, bias=True)
+          (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
           (dropout): Dropout(p=0.1, inplace=False)
         )
       )
     )
   )
-  (pooler): RobertaPooler(
-    (dense): Linear(in_features=1024, out_features=1024, bias=True)
+  (pooler): LongformerPooler(
+    (dense): Linear(in_features=768, out_features=768, bias=True)
     (activation): Tanh()
   )
 )

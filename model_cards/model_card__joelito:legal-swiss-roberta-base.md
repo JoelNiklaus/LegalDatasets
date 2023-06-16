@@ -114,7 +114,7 @@ For further details see [Niklaus et al. 2023](https://arxiv.org/abs/2306.02069?u
 
 ## Evaluation
 
-For further insights into the evaluation, we refer to the [trainer state](https://huggingface.co/joelito/legal-xlm-roberta-large/blob/main/last-checkpoint/trainer_state.json). Additional information is available in the [tensorboard](https://huggingface.co/joelito/legal-xlm-roberta-large/tensorboard).
+For further insights into the evaluation, we refer to the [trainer state](https://huggingface.co/joelito/legal-swiss-roberta-base/blob/main/last-checkpoint/trainer_state.json). Additional information is available in the [tensorboard](https://huggingface.co/joelito/legal-swiss-roberta-base/tensorboard).
 
 For performance on downstream tasks, such as [LEXTREME](https://huggingface.co/datasets/joelito/lextreme) ([Niklaus et al. 2023](https://arxiv.org/abs/2301.13126)) or [LEXGLUE](https://huggingface.co/datasets/lex_glue) ([Chalkidis et al. 2021](https://arxiv.org/abs/2110.00976)), we refer to the results presented in Niklaus et al. (2023) [1](https://arxiv.org/abs/2306.02069), [2](https://arxiv.org/abs/2306.09237).
 
@@ -124,51 +124,50 @@ It is a RoBERTa-based model. Run the following code to view the architecture:
 
 ```
 from transformers import AutoModel
-model = AutoModel.from_pretrained('model_identifier')
+model = AutoModel.from_pretrained('joelito/legal-swiss-roberta-base')
 print(model)
 
 RobertaModel(
   (embeddings): RobertaEmbeddings(
-    (word_embeddings): Embedding(128000, 1024, padding_idx=0)
-    (position_embeddings): Embedding(514, 1024, padding_idx=0)
-    (token_type_embeddings): Embedding(1, 1024)
-    (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (word_embeddings): Embedding(128000, 768, padding_idx=0)
+    (position_embeddings): Embedding(514, 768, padding_idx=0)
+    (token_type_embeddings): Embedding(1, 768)
+    (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
   (encoder): RobertaEncoder(
     (layer): ModuleList(
-      (0-23): 24 x RobertaLayer(
+      (0-11): 12 x RobertaLayer(
         (attention): RobertaAttention(
           (self): RobertaSelfAttention(
-            (query): Linear(in_features=1024, out_features=1024, bias=True)
-            (key): Linear(in_features=1024, out_features=1024, bias=True)
-            (value): Linear(in_features=1024, out_features=1024, bias=True)
+            (query): Linear(in_features=768, out_features=768, bias=True)
+            (key): Linear(in_features=768, out_features=768, bias=True)
+            (value): Linear(in_features=768, out_features=768, bias=True)
             (dropout): Dropout(p=0.1, inplace=False)
           )
           (output): RobertaSelfOutput(
-            (dense): Linear(in_features=1024, out_features=1024, bias=True)
-            (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+            (dense): Linear(in_features=768, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
             (dropout): Dropout(p=0.1, inplace=False)
           )
         )
         (intermediate): RobertaIntermediate(
-          (dense): Linear(in_features=1024, out_features=4096, bias=True)
+          (dense): Linear(in_features=768, out_features=3072, bias=True)
           (intermediate_act_fn): GELUActivation()
         )
         (output): RobertaOutput(
-          (dense): Linear(in_features=4096, out_features=1024, bias=True)
-          (LayerNorm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (dense): Linear(in_features=3072, out_features=768, bias=True)
+          (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
           (dropout): Dropout(p=0.1, inplace=False)
         )
       )
     )
   )
   (pooler): RobertaPooler(
-    (dense): Linear(in_features=1024, out_features=1024, bias=True)
+    (dense): Linear(in_features=768, out_features=768, bias=True)
     (activation): Tanh()
   )
 )
-
 ```
 
 ### Compute Infrastructure
